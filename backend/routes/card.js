@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const card = require('../models/card_model');
+const cardContoller = require('../controllers/card_controller');
 
 router.get('/',function(request, response){
     card.getAll(function(err,result){
@@ -10,7 +11,7 @@ router.get('/',function(request, response){
         else{
             response.json(result);
         }
-    })
+    });
 });
 
 router.get('/:idcard',function(request, response){
@@ -21,7 +22,7 @@ router.get('/:idcard',function(request, response){
         else{
             response.json(result);
         }
-    })
+    });
 });
 
 router.post('/',function(request,response){
@@ -32,7 +33,13 @@ router.post('/',function(request,response){
         else {
             response.json(result);
         }
-    })
+    });
 });
+
+router.post('/accounttocard', function(request,response){
+    //Functio check does card have a debit or credit account
+    cardContoller.authAccountAdd(request, response)
+});
+
 
 module.exports = router;
