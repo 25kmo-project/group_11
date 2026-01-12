@@ -1,7 +1,16 @@
 const { response } = require('../app');
 const card = require('../models/card_model');
 
+
 const cardContoller = {
+    // Funktiolla tarkastetaan, voiko annetun tilin lisätä kortille
+    // Funktio tekee seuraavat tarkastukset
+    // Onko kortti olemassa
+    // Onko tili olemassa
+    // Onko kortilla tilejä entuudestaan
+    // Vertaa mahdollisesti olemasa olevaa ja lisättävää
+    // Mikäli ei mitään esteitä, tili listään kortille
+    // Ehtona maksimissaan yksi DEBIT- sekä CREDIT-tyyppinen tili
     authAccountAdd: function(request, response) {
         const idcard = request.body.idcard;
         const idAccountToAdd = request.body.idaccount;
@@ -9,7 +18,7 @@ const cardContoller = {
         // Tarkistetaan kortin olemassaolo
         card.checkCardExist(idcard, function(err, result) {
             if (err) {
-                response.send(err)
+                return response.send(err)
             }
             if (result.length === 0) {
                 return response.json({message:"Korttia ei olemassa"});
@@ -18,7 +27,7 @@ const cardContoller = {
             // Tarkistetaan tilin olemassaolo
             card.checkAccountExist(idAccountToAdd, function(err, result) {
                 if (err) {
-                    response.send(err);
+                    return response.send(err);
                 }
                 if(result.length === 0) {
                     return response.json({message:"Tiliä ei olemassa"});
@@ -46,7 +55,7 @@ const cardContoller = {
                             }
 
                             const existAccountType = accountType[0].account_type;
-                            console.log("Olemassa oleva:", existAccountType);
+                            console.log("Olemassa:", existAccountType);
 
                             // Tarkistetaan lisättävän tilin tyyppi
                             card.checkAccountType(idAccountToAdd, function(err, accountType2) {
