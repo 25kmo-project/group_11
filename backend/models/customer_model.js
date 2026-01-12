@@ -18,8 +18,6 @@ delete:function(idcustomer, callback){
 return db.query("DELETE customer WHERE idcustomer=?", [idcustomer], callback);
 }
 
-
-
 };
 
 module.exports=customer;
