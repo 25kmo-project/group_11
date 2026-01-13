@@ -21,7 +21,7 @@ const cardContoller = {
                 return response.send(err)
             }
             if (result.length === 0) {
-                return response.json({message:"Korttia ei olemassa"});
+                return response.json({message:"Antamaasi korttia ei olemassa"});
             }
 
             // Tarkistetaan tilin olemassaolo
@@ -30,7 +30,7 @@ const cardContoller = {
                     return response.send(err);
                 }
                 if(result.length === 0) {
-                    return response.json({message:"Tiliä ei olemassa"});
+                    return response.json({message:"Antamaasi tilia ei olemassa"});
                 }
 
                 // Tarkistetaan kortin nykyiset tilit
@@ -42,7 +42,7 @@ const cardContoller = {
 
                     if (accounts.length === 0) {
                         card.addAccountToCard(idcard,idAccountToAdd);
-                        return response.json({message: "Tili lisätty onnistuneesti"})
+                        return response.json({message: "Tili lisatty onnistuneesti"})
                     }
 
                     if (accounts.length === 1) {
@@ -64,7 +64,7 @@ const cardContoller = {
                                 }
 
                                 const addingAccountType = accountType2[0].account_type;
-                                console.log("Lisättävä:", addingAccountType);
+                                console.log("Lisattava:", addingAccountType);
 
                                 // Vertailu, onko lisättävä samanlainen kuin jo olemassa oleva
                                 if (existAccountType === addingAccountType) {
@@ -72,18 +72,18 @@ const cardContoller = {
                                 }
                                 else {
                                     card.addAccountToCard(idcard,idAccountToAdd);
-                                    return response.json({message: "Tili lisätty onnistuneesti"})
+                                    return response.json({message: "Tili lisatty onnistuneesti"})
                                 }
                             });
                         });
                     }
                     else {
-                        return response.json({ message: "Kortilla on jo DEBIT ja CREDIT" });
+                        return response.json({ message: "Kortilla on jo DEBIT ja CREDIT tilit" });
                     }
                 });
             });
         }); 
-    }
+    },
 };
 
 module.exports = cardContoller;

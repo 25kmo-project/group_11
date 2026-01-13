@@ -16,8 +16,8 @@ const card = {
         });
     },
 
-    check_pin:function(idcard, callback){
-        return db.query("SELECT pin FROM card WHERE idcard=?", [idcard],callback);
+    delete:function(idcard, callback){
+        return db.query("DELETE FROM card WHERE idcard=?",[idcard], callback);
     },
 
     getCardAccounts:function(idcard, callback){
@@ -39,8 +39,6 @@ const card = {
     addAccountToCard:function(idcard, idaccount, callback) {
         return db.query("INSERT INTO card_account (card_id, account_id) VALUES (?,?)",[idcard,idaccount], callback);
     },
-
-
 }
 
 module.exports = card;

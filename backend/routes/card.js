@@ -36,6 +36,17 @@ router.post('/',function(request,response){
     });
 });
 
+router.delete('/:idcard', function(request,response){
+    card.delete(request.params.idcard, function(err, result){
+        if (err){
+            response.send(err);
+        }
+        else {
+            response.json(result);
+        }
+    });
+});
+
 router.post('/accounttocard', function(request,response){
     //Functio check does card have a debit or credit account
     cardContoller.authAccountAdd(request, response)
