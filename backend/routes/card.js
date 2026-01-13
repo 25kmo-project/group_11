@@ -36,6 +36,17 @@ router.post('/',function(request,response){
     });
 });
 
+router.put('/:idcard', function(request,response){
+    card.update(request.body, request.params.idcard, function(err, result){
+        if (err){
+            response.send(err);
+        }
+        else {
+            response.json(result);
+        }
+    });
+});
+
 router.delete('/:idcard', function(request,response){
     card.delete(request.params.idcard, function(err, result){
         if (err){

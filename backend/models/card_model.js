@@ -20,6 +20,10 @@ const card = {
         return db.query("DELETE FROM card WHERE idcard=?",[idcard], callback);
     },
 
+    update:function(card, newCardId, callback) {
+        return db.query("UPDATE card SET idcard=? WHERE idcard=?",[card.idcard,newCardId], callback);
+    },
+
     getCardAccounts:function(idcard, callback){
         return db.query("SELECT * FROM card_account WHERE card_id=?",[idcard], callback);
     },
