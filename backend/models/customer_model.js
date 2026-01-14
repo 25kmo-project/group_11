@@ -11,7 +11,7 @@ add:function(customer, callback){
     return db.query("INSERT INTO customer (fname, lname, street_address, city) VALUES (?,?,?,?)", [customer.fname, customer.lname, customer.street_address, customer.city], callback);
 },
 update:function(customer, idcustomer, callback){
-return db.query("UPDATE customer SET fname=?, lname=?, street_address=?, city=? where idcustomer=?", [customer.fname, customer.lname, customer.street_address, customer.city, idcustomer], callback);
+return db.query("UPDATE customer SET fname=IFNULL(?, fname), lname=IFNULL(?, lname), street_address=IFNULL(?, street_address), city=IFNULL(?, city) where idcustomer=?", [customer.fname, customer.lname, customer.street_address, customer.city, idcustomer], callback);
 },
 
 delete:function(idcustomer, callback){
