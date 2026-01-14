@@ -1,6 +1,9 @@
 const express = require ('express');
 const router = express.Router();
 const customer = require('../models/customer_model');
+const  validateFields = require('../middleware/validateFields');
+
+const requirered_fields = ['fname', 'lname', 'street_address', 'city'];
 
 router.get('/', function(request, response){
     customer.getAll(function(err, result){
@@ -26,7 +29,7 @@ router.get('/:idcustomer', function(request, response){
 
     })
 });
-router.post('/', function(request, response){
+router.post('/', validateFields(requirered_fields), function(request, response){
     customer.add(request.body, function(err, result){
         if(err){
             response.send(err);
@@ -37,7 +40,18 @@ router.post('/', function(request, response){
         }
     })
 });
-router.put('/:idcustomer', function(request, response){
+router.put('/:idcustomer', validateFields(requirered_fields), function(request, response){
+    customer.update(request.body, request.params.idcustomer, function(err, result){
+        if(err){
+            response.send(err);
+        }
+        else{
+            response.json(result[0])
+            console.log("päivitys onnistui");
+        }
+    })
+});
+router.patch('/:idcustomer', function(request, response){
     customer.update(request.body, request.params.idcustomer, function(err, result){
         if(err){
             response.send(err);
