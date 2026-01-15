@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  title: My Express API
+  title: Bank database API
   version: 1.0.0
-  description: API documentation for my Express app
+  description: API documentation for a bank database
 paths:
   /api/accounts:
     get:
@@ -17,7 +17,7 @@ paths:
     post:
       tags:
         - Accounts
-      summary: Create a new account
+      summary: Creates a new account
       requestBody:
         required: true
         content:
@@ -26,7 +26,7 @@ paths:
               type: object
               properties:
                 idaccount:
-                  type: integer
+                  type: string
                 balance:
                   type: number
                 account_type:
@@ -38,8 +38,10 @@ paths:
       responses:
         '200':
           description: Account created
+        '400':
+          description: All required fields were not included in request body
         '500':
-          description: Server error or validation error
+          description: Server error
   /api/accounts/{idaccount}:
     get:
       tags:
@@ -50,25 +52,25 @@ paths:
           name: idaccount
           required: true
           schema:
-            type: integer
+            type: string
           description: The account ID
       responses:
         '200':
           description: Account found
         '404':
-          description: User not found
+          description: Account not found
         '500':
           description: Server error
     put:
       tags:
         - Accounts
-      summary: Update account by ID
+      summary: Update all fields for account by ID
       parameters:
         - in: path
           name: idaccount
           required: true
           schema:
-            type: integer
+            type: string
           description: The account ID
       requestBody:
         required: true
@@ -78,7 +80,7 @@ paths:
               type: object
               properties:
                 idaccount:
-                  type: integer
+                  type: string
                 balance:
                   type: number
                 account_type:
@@ -90,18 +92,22 @@ paths:
       responses:
         '200':
           description: Account updated
+        '400':
+          description: All required fields were not included in request body 
+        '404':
+          description: Account not found
         '500':
           description: Server error or validation error
     patch:
       tags:
         - Accounts
-      summary: Update account by ID
+      summary: Update specific fields for account by ID
       parameters:
         - in: path
           name: idaccount
           required: true
           schema:
-            type: integer
+            type: string
           description: The account ID
       requestBody:
         required: true
@@ -110,21 +116,15 @@ paths:
             schema:
               type: object
               properties:
-                idaccount:
-                  type: integer
                 balance:
                   type: number
-                account_type:
-                  type: string
-                credit_limit:
-                  type: number
-                idowner:
-                  type: integer
       responses:
         '200':
           description: Account updated
+        '404':
+          description: Account not found
         '500':
-          description: Server error or validation error
+          description: Server error
     delete:
       tags:
         - Accounts
@@ -134,19 +134,12 @@ paths:
           name: idaccount
           required: true
           schema:
-            type: integer
+            type: string
           description: The account ID
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                idaccount:
-                  type: integer
       responses:
         '200':
-          description: Account updated
+          description: Account deleted
+        '404':
+          description: Account not found
         '500':
-          description: Server error or validation error
+          description: Server error
