@@ -1,7 +1,7 @@
 var express = require('express');
 
 const swaggerUi = require("swagger-ui-express");
-const swaggerSpec = require("./swagger");
+const swaggerSpec = require("./swagger/swagger.js");
 
 var path = require('path');
 var cookieParser = require('cookie-parser');

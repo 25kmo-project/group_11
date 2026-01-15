@@ -23,7 +23,7 @@ const options = {
       },
     },
   },
-  apis: ["./routes/*.yaml", "./swagger.js"], // files with annotations
+  apis: ["./swagger/api_docs/*.yaml", "./swagger/swagger.js"], // files with annotations
 };
 
 const swaggerSpec = swaggerJsdoc(options);
