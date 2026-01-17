@@ -29,7 +29,6 @@ router.post('/', function(request,response){
                         bcrypt.compare(pin, result[0].pin, function(err, compareResult){
                             // HUOM! Jotta sovellus ei kaadu tähän, on .env-tiedostossa oltava MY_TOKEN sijoitettuna
                             const token = generateAccessToken(idcard);
-                            console.log("Token:", token);
                             if(compareResult){
                                 // Resetoidaan kirjautmiset onnistuneen kirjautumisen yhteydessä
                                 card.resetLoginAmount(idcard, function(err, response){
@@ -40,6 +39,7 @@ router.post('/', function(request,response){
                                         console.log("Kirjautumismäärä resetoitu kortille:", idcard);
                                     }
                                 });
+                                // Palautetaan onnistuneessa kirjautumisessa alla olevat tiedot
                                 response.setHeader('Content-Type', 'application/json');
                                 response.json({
                                     success: true,
