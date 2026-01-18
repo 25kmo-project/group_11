@@ -4,9 +4,9 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Bank database API",
+      title: "My Express API",
       version: "1.0.0",
-      description: "API documentation for a bank database",
+      description: "API documentation for my Express app",
     },
     servers: [
       {
@@ -15,15 +15,19 @@ const options = {
     ],
     components: {
       securitySchemes: {
-        JWT: {
-          type: 'apiKey',
-          in: 'header',
-          name: 'access_token',
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
         },
       },
     },
+    security: {
+      bearerAuth: [],
+    },
   },
   apis: ["./swagger/api_docs/*.yaml", "./swagger/swagger.js"], // files with annotations
+
 };
 
 const swaggerSpec = swaggerJsdoc(options);
