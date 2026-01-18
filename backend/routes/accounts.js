@@ -5,6 +5,7 @@ var validateFields = require('../middleware/validateFields');
 
 const required_fields = ['idaccount', 'balance', 'account_type', 'credit_limit', 'idowner']
 
+/* GET accounts listing. */
 router.get('/', function(request, response) {
   account.getAll(function(err, result) {
     if (err) {
@@ -29,6 +30,7 @@ router.get('/:idaccount', function(request, response) {
   })
 });
 
+// Field validation is performed to return more verbose errors for API caller
 router.post('/', validateFields(required_fields), function(request, response) {
   account.create(request.body, function(err, result) {
     if (err) {
