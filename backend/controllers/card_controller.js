@@ -1,6 +1,6 @@
 const { response } = require('../app');
 const card = require('../models/card_model');
-
+const account = require('../models/account_model');
 
 const cardContoller = {
     // Funktiolla tarkastetaan, voiko annetun tilin lisätä kortille
@@ -16,7 +16,7 @@ const cardContoller = {
         const idAccountToAdd = request.body.idaccount;
 
         // Tarkistetaan kortin olemassaolo
-        card.checkCardExist(idcard, function(err, result) {
+        card.getOne(idcard, function(err, result) {
             if (err) {
                 return response.send(err)
             }
@@ -25,7 +25,7 @@ const cardContoller = {
             }
 
             // Tarkistetaan tilin olemassaolo
-            card.checkAccountExist(idAccountToAdd, function(err, result) {
+            account.getOne(idAccountToAdd, function(err, result) {
                 if (err) {
                     return response.send(err);
                 }

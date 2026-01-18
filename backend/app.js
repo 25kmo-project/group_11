@@ -22,7 +22,7 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 
 // Suojatut reitit
-app.use(authenticateToken);
+//app.use(authenticateToken);
 app.use('/api/customer', customerRouter);
 app.use('/api/card', cardRouter);
 app.use('/api/accounts', accountsRouter);

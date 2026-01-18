@@ -44,14 +44,6 @@ const card = {
         return db.query("SELECT account_type FROM account WHERE idaccount=?",[idaccount], callback);
     },
 
-    checkCardExist:function(idcard, callback) {
-        return db.query("SELECT * FROM card WHERE idcard=?",[idcard], callback);
-    },
-
-    checkAccountExist:function(idaccount, callback) {
-        return db.query("SELECT * FROM account WHERE idaccount=?",[idaccount], callback);
-    },
-
     resetLoginAmount:function(idcard, callback) {
         return db.query("UPDATE card SET login_attempts=? WHERE idcard=?",[0,idcard],callback);
     },
