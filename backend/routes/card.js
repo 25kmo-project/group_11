@@ -63,5 +63,4 @@ router.post('/accounttocard', function(request,response){
     cardContoller.authAccountAdd(request, response)
 });
 
-
 module.exports = router;

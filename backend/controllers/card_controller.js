@@ -15,10 +15,13 @@ const cardContoller = {
         const idcard = request.body.idcard;
         const idAccountToAdd = request.body.idaccount;
 
+        
         // Tarkistetaan kortin olemassaolo
         card.getOne(idcard, function(err, result) {
+
             if (err) {
-                return response.send(err)
+                console.log('Tietokantavirhe:', err);
+                return response.status(500).json(err);
             }
             if (result.length === 0) {
                 return response.json({message:"Antamaasi korttia ei olemassa"});
@@ -27,16 +30,14 @@ const cardContoller = {
             // Tarkistetaan tilin olemassaolo
             account.getOne(idAccountToAdd, function(err, result) {
                 if (err) {
-                    return response.send(err);
+                    return response.status(500).json(err);
                 }
                 if(result.length === 0) {
                     return response.json({message:"Antamaasi tilia ei olemassa"});
                 }
-
                 // Tarkistetaan kortin nykyiset tilit
                 card.getCardAccounts(idcard, function(err, accounts) {
                     if (err) {
-                        console.log('Tietokantavirhe:', err);
                         return response.status(500).json(err);
                     }
 
@@ -51,7 +52,7 @@ const cardContoller = {
                         // Tarkistetaan olemassa olevan tilin tyyppi
                         card.checkAccountType(accountid, function(err, accountType) {
                             if (err) {
-                                return response.send(err);
+                                return response.status(500).json(err);
                             }
 
                             const existAccountType = accountType[0].account_type;
@@ -60,7 +61,7 @@ const cardContoller = {
                             // Tarkistetaan lisättävän tilin tyyppi
                             card.checkAccountType(idAccountToAdd, function(err, accountType2) {
                                 if (err) {
-                                    return response.send(err);
+                                    return response.status(500).json(err);
                                 }
 
                                 const addingAccountType = accountType2[0].account_type;

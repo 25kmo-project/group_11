@@ -45,6 +45,7 @@ const card = {
     },
 
     resetLoginAmount:function(idcard, callback) {
+        console.log("testi");
         return db.query("UPDATE card SET login_attempts=? WHERE idcard=?",[0,idcard],callback);
     },
 
@@ -52,5 +53,6 @@ const card = {
         return db.query("INSERT INTO card_account (card_id, account_id) VALUES (?,?)",[idcard,idaccount], callback);
     },
 }
+
 
 module.exports = card;

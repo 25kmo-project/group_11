@@ -4,6 +4,20 @@ const card = require('../models/card_model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+router.post('/:idcard/reset', function(request,response) {
+    card.resetLoginAmount(request.params.idcard, function(err, result){
+        if (err) {
+            return response.sendStatus(500);
+        }
+        else {
+            return response.json({
+                success: true,
+                message: "Login attemts reset",
+                idcard: request.params.idcard});
+        }
+    });
+});
+
 router.post('/', function(request,response){
     if(request.body.pin && request.body.idcard){
         const pin = request.body.pin;
@@ -51,7 +65,7 @@ router.post('/', function(request,response){
                         });
                     });
                 }
-                // Tietokannan paluun pituus == 0 / NULL -> ID:llä ei korttia
+                // Tietokannan paluun pituus == 0 -> ID:llä ei korttia
                 else {
                     console.log("ID:llä ei ole korttia");
                     return response.json({"message":"Idcard ja PIN eivät täsmää"});
@@ -69,5 +83,6 @@ router.post('/', function(request,response){
 function generateAccessToken(idcard) {
     return jwt.sign({idcard}, process.env.MY_TOKEN, {expiresIn: '1800s'});
 }
+
 
 module.exports=router;

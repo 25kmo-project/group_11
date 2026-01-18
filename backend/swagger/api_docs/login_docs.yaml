@@ -1,0 +1,53 @@
+openapi: 3.0.0
+info:
+  title: Bank database API
+  version: 1.0.0
+  description: API documentation for a bank database
+paths:
+  /login:
+    post:
+      tags:
+       - Login
+      summary: Login to get token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idcard:
+                  type: string
+                  description: idcard
+                  example: "Card ID"
+                pin:
+                  type: string
+                  description: card PIN
+                  example: "Card PIN"
+      responses:
+        '200':
+          description: Card created
+        '400':
+          description: All required fields were not included in request body
+        '500':
+          description: Server error
+  /login/{idcard}/reset:
+    post:
+      tags:
+        - Login
+      summary: Reset locked card
+      parameters:
+        - in: path
+          name: idcard
+          requider: true
+          schema:
+            type: string
+          description: The card ID
+      responses:
+        '200':
+          description: Card created
+        '400':
+          description: All required fields were not included in request body
+        '500':
+          description: Server error
+  
