@@ -3,7 +3,6 @@ const router = express.Router();
 const card = require('../models/card_model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const authenticateToken = require('../middleware/auth');
 
 router.post('/', function(request,response){
     if(request.body.pin && request.body.idcard){
@@ -31,14 +30,8 @@ router.post('/', function(request,response){
                             const token = generateAccessToken(idcard);
                             if(compareResult){
                                 // Resetoidaan kirjautmiset onnistuneen kirjautumisen yhteydessä
-                                card.resetLoginAmount(idcard, function(err, response){
-                                    if (err) {
-                                        console.log("Virhe kirjautumisyritysten resetoinnissa");
-                                        response.send(err);
-                                    } else {
-                                        console.log("Kirjautumismäärä resetoitu kortille:", idcard);
-                                    }
-                                });
+                                card.resetLoginAmount(idcard);
+                                console.log("Kirjautumismäärä resetoitu kortille:", idcard);
                                 // Palautetaan onnistuneessa kirjautumisessa alla olevat tiedot
                                 response.setHeader('Content-Type', 'application/json');
                                 response.json({
@@ -58,7 +51,7 @@ router.post('/', function(request,response){
                         });
                     });
                 }
-                // Tietokannan paluun pituus == 0 -> ID:llä ei korttia
+                // Tietokannan paluun pituus == 0 / NULL -> ID:llä ei korttia
                 else {
                     console.log("ID:llä ei ole korttia");
                     return response.json({"message":"Idcard ja PIN eivät täsmää"});
