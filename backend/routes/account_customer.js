@@ -60,6 +60,6 @@ router.delete('/:idaccount_customer', function(request, response){
     })
 });
 
-router.patch()
+//router.patch()
 
 module.exports=router;
