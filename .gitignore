@@ -1,5 +1,7 @@
 backend/node_modules/
+backend/.env
 bank-automat/build/
 bank-automat/*.user
 .qtcreator/
 .env
+.gitignore

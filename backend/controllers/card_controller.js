@@ -15,7 +15,6 @@ const cardContoller = {
         const idcard = request.body.idcard;
         const idAccountToAdd = request.body.idaccount;
 
-        
         // Tarkistetaan kortin olemassaolo
         card.getOne(idcard, function(err, result) {
 
@@ -50,7 +49,7 @@ const cardContoller = {
                         const accountid = accounts[0].account_id;
 
                         // Tarkistetaan olemassa olevan tilin tyyppi
-                        card.checkAccountType(accountid, function(err, accountType) {
+                        account.getOne(accountid, function(err, accountType) {
                             if (err) {
                                 return response.status(500).json(err);
                             }
@@ -59,7 +58,7 @@ const cardContoller = {
                             console.log("Olemassa:", existAccountType);
 
                             // Tarkistetaan lisättävän tilin tyyppi
-                            card.checkAccountType(idAccountToAdd, function(err, accountType2) {
+                            account.getOne(idAccountToAdd, function(err, accountType2) {
                                 if (err) {
                                     return response.status(500).json(err);
                                 }
