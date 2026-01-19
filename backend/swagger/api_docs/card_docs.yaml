@@ -114,3 +114,25 @@ paths:
           description: Card not found
         '500':
           description: Server error
+  /api/card/{idcard}/accounts:
+    get:
+      security:
+      - bearerAuth: []
+      tags:
+        - Cards
+      summary: Get card accounts by card ID
+      parameters:
+        - in: path
+          name: idcard
+          requider: true
+          schema:
+            type: string
+          description: The card ID
+      responses:
+        '200':
+          description: card found
+        '404':
+          description: card not found
+        '500':
+          description: Server error
+

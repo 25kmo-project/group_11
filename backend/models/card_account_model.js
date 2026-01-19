@@ -10,7 +10,7 @@ const card_account = {
     },
 
     deleteAccountFromCard:function(idcard_account, callback) {
-        return db.query("DELETE * FROM card_account WHERE idcard_account=?"[idcard_account], callback);
+        return db.query("DELETE FROM card_Account WHERE idcard_account=?",[idcard_account], callback);
     }
 }
 

@@ -31,7 +31,6 @@ const card = {
     resetLoginAmount:function(idcard, callback) {
         return db.query("UPDATE card SET login_attempts=? WHERE idcard=?",[0,idcard],callback);
     },
-
 }
 
 module.exports = card;

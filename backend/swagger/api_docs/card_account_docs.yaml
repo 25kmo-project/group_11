@@ -33,4 +33,33 @@ paths:
           description: All required fields were not included in request body
         '500':
           description: Server error
-                
+  /api/card_account/removeaccountfromcard:
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - Cards & accounts
+      summary: Delete account from card
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                card_id:
+                  type: string
+                  description: Card from where to delete
+                  example: idcard
+                account_id:
+                  type: string
+                  description: Account what to delete
+                  example: idaccount
+      responses:
+        '200':
+          description: Account deleted from card
+        '400':
+          description: All required fields were not included in request body
+        '500':
+          description: Server error
+                  
