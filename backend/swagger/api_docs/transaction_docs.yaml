@@ -6,6 +6,8 @@ info:
 paths:
   /api/transaction/{idaccount}:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - Transactions
       summary: Get transactions by account ID
@@ -23,6 +25,8 @@ paths:
           description: Server error
   /api/transaction/{idtransaction}:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - Transactions
       summary: Get all transactions
@@ -38,3 +42,125 @@ paths:
           description: A list of transactions
         '500':
           description: Server error
+    put:
+      security:
+        - bearerAuth: []
+      tags:
+        - Transactions
+      summary: Update a transaction by ID
+      parameters:
+        - in: path
+          name: idtransaction
+          required: true
+          schema:
+            type: string
+          description: The transaction ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idtransaction:
+                  type: number
+                idaccount:
+                  type: string
+                amount:
+                  type: number
+                date:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':
+          description: Transaction updated
+        '400':
+          description: All required fields were not included in request body
+        '500':
+          description: Server error
+    patch:
+      security:
+        - bearerAuth: []
+      tags:
+        - Transactions
+      summary: Update specific fields of a transaction by ID
+      parameters:
+        - in: path
+          name: idtransaction
+          required: true
+          schema:
+            type: string
+          description: The transaction ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idtransaction:
+                  type: number
+                idaccount:
+                  type: string
+                amount:
+                  type: number
+                date:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':
+          description: Transaction updated
+        '400':
+          description: All required fields were not included in request body
+        '500':
+          description: Server error
+    delete:
+      security:
+        - bearerAuth: []
+      tags:
+        - Transactions
+      summary: Delete a transaction by ID
+      parameters:
+        - in: path
+          name: idtransaction
+          required: true
+          schema:
+            type: string
+          description: The transaction ID
+      responses:
+        '200':
+          description: Transaction deleted
+        '500':
+          description: Server error
+  /api/transaction:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Transactions
+      summary: Create a new transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idaccount:
+                  type: string
+                amount:
+                  type: number
+                date:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: Transaction created
+        '400':
+          description: All required fields were not included in request body
+        '500':
+          description: Server error
+    
