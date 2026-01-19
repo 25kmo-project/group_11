@@ -8,11 +8,29 @@ const options = {
       version: "1.0.0",
       description: "API documentation for my Express app",
     },
+
+    tags: [
+      {
+        name: "Login",
+        description: "Login management"
+      },
+
+      {
+        name: "Accounts",
+        description: "Account management"
+      },
+      {
+        name: "Cards",
+        description: "Card management"
+      }
+    ],
+
     servers: [
       {
         url: "http://localhost:3001",
       },
     ],
+
     components: {
       securitySchemes: {
         bearerAuth: {
