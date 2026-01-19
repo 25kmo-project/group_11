@@ -1,6 +1,6 @@
 const { response } = require('../app');
 const card = require('../models/card_model');
-
+const account = require('../models/account_model');
 
 const cardContoller = {
     // Funktiolla tarkastetaan, voiko annetun tilin lisätä kortille
@@ -16,27 +16,27 @@ const cardContoller = {
         const idAccountToAdd = request.body.idaccount;
 
         // Tarkistetaan kortin olemassaolo
-        card.checkCardExist(idcard, function(err, result) {
+        card.getOne(idcard, function(err, result) {
+
             if (err) {
-                return response.send(err)
+                console.log('Tietokantavirhe:', err);
+                return response.status(500).json(err);
             }
             if (result.length === 0) {
                 return response.json({message:"Antamaasi korttia ei olemassa"});
             }
 
             // Tarkistetaan tilin olemassaolo
-            card.checkAccountExist(idAccountToAdd, function(err, result) {
+            account.getOne(idAccountToAdd, function(err, result) {
                 if (err) {
-                    return response.send(err);
+                    return response.status(500).json(err);
                 }
                 if(result.length === 0) {
                     return response.json({message:"Antamaasi tilia ei olemassa"});
                 }
-
                 // Tarkistetaan kortin nykyiset tilit
                 card.getCardAccounts(idcard, function(err, accounts) {
                     if (err) {
-                        console.log('Tietokantavirhe:', err);
                         return response.status(500).json(err);
                     }
 
@@ -49,18 +49,18 @@ const cardContoller = {
                         const accountid = accounts[0].account_id;
 
                         // Tarkistetaan olemassa olevan tilin tyyppi
-                        card.checkAccountType(accountid, function(err, accountType) {
+                        account.getOne(accountid, function(err, accountType) {
                             if (err) {
-                                return response.send(err);
+                                return response.status(500).json(err);
                             }
 
                             const existAccountType = accountType[0].account_type;
                             console.log("Olemassa:", existAccountType);
 
                             // Tarkistetaan lisättävän tilin tyyppi
-                            card.checkAccountType(idAccountToAdd, function(err, accountType2) {
+                            account.getOne(idAccountToAdd, function(err, accountType2) {
                                 if (err) {
-                                    return response.send(err);
+                                    return response.status(500).json(err);
                                 }
 
                                 const addingAccountType = accountType2[0].account_type;

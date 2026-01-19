@@ -11,9 +11,17 @@ var indexRouter = require('./routes/index');
 var customerRouter = require ('./routes/customer');
 var cardRouter = require('./routes/card')
 var accountsRouter = require('./routes/accounts')
-
+var loginRouter = require('./routes/login');
+const authenticateToken = require('./middleware/auth');
 
 var app = express();
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.listen(3001, () => {
+  console.log("Server running on http://localhost:3001");
+  console.log("Swagger docs at http://localhost:3001/api-docs");
+});
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -22,15 +30,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/login', loginRouter);
+
+// Suojatut reitit
+app.use(authenticateToken);
 app.use('/api/customer', customerRouter);
 app.use('/api/card', cardRouter);
-app.use('/api/accounts', accountsRouter)
-
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-app.listen(3001, () => {
-  console.log("Server running on http://localhost:3001");
-  console.log("Swagger docs at http://localhost:3001/api-docs");
-});
+app.use('/api/accounts', accountsRouter);
 
 module.exports = app;

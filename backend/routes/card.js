@@ -15,7 +15,7 @@ router.get('/',function(request, response){
 });
 
 router.get('/:idcard',function(request, response){
-    card.getAll(function(err,result){
+    card.getOne(request.params.idcard, function(err,result){
         if(err){
             response.send(err);
         }
@@ -59,9 +59,8 @@ router.delete('/:idcard', function(request,response){
 });
 
 router.post('/accounttocard', function(request,response){
-    //Functio check does card have a debit or credit account
+    //Function check does card have a debit or credit account
     cardContoller.authAccountAdd(request, response)
 });
-
 
 module.exports = router;

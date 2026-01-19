@@ -8,19 +8,40 @@ const options = {
       version: "1.0.0",
       description: "API documentation for a bank database",
     },
+
+    tags: [
+      {
+        name: "Login",
+        description: "Login management"
+      },
+
+      {
+        name: "Accounts",
+        description: "Account management"
+      },
+      {
+        name: "Cards",
+        description: "Card management"
+      }
+    ],
+
     servers: [
       {
         url: "http://localhost:3001",
       },
     ],
+
     components: {
       securitySchemes: {
-        JWT: {
-          type: 'apiKey',
-          in: 'header',
-          name: 'access_token',
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
         },
       },
+    },
+    security: {
+      bearerAuth: [],
     },
   },
   apis: ["./swagger/api_docs/*.yaml", "./swagger/swagger.js"], // files with annotations
