@@ -4,9 +4,9 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "My Express API",
+      title: "Bank database API",
       version: "1.0.0",
-      description: "API documentation for my Express app",
+      description: "API documentation for a bank database",
     },
 
     tags: [
@@ -45,7 +45,6 @@ const options = {
     },
   },
   apis: ["./swagger/api_docs/*.yaml", "./swagger/swagger.js"], // files with annotations
-
 };
 
 const swaggerSpec = swaggerJsdoc(options);
