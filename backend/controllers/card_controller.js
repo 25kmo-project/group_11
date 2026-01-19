@@ -1,6 +1,7 @@
 const { response } = require('../app');
 const card = require('../models/card_model');
 const account = require('../models/account_model');
+const card_account = require('../models/card_account_model');
 
 const cardContoller = {
     // Funktiolla tarkastetaan, voiko annetun tilin lisätä kortille
@@ -35,13 +36,13 @@ const cardContoller = {
                     return response.json({message:"Antamaasi tilia ei olemassa"});
                 }
                 // Tarkistetaan kortin nykyiset tilit
-                card.getCardAccounts(idcard, function(err, accounts) {
+                card_account.getCardAccounts(idcard, function(err, accounts) {
                     if (err) {
                         return response.status(500).json(err);
                     }
 
                     if (accounts.length === 0) {
-                        card.addAccountToCard(idcard,idAccountToAdd);
+                        card_account.addAccountToCard(idcard,idAccountToAdd);
                         return response.json({message: "Tili lisatty onnistuneesti"})
                     }
 
@@ -71,7 +72,7 @@ const cardContoller = {
                                     return response.json({message: "Kortilla on jo lisattavan tyypin tili"})
                                 }
                                 else {
-                                    card.addAccountToCard(idcard,idAccountToAdd);
+                                    card_account.addAccountToCard(idcard,idAccountToAdd);
                                     return response.json({message: "Tili lisatty onnistuneesti"})
                                 }
                             });
@@ -84,6 +85,46 @@ const cardContoller = {
             });
         }); 
     },
-};
+
+    accountRemove:function(request, response){
+        const idcard = request.body.idcard;
+        const idAccountToRemove = request.body.idaccount;
+
+        // Tarkistetaan kortin olemassaolo
+        card.getOne(idcard, function(err, result) {
+
+            if (err) {
+                console.log('Tietokantavirhe:', err);
+                return response.status(500).json(err);
+            }
+            if (result.length === 0) {
+                return response.json({message:"Antamaasi korttia ei olemassa"});
+            }
+
+            // Tarkistetaan tilin olemassaolo
+            account.getOne(idAccountToRemove, function(err, result) {
+                if (err) {
+                    return response.status(500).json(err);
+                }
+                if(result.length === 0) {
+                    return response.json({message:"Antamaasi tilia ei olemassa"});
+                }
+                // Haetaan kortin nykyiset tilit
+                card_account.getCardAccounts(idcard, function(err, accounts) {
+                    if (err) {
+                        return response.status(500).json(err);
+                    }
+
+                    if (accounts.length === 0) {
+                        return response.json({"message":"Annetulla kortilla ei ole tilejä"})
+                    }
+                    
+                
+
+                });
+            }); 
+        });
+    },
+}
 
 module.exports = cardContoller;

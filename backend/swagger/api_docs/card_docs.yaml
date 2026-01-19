@@ -114,33 +114,3 @@ paths:
           description: Card not found
         '500':
           description: Server error
-  /api/card/accounttocard:
-    post:
-      security:
-      - bearerAuth: []
-      tags:
-        - Cards
-      summary: Add account to card
-      requestBody:
-        required: ture
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                idcard:
-                  type: string
-                  description: Card where to add
-                  example: idcard
-                idaccount:
-                  type: string
-                  description: Account what to add
-                  example: idaccount
-      responses:
-        '200':
-          description: Account added to card
-        '400':
-          description: All required fields were not included in request body
-        '500':
-          description: Server error
-                

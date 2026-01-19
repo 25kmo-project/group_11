@@ -22,6 +22,10 @@ const options = {
       {
         name: "Cards",
         description: "Card management"
+      },
+      {
+        name: "Cards & accounts",
+        description: "Card accounts management"
       }
     ],
 
