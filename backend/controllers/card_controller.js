@@ -87,12 +87,13 @@ const cardContoller = {
     },
 
     accountRemove:function(request, response){
-        const idcard = request.body.idcard;
-        const idAccountToRemove = request.body.idaccount;
-
+        const idcard = request.body.card_id;
+        const idAccountToRemove = request.body.account_id;
+        console.log("idcard:", idcard);
+        console.log("idAccountToRemove:", idAccountToRemove);
+        
         // Tarkistetaan kortin olemassaolo
         card.getOne(idcard, function(err, result) {
-
             if (err) {
                 console.log('Tietokantavirhe:', err);
                 return response.status(500).json(err);
@@ -118,9 +119,29 @@ const cardContoller = {
                     if (accounts.length === 0) {
                         return response.json({"message":"Annetulla kortilla ei ole tilejä"})
                     }
-                    
-                
+                    console.log(accounts);
 
+                    for (const account of accounts) {
+                        console.log(account);
+                        if (account.account_id == idAccountToRemove) {
+                            const idcard_account = account.idcard_account;
+                            card_account.deleteAccountFromCard(idAccountToRemove, function(err, result){
+                                if(err) {
+                                    return response.send(err);
+                                }
+                                else{
+                                    
+                                    return response.json ({
+                                        success: true,
+                                        message: "Delete ok",
+                                        idcard: idcard,
+                                        deletedAccount: idAccountToRemove
+                                    })
+                                }
+                            })
+                        }
+                    }
+                    return response.json({"message":"testi"});
                 });
             }); 
         });

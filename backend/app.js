@@ -38,6 +38,6 @@ app.use(authenticateToken);
 app.use('/api/customer', customerRouter);
 app.use('/api/card', cardRouter);
 app.use('/api/accounts', accountsRouter);
-app.use('/api/card_account', accountsRouter);
+app.use('/api/card_account', card_accountRouter);
 
 module.exports = app;

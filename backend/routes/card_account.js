@@ -7,9 +7,10 @@ router.post('/accounttocard', function(request,response){
     cardContoller.authAccountAdd(request, response)
 });
 
-router.post('/removeaccountfromcard', function(request, response){
+router.delete('/removeaccountfromcard', function(request, response){
     //Controller check does card have rights to given account
     cardContoller.accountRemove(request,response)
 });
+
 
 module.exports = router;
