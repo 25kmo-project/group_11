@@ -3,10 +3,10 @@ const router = express.Router();
 const transaction = require('../models/transaction_model');
 const  validateFields = require('../middleware/validateFields');
 
-const requirered_fields = ['idtransaction', 'idaccount', 'amount', 'date', 'description'];
-const post_requirered_fields = ['idaccount', 'amount', 'date', 'description'];
+const required_fields = ['idtransaction', 'idaccount', 'amount', 'date', 'description'];
+const post_required_fields = ['idaccount', 'amount', 'date', 'description'];
 
-router.get('/:idaccount', function(request, response){
+router.get('/account/:idaccount', function(request, response){
     transaction.getAllUser(request.params.idaccount, function(err, result){
         if (err) {
             return response.status(500).json({ status_code: response.statusCode, message: err });
@@ -19,7 +19,7 @@ router.get('/:idaccount', function(request, response){
     })
 });
 
-router.get('/transaction/:idtransaction', function(request, response){
+router.get('/:idtransaction', function(request, response){
     transaction.getOne(request.params.idtransaction, function(err, result){
         if (err) {
             return response.status(500).json({ status_code: response.statusCode, message: err });
