@@ -28,16 +28,8 @@ const card = {
         return db.query("UPDATE card SET login_attempts = login_attempts + 1 WHERE idcard = ?",[idcard],callback);
     },
 
-    getCardAccounts:function(idcard, callback){
-        return db.query("SELECT * FROM card_account WHERE card_id=?",[idcard], callback);
-    },
-
     resetLoginAmount:function(idcard, callback) {
         return db.query("UPDATE card SET login_attempts=? WHERE idcard=?",[0,idcard],callback);
-    },
-
-    addAccountToCard:function(idcard, idaccount, callback) {
-        return db.query("INSERT INTO card_account (card_id, account_id) VALUES (?,?)",[idcard,idaccount], callback);
     },
 }
 

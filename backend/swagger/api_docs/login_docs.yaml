@@ -19,11 +19,11 @@ paths:
                 idcard:
                   type: string
                   description: idcard
-                  example: "Card ID"
+                  example: "CardID"
                 pin:
                   type: string
                   description: card PIN
-                  example: "Card PIN"
+                  example: "CardPIN"
       responses:
         '200':
           description: Card created
