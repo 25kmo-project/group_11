@@ -10,9 +10,7 @@ router.get('/', function(request, response){
         if(err){
             return response.status(500).json({ status_code: response.statusCode, message: err });
         }
-        else{
-            response.json(result);
-        }
+    response.json(result);
     })
 });
 
@@ -26,7 +24,7 @@ router.get('/:idaccount_customer', function(request, response){
             return response.status(404).json({ status_code: response.statusCode, message: 'User not found.' });
         }
 
-        response.json(result);
+    response.json(result);
     })
 });
 
@@ -41,61 +39,55 @@ router.post('/', validateFields(required_fields), function(request, response){
         }
         return response.status(500).json({ status_code: response.statusCode, message: error_message }); 
         }
-        response.json(result);
+    response.json(result);
     })
 });
 
 router.put('/:idaccount_customer', validateFields(required_fields), function(request,response){
     account_customer.update(request.body, request.params.idaccount_customer, function(err, result){
         if(err){
-            response.status(500).json({status_code: response.statusCode, message: err });
+            return response.status(500).json({status_code: response.statusCode, message: err });
         }
         if (result.affectedRows === 0) {
             return response.status(404).json({ message: 'User not found.' });
         }
-        else{
-            response.json(result);
-        }
+    response.json(result);
     })
 });
 
 router.patch('/:idaccount_customer', function(request, response){
     account_customer.update(request.body, request.params.idaccount_customer, function(err, result){
         if(err){
-            response.status(500).json({status_code: response.statusCode, message: err });
+            return response.status(500).json({status_code: response.statusCode, message: err });
         }
         if (result.affectedRows === 0) {
             return response.status(404).json({ message: 'User not found.' });
         }
-
-        else{
-            response.json(result);
-        }
+    response.json(result);
     })
 });
 
 router.delete('/:idaccount_customer', function(request, response){
     account_customer.delete(request.params.idaccount_customer, function(err, result){
         if(err){
-            response.status(500).json({status_code: response.statusCode, message: err });
+            return response.status(500).json({status_code: response.statusCode, message: err });
         }
-        else{
-            response.json(result);
+        if (result.affectedRows === 0) {
+            return response.status(404).json({ message: 'User not found.' })
         }
+    response.json(result);
     })
 });
 
 router.get('/accountdata/:idaccount', function(request, response){
     account_customer.accountData(request.params.idaccount, function(err, result){
         if(err){
-            response.status(500).json({status_code: response.statusCode, message: err });
+            return response.status(500).json({status_code: response.statusCode, message: err });
         }
         if (result[0].length === 0) {
             return response.status(404).json({ status_code: response.statusCode, message: 'User not found.' });
         }
-        else{
-            response.json(result[0]);
-        }
+    response.json(result[0]);
     })
 });
 
@@ -103,18 +95,13 @@ router.get('/customerdata/:idcustomer', function(request, response){
     const idcustomer = parseInt(request.params.idcustomer);
     account_customer.customerData(idcustomer, function(err, result){
         if(err){
-            response.status(500).json({status_code: response.statusCode, message: err });
+            return response.status(500).json({status_code: response.statusCode, message: err });
         }
         if (result[0].length === 0) {
             return response.status(404).json({ status_code: response.statusCode, message: 'User not found.' });
         }
-        else{
-            response.json(result[0]);
-        }
+    response.json(result[0]);
     })
 });
-
-
-//router.patch()
 
 module.exports=router;

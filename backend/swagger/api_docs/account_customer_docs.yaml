@@ -17,6 +17,8 @@ paths:
         '500':
           description: Server error
     post:
+      security:
+        - bearerAuth: []
       tags:
         - account_customer
       summary: Creates a new account_customer connection
@@ -40,6 +42,8 @@ paths:
           description: Server error
   /api/account_customer/{idaccount_customer}:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - account_customer
       summary: Get account_customer data by ID
@@ -58,6 +62,8 @@ paths:
         '500':
           description: Server error
     put:
+      security:
+        - bearerAuth: []
       tags:
         - account_customer
       summary: Update all fields for account_customer by ID
@@ -89,6 +95,8 @@ paths:
         '500':
           description: Server error or validation error
     patch:
+      security:
+        - bearerAuth: []
       tags:
         - account_customer
       summary: Update specific fields for account_customer by ID
@@ -118,6 +126,8 @@ paths:
         '500':
           description: Server error
     delete:
+      security:
+        - bearerAuth: []
       tags:
         - account_customer
       summary: Delete account_customer by ID
@@ -137,6 +147,8 @@ paths:
           description: Server error
   /api/account_customer/customerdata/{idcustomer}:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - customerData
       summary: Call prosedure customerData by ID
@@ -156,6 +168,8 @@ paths:
           description: Server error
   /api/account_customer/accountdata/{idaccount}:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - accountData
       summary: Call prosedure accountData by ID
