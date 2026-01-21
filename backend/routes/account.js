@@ -30,13 +30,16 @@ router.get('/:idaccount', function(request, response) {
 router.post('/', validateFields(required_fields), function(request, response) {
     account.create(request.body, function(err, result) {
         if (err) {
-            error_message = err;
+            var error_message = err;
+            var status_code;
             if (err.errno === 1062) {
+                status_code = 400;
                 error_message = 'Ei voi luoda tiliä samalla tili ID:llä kuin toinen tili.';
             } else if (err.errno === 1452) {
+                status_code = 404; 
                 error_message = 'Asiakas ID:llä ' + request.body.idowner.toString() + ' ei ole olemassa.';
             }
-            return response.status(500).json({ status_code: response.statusCode, message: error_message }); 
+            return response.status(status_code).json({ status_code: response.statusCode, message: error_message }); 
         }
         
         response.json(result);
@@ -51,7 +54,7 @@ router.put('/:idaccount', validateFields(required_fields), function(request, res
         }
         
         if (result.affectedRows === 0) {
-            return response.status(404).json({ message: 'Account not found.' })
+            return response.status(404).json({ message: 'Tiliä ei löytynyt.' })
         }
         
         response.json(result);    
@@ -65,7 +68,7 @@ router.patch('/:idaccount', function(request, response) {
         }
         
         if (result.affectedRows === 0) {
-            return response.status(404).json({ message: 'Account not found.' })
+            return response.status(404).json({ message: 'Tiliä ei löytynyt.' })
         }
         
         response.json(result);
@@ -79,7 +82,7 @@ router.delete('/:idaccount', function(request, response) {
         } 
         
         if (result.affectedRows === 0) {
-            return response.status(404).json({ message: 'Account not found.' })
+            return response.status(404).json({ message: 'Tiliä ei löytynyt.' })
         }
         
         response.json(result);

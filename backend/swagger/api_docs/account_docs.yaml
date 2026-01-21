@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   description: API documentation for a bank database
 paths:
-  /api/accounts:
+  /api/account:
     get:
       security:
       - bearerAuth: []
@@ -17,6 +17,8 @@ paths:
         '500':
           description: Server error
     post:
+      security:
+      - bearerAuth: []
       tags:
         - Accounts
       summary: Creates a new account
@@ -41,11 +43,15 @@ paths:
         '200':
           description: Account created
         '400':
-          description: All required fields were not included in request body
+          description: All required fields were not included in request body or the same account ID already exists
+        '404':
+          description: Customer ID provided for account does not exist
         '500':
           description: Server error
-  /api/accounts/{idaccount}:
+  /api/account/{idaccount}:
     get:
+      security:
+      - bearerAuth: []
       tags:
         - Accounts
       summary: Get account by ID
@@ -58,12 +64,12 @@ paths:
           description: The account ID
       responses:
         '200':
-          description: Account found
-        '404':
-          description: Account not found
+          description: List of accounts, an empty list is returned if no accounts were found
         '500':
           description: Server error
     put:
+      security:
+      - bearerAuth: []
       tags:
         - Accounts
       summary: Update all fields for account by ID
@@ -99,8 +105,10 @@ paths:
         '404':
           description: Account not found
         '500':
-          description: Server error or validation error
+          description: Server error
     patch:
+      security:
+      - bearerAuth: []
       tags:
         - Accounts
       summary: Update specific fields for account by ID
@@ -128,6 +136,8 @@ paths:
         '500':
           description: Server error
     delete:
+      security:
+      - bearerAuth: []
       tags:
         - Accounts
       summary: Delete account by ID
