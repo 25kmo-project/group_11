@@ -6,7 +6,7 @@ info:
 paths:
   /api/account_customer:
     get:
-          security:
+      security:
         - bearerAuth: []
       tags:
         - account_customer
@@ -19,7 +19,7 @@ paths:
     post:
       tags:
         - account_customer
-      summary: Creates a new account_customer row
+      summary: Creates a new account_customer connection
       requestBody:
         required: true
         content:
@@ -27,15 +27,13 @@ paths:
             schema:
               type: object
               properties:
-                idaccount_customer:
-                  type: number
                 customer_id:
                   type: number
                 account_id:
-                  type: number
+                  type: string
       responses:
         '200':
-          description: Account created
+          description: account_customer created
         '400':
           description: All required fields were not included in request body
         '500':
@@ -44,32 +42,32 @@ paths:
     get:
       tags:
         - account_customer
-      summary: Get account by ID
+      summary: Get account_customer data by ID
       parameters:
         - in: path
-          name: idaccount
+          name: idaccount_customer
           required: true
           schema:
-            type: string
-          description: The account ID
+            type: number
+          description: The account_customer ID
       responses:
         '200':
-          description: Account found
+          description: Account_customer found
         '404':
-          description: Account not found
+          description: Account_customer not found
         '500':
           description: Server error
     put:
       tags:
         - account_customer
-      summary: Update all fields for account by ID
+      summary: Update all fields for account_customer by ID
       parameters:
         - in: path
-          name: idaccount
+          name: idaccount_customer
           required: true
           schema:
-            type: string
-          description: The account ID
+            type: number
+          description: The account_customer ID
       requestBody:
         required: true
         content:
@@ -77,19 +75,17 @@ paths:
             schema:
               type: object
               properties:
-                idaccount_customer:
-                  type: number
                 customer_id:
                   type: number
                 account_id:
-                  type: number
+                  type: string
       responses:
         '200':
-          description: Account updated
+          description: Account_customer updated
         '400':
           description: All required fields were not included in request body 
         '404':
-          description: Account not found
+          description: Account_customer not found
         '500':
           description: Server error or validation error
     patch:
@@ -98,11 +94,11 @@ paths:
       summary: Update specific fields for account_customer by ID
       parameters:
         - in: path
-          name: idaccount
+          name: idaccount_customer
           required: true
           schema:
-            type: string
-          description: The account ID
+            type: number
+          description: The account_customer ID
       requestBody:
         required: true
         content:
@@ -110,13 +106,15 @@ paths:
             schema:
               type: object
               properties:
-                balance:
+                customer_id:
                   type: number
+                account_id:
+                  type: string
       responses:
         '200':
-          description: Account updated
+          description: Account_customer updated
         '404':
-          description: Account not found
+          description: Account_customer not found
         '500':
           description: Server error
     delete:
@@ -128,12 +126,50 @@ paths:
           name: idaccount_customer
           required: true
           schema:
-            type: string
+            type: number
           description: The account_customer ID
       responses:
         '200':
-          description: Account deleted
+          description: Account_customer deleted
         '404':
-          description: Account not found
+          description: Account_customer not found
+        '500':
+          description: Server error
+  /api/account_customer/customerdata/{idcustomer}:
+    get:
+      tags:
+        - customerData
+      summary: Call prosedure customerData by ID
+      parameters:
+          - in: path
+            name: idcustomer
+            required: true
+            schema:
+              type: number
+            description: The customer ID
+      responses:
+        '200':
+          description: customerid related data found
+        '404':
+          description: customerid related data not found
+        '500':
+          description: Server error
+  /api/account_customer/accountdata/{idaccount}:
+    get:
+      tags:
+        - accountData
+      summary: Call prosedure accountData by ID
+      parameters:
+        - in: path
+          name: idaccount
+          required: true
+          schema:
+            type: string
+          description: The account ID
+      responses:
+        '200':
+          description: accountid related data found
+        '404':
+          description: accountid related data not found
         '500':
           description: Server error
