@@ -6,6 +6,8 @@ info:
 paths:
   /api/accounts:
     get:
+      security:
+      - bearerAuth: []
       tags:
         - Accounts
       summary: Get all accounts
