@@ -51,9 +51,7 @@ router.put('/:idaccount', validateFields(required_fields), function(request, res
     account.update(request.body, request.params.idaccount, function(err, result) {
         if (err) {
             return response.status(500).json({ status_code: response.statusCode, message: err });
-        }
-        
-        if (result.affectedRows === 0) {
+        } else if (result.affectedRows === 0) {
             return response.status(404).json({ message: 'Tiliä ei löytynyt.' })
         }
         
@@ -65,9 +63,7 @@ router.patch('/:idaccount', function(request, response) {
     account.update(request.body, request.params.idaccount, function(err, result) {
         if (err) {
             return response.status(500).json({ status_code: response.statusCode, message: err });
-        }
-        
-        if (result.affectedRows === 0) {
+        } else if (result.affectedRows === 0) {
             return response.status(404).json({ message: 'Tiliä ei löytynyt.' })
         }
         
@@ -79,9 +75,7 @@ router.delete('/:idaccount', function(request, response) {
     account.delete(request.params.idaccount, function(err, result) {
         if (err) {
             return response.status(500).json({ status_code: response.statusCode, message: err });
-        } 
-        
-        if (result.affectedRows === 0) {
+        } else if (result.affectedRows === 0) {
             return response.status(404).json({ message: 'Tiliä ei löytynyt.' })
         }
         

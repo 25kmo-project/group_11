@@ -1,7 +1,7 @@
 const db = require('../database');
 
 const transaction={
-    getAllUser:function(idaccount, callback){
+    getAccountTransactions:function(idaccount, callback){
         return db.query("SELECT * FROM transaction where idaccount=?", [idaccount], callback);
     },
     getOne:function(idtransaction, callback){
