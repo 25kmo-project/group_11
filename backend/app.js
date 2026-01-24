@@ -14,6 +14,8 @@ var accountRouter = require('./routes/account');
 var loginRouter = require('./routes/login');
 var card_accountRouter = require('./routes/card_account');
 var transactionRouter = require('./routes/transaction');
+var account_customerRouter = require('./routes/account_customer');
+
 const authenticateToken = require('./middleware/auth');
 
 var app = express();
@@ -41,5 +43,6 @@ app.use('/api/card', cardRouter);
 app.use('/api/account', accountRouter);
 app.use('/api/card_account', card_accountRouter);
 app.use('/api/transaction', transactionRouter);
+app.use('/api/account_customer', account_customerRouter);
 
 module.exports = app;

@@ -4,9 +4,9 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Bank database API",
+      title: "My Express API",
       version: "1.0.0",
-      description: "API documentation for a bank database",
+      description: "API documentation for a My Express app",
     },
 
     tags: [
