@@ -29,7 +29,7 @@ router.get('/:idtransaction', function(request, response){
 });
 
 router.post('/', validateFields(post_required_fields), function(request,response){
-    transaction.create(request.body, function(err,result){
+    transaction.add(request.body, function(err,result){
         if (err){
             return response.status(500).json({ status_code: response.statusCode, message: err });
         }

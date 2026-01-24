@@ -7,7 +7,7 @@ const account = {
     getOne:function(idaccount, callback) {
         return db.query('SELECT * FROM account WHERE idaccount=?', [idaccount], callback);
     },
-    create:function(account, callback) {
+    add:function(account, callback) {
         return db.query(
             'INSERT INTO account (idaccount, balance, account_type, credit_limit, idowner) VALUES (?,?,?,?,?)', 
             [account.idaccount, account.balance, account.account_type, account.credit_limit, account.idowner],

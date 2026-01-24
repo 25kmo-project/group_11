@@ -28,10 +28,10 @@ router.get('/:idaccount', function(request, response) {
 
 // Field validation is performed to return more verbose errors for API caller
 router.post('/', validateFields(required_fields), function(request, response) {
-    account.create(request.body, function(err, result) {
+    account.add(request.body, function(err, result) {
         if (err) {
             var error_message = err;
-            var status_code;
+            var status_code = 500;
             if (err.errno === 1062) {
                 status_code = 400;
                 error_message = 'Ei voi luoda tiliä samalla tili ID:llä kuin toinen tili.';
