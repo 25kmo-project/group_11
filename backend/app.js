@@ -10,13 +10,13 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var customerRouter = require ('./routes/customer');
 var cardRouter = require('./routes/card');
-var accountsRouter = require('./routes/accounts');
+var accountRouter = require('./routes/account');
 var loginRouter = require('./routes/login');
 var card_accountRouter = require('./routes/card_account');
+var transactionRouter = require('./routes/transaction');
 var account_customerRouter = require('./routes/account_customer');
-//var transactionRouter = require('./routes/transaction');
-const authenticateToken = require('./middleware/auth');
 
+const authenticateToken = require('./middleware/auth');
 
 var app = express();
 
@@ -34,17 +34,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/login', loginRouter);
+app.use('/api/login', loginRouter);
 
 // Suojatut reitit
 app.use(authenticateToken);
 app.use('/api/customer', customerRouter);
 app.use('/api/card', cardRouter);
-app.use('/api/accounts', accountsRouter)
-app.use('/api/accounts', accountsRouter);
+app.use('/api/account', accountRouter);
 app.use('/api/card_account', card_accountRouter);
-//app.use('/api/transaction', transactionRouter);
+app.use('/api/transaction', transactionRouter);
 app.use('/api/account_customer', account_customerRouter);
-
 
 module.exports = app;

@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   description: API documentation for a bank database
 paths:
-  /login:
+  /api/login:
     post:
       tags:
        - Login
@@ -26,12 +26,12 @@ paths:
                   example: "CardPIN"
       responses:
         '200':
-          description: Card created
+          description: Login successful
         '400':
           description: All required fields were not included in request body
         '500':
           description: Server error
-  /login/{idcard}/reset:
+  /api/login/{idcard}/reset:
     post:
       tags:
         - Login
@@ -45,9 +45,9 @@ paths:
           description: The card ID
       responses:
         '200':
-          description: Card created
-        '400':
-          description: All required fields were not included in request body
+          description: Card login attempts reset successfully
+        '404':
+          description: Specified card was not found
         '500':
           description: Server error
   
