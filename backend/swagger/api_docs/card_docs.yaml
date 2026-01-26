@@ -37,7 +37,7 @@ paths:
         '200':
           description: Card created
         '400':
-          description: All required fields were not included in request body
+          description: All required fields were not included in request body or card number was the same as another card
         '500':
           description: Server error
   /api/card/{idcard}:
@@ -56,9 +56,7 @@ paths:
           description: The card ID
       responses:
         '200':
-          description: card found
-        '404':
-          description: card not found
+          description: Card found, an empty list is returned if no cards were found
         '500':
           description: Server error
     put:
@@ -93,7 +91,7 @@ paths:
         '404':
           description: Card not found
         '500':
-          description: Server error or validation error
+          description: Server error
     delete:
       security:
       - bearerAuth: []
@@ -130,9 +128,9 @@ paths:
           description: The card ID
       responses:
         '200':
-          description: card found
+          description: List of accounts connected to the card
         '404':
-          description: card not found
+          description: Card not found
         '500':
           description: Server error
 
