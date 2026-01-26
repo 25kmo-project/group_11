@@ -35,7 +35,7 @@ paths:
                   type: string
       responses:
         '200':
-          description: account_customer created
+          description: Account_customer created
         '400':
           description: All required fields were not included in request body
         '500':
@@ -56,7 +56,7 @@ paths:
           description: The account_customer ID
       responses:
         '200':
-          description: Account_customer found
+          description: List of account_customer records, an empty list is returned if no records are found
         '404':
           description: Account_customer not found
         '500':
@@ -161,9 +161,9 @@ paths:
             description: The customer ID
       responses:
         '200':
-          description: customerid related data found
+          description: Customerid related data found
         '404':
-          description: customerid related data not found
+          description: Customerid related data not found
         '500':
           description: Server error
   /api/account_customer/accountdata/{idaccount}:
@@ -182,8 +182,8 @@ paths:
           description: The account ID
       responses:
         '200':
-          description: accountid related data found
+          description: Accountid related data found
         '404':
-          description: accountid related data not found
+          description: Accountid related data not found
         '500':
           description: Server error
