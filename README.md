@@ -12,15 +12,24 @@ This project is a working ATM machine system, made to resemble mostly how real-l
 - Automatically logging out after 30 seconds of inactivity
 - Swagger documentation for all backend endpoints
 
-# Frontend application
+# System architecture and use case diagrams
 
-Development not started yet
+System architecture diagram. Reverse proxy is not necessary if the backend and frontend are being run on the same machine.
 
-<img style="width:70%;height:80%" src="images/frontend_chart.png"></img>
+<img style="width:90%;" src="images/system_architecture_uml.png"></img>
 
-# Database design
+Use case diagram:
 
-<img style="width:70%;height:80%" src="backend/database/bank_er.png"></img>
+<img style="width:90%;" src="images/use_case_diagram.png"></img>
+
+# Frontend Application
+State diagram of the frontend app
+
+<img style="width:70%;" src="images/frontend_chart.png"></img>
+
+# Database Design
+
+<img style="width:70%;" src="backend/database/bank_er.png"></img>
 
 # Usage
 

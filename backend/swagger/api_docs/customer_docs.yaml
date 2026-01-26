@@ -93,7 +93,7 @@ paths:
                   type: string
       responses:
         '200':
-          description: customer updated
+          description: Customer updated
         '400':
           description: All required fields were not included in request body 
         '404':
@@ -131,9 +131,9 @@ paths:
                   type: string
       responses:
         '200':
-          description: customer updated
+          description: Customer updated
         '404':
-          description: customer not found
+          description: Customer not found
         '500':
           description: Server error
     delete:
