@@ -26,6 +26,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         environment.h environment.cpp
         cardselectiondialog.h cardselectiondialog.cpp cardselectiondialog.ui
+        noaccountsview.h noaccountsview.cpp noaccountsview.ui
+        debitaccountwindow.h debitaccountwindow.cpp debitaccountwindow.ui
+        creditaccountwindow.h creditaccountwindow.cpp creditaccountwindow.ui
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET bank-automat APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

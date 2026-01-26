@@ -11,6 +11,15 @@ function authenticateToken(req, res, next) {
         if (err) {
             return res.sendStatus(403);
         }
+        /*
+        console.log("TOKEN PAYLOAD:", user);
+        console.log("URL idcard:", req.params.idcard);
+        */
+        // Tokenin tarkistus
+        if (req.params.idcard && Number(req.params.idcard) !== Number(user.idcard)) {
+            return res.sendStatus(403);
+        }
+
         req.user = user;
         // console.log("req.user:", req.user);
         next();

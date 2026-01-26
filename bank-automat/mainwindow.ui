@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>476</width>
-    <height>408</height>
+    <width>384</width>
+    <height>357</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>60</y>
+      <x>120</x>
+      <y>40</y>
       <width>191</width>
       <height>31</height>
      </rect>
@@ -35,8 +35,8 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>130</y>
+      <x>50</x>
+      <y>100</y>
       <width>71</width>
       <height>31</height>
      </rect>
@@ -53,8 +53,8 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>170</y>
+      <x>80</x>
+      <y>140</y>
       <width>61</width>
       <height>31</height>
      </rect>
@@ -71,8 +71,8 @@
    <widget class="QLabel" name="labelInfo">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>290</y>
+      <x>110</x>
+      <y>250</y>
       <width>241</width>
       <height>31</height>
      </rect>
@@ -89,8 +89,8 @@
    <widget class="QPushButton" name="btnLogin">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>230</y>
+      <x>160</x>
+      <y>200</y>
       <width>81</width>
       <height>41</height>
      </rect>
@@ -102,8 +102,8 @@
    <widget class="QLineEdit" name="textCardId">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>130</y>
+      <x>140</x>
+      <y>100</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -112,11 +112,14 @@
    <widget class="QLineEdit" name="textPin">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>170</y>
+      <x>140</x>
+      <y>150</y>
       <width>131</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="echoMode">
+     <enum>QLineEdit::EchoMode::Password</enum>
     </property>
    </widget>
   </widget>
@@ -125,8 +128,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>476</width>
-     <height>22</height>
+     <width>384</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
