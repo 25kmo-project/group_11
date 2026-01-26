@@ -15,11 +15,12 @@ This project is a working ATM machine system, made to resemble mostly how real-l
 # Frontend application
 
 Development not started yet
-![Frontend application state diagram](images/frontend_chart.png)
+
+<img style="width:70%;height:80%" src="images/frontend_chart.png"></img>
 
 # Database design
 
-![ER-diagram of the database](backend/database/bank_er.png)
+<img style="width:70%;height:80%" src="backend/database/bank_er.png"></img>
 
 # Usage
 
