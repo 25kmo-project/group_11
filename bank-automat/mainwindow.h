@@ -2,6 +2,15 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QNetworkRequest>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QTimer>
+#include "environment.h"
+#include "cardselectiondialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -19,5 +28,12 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QNetworkAccessManager *manager;
+    QNetworkReply *reply;
+
+private slots:
+    void btnLoginSlot();
+    void loginActionSlot();
 };
+
 #endif // MAINWINDOW_H
