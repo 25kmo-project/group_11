@@ -62,11 +62,15 @@ void MainWindow::loginActionSlot()
     } else {
         QJsonDocument jsonDoc = QJsonDocument::fromJson(responseData);
         QJsonObject jsonObject = jsonDoc.object();
+        /*
+        // Debuggign info
         for (auto it = jsonObject.begin(); it != jsonObject.end(); ++it) {
             qDebug() << it.key() << ":" << it.value();
         }
+        */
+
         // If card locked
-        if(jsonObject.value("message").toString()== "Tunnus lukittu") {
+        if(jsonObject.value("message").toString()== "Liian monta kirjautumisyritystä, tunnus on lukittu.") {
             ui->labelInfo->setText("Tunnus lukittu");
             ui->labelInfo->show();
 
@@ -79,9 +83,10 @@ void MainWindow::loginActionSlot()
             ui->textCardId->clear();
             ui->textPin->clear();
         }
-        // If PIN or Idcard doesnt have input
-        if(jsonObject.value("message").toString()== "Idcard tai PIN puuttuu.") {
-            ui->labelInfo->setText("Idcard tai PIN puuttuu.");
+        // If PIN or Idcard doesnt have input or do not match
+
+        else if (!jsonObject.contains("token")) {
+            ui->labelInfo->setText("Idcard ja PIN eivät täsmää.");
             ui->labelInfo->show();
 
             //Timer for labelInfo
@@ -94,6 +99,7 @@ void MainWindow::loginActionSlot()
             ui->textPin->clear();
         }
 
+        // If responseData have token -> Login is successful
         if (jsonObject.contains("token")) {
             QString token = jsonObject["token"].toString();
             QByteArray tokenBytes = token.toUtf8();
