@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var account = require('../models/account_model');
+var card_actions = require ('../models/card_actions_model');
 var validateFields = require('../middleware/validateFields');
 
 const required_fields = ['idaccount', 'balance', 'account_type', 'credit_limit', 'idowner']
@@ -82,5 +83,11 @@ router.delete('/:idaccount', function(request, response) {
         response.json(result);
     })
 });
+
+router.patch('/withdraw/:idaccount', function(request, response){
+    card_actions.withdrawal(request.params.idaccount, request.body, function(err, result){
+        
+    })
+})
 
 module.exports = router;
