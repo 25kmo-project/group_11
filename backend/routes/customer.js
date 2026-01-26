@@ -3,75 +3,71 @@ const router = express.Router();
 const customer = require('../models/customer_model');
 const  validateFields = require('../middleware/validateFields');
 
-const requirered_fields = ['fname', 'lname', 'street_address', 'city'];
+const required_fields = ['fname', 'lname', 'street_address', 'city'];
 
 router.get('/', function(request, response){
     customer.getAll(function(err, result){
-        if(err){
-            response.send(err);
+        if (err) {
+            return response.status(500).json({ status_code: response.statusCode, message: err });
         }
-        else{
-            console.log("tiedonhaku onnistui");
-            response.json(result);
-        }
+
+        response.json(result);
     })
 });
 
 router.get('/:idcustomer', function(request, response){
     customer.getOne(request.params.idcustomer, function(err, result){
-        if(err){
-            response.send(err);
-        }
-        else{
-            console.log("tiedonhaku onnistui");            
-            response.json(result[0]);
+        if (err) {
+            return response.status(500).json({ status_code: response.statusCode, message: err });
         }
 
+        response.json(result);
     })
 });
-router.post('/', validateFields(requirered_fields), function(request, response){
+
+router.post('/', validateFields(required_fields), function(request, response){
     customer.add(request.body, function(err, result){
-        if(err){
-            response.send(err);
+        if (err) {
+            return response.status(status_code).json({ status_code: response.statusCode, message: error_message }); 
         }
-        else{
-            response.json(result[0]);
-            console.log("lisäys onnistui");
-        }
+
+        response.json(result);
     })
 });
-router.put('/:idcustomer', validateFields(requirered_fields), function(request, response){
+
+router.put('/:idcustomer', validateFields(required_fields), function(request, response){
     customer.update(request.body, request.params.idcustomer, function(err, result){
-        if(err){
-            response.send(err);
+        if (err) {
+            return response.status(500).json({ status_code: response.statusCode, message: err });
+        } else if (result.affectedRows === 0) {
+            return response.status(404).json({ message: 'Asiakasta ei löytynyt.' })
         }
-        else{
-            response.json(result[0])
-            console.log("päivitys onnistui");
-        }
+        
+        response.json(result);
     })
 });
+
 router.patch('/:idcustomer', function(request, response){
     customer.update(request.body, request.params.idcustomer, function(err, result){
-        if(err){
-            response.send(err);
+        if (err) {
+            return response.status(500).json({ status_code: response.statusCode, message: err });
+        } else if (result.affectedRows === 0) {
+            return response.status(404).json({ message: 'Asiakasta ei löytynyt.' })
         }
-        else{
-            response.json(result[0])
-            console.log("päivitys onnistui");
-        }
+        
+        response.json(result);
     })
 });
 
 router.delete('/:idcustomer', function(request, response){
     customer.delete(request.params.idcustomer, function(err, result){
-        if(err){
-            response.send(err);
+        if (err) {
+            return response.status(500).json({ status_code: response.statusCode, message: err });
+        } else if (result.affectedRows === 0) {
+            return response.status(404).json({ message: 'Asiakasta ei löytynyt.' })
         }
-        else{
-            response.json(result[0]);
-            console.log("Käyttäjä", request.params.idcustomer, "poistettu");
-        }
+        
+        response.json(result);
     })
 });
 

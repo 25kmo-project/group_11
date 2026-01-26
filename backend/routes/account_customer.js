@@ -5,102 +5,100 @@ const validateFields = require ('../middleware/validateFields');
 
 const required_fields = ['customer_id', 'account_id'];
 
-router.get('/', function(request, response){
+router.get('/', function(request, response) {
     account_customer.getAll(function(err, result){
-        if(err){
+        if (err) {
             return response.status(500).json({ status_code: response.statusCode, message: err });
         }
-    response.json(result);
+
+        response.json(result);
     })
 });
 
-router.get('/:idaccount_customer', function(request, response){
+router.get('/:idaccount_customer', function(request, response) {
     account_customer.getOne(request.params.idaccount_customer, function(err, result){
         if (err) {
             return response.status(500).json({ status_code: response.statusCode, message: err });
         }
 
-        if (result.length === 0) {
-            return response.status(404).json({ status_code: response.statusCode, message: 'User not found.' });
-        }
-
-    response.json(result);
+        response.json(result);
     })
 });
 
-router.post('/', validateFields(required_fields), function(request, response){
+router.post('/', validateFields(required_fields), function(request, response) {
     account_customer.add(request.body, function(err, result){
         if (err) {
-            error_message = err;
-        if (err.errno === 1062) {
-            error_message = 'Cannot create an account with the same ID as an existing account.';
-        } else if (err.errno === 1452) {
-            error_message = 'Customer ID ' + request.body.idowner.toString() + ' does not exist.';
+            var error_message = err;
+            var status_code = 500;
+            if (err.errno === 1452) {
+                status_code = 404; 
+                error_message = 'Asiakasta tai tiliä ei ole olemassa.';
+            }
+            return response.status(status_code).json({ status_code: response.statusCode, message: error_message }); 
         }
-        return response.status(500).json({ status_code: response.statusCode, message: error_message }); 
-        }
-    response.json(result);
+        
+        response.json(result);
     })
 });
 
-router.put('/:idaccount_customer', validateFields(required_fields), function(request,response){
+router.put('/:idaccount_customer', validateFields(required_fields), function(request,response) {
     account_customer.update(request.body, request.params.idaccount_customer, function(err, result){
-        if(err){
-            return response.status(500).json({status_code: response.statusCode, message: err });
+        if (err) {
+            return response.status(500).json({ status_code: response.statusCode, message: err });
+        } else if (result.affectedRows === 0) {
+            return response.status(404).json({ message: 'Account_customeria ei löytynyt.' })
         }
-        if (result.affectedRows === 0) {
-            return response.status(404).json({ message: 'User not found.' });
-        }
-    response.json(result);
+        
+        response.json(result);    
     })
 });
 
-router.patch('/:idaccount_customer', function(request, response){
+router.patch('/:idaccount_customer', function(request, response) {
     account_customer.update(request.body, request.params.idaccount_customer, function(err, result){
-        if(err){
-            return response.status(500).json({status_code: response.statusCode, message: err });
+        if (err) {
+            return response.status(500).json({ status_code: response.statusCode, message: err });
+        } else if (result.affectedRows === 0) {
+            return response.status(404).json({ message: 'Account_customeria ei löytynyt.' })
         }
-        if (result.affectedRows === 0) {
-            return response.status(404).json({ message: 'User not found.' });
-        }
-    response.json(result);
+        
+        response.json(result);    
     })
 });
 
-router.delete('/:idaccount_customer', function(request, response){
+router.delete('/:idaccount_customer', function(request, response) {
     account_customer.delete(request.params.idaccount_customer, function(err, result){
-        if(err){
-            return response.status(500).json({status_code: response.statusCode, message: err });
+        if (err) {
+            return response.status(500).json({ status_code: response.statusCode, message: err });
+        } else if (result.affectedRows === 0) {
+            return response.status(404).json({ message: 'Account_customeria ei löytynyt.' })
         }
-        if (result.affectedRows === 0) {
-            return response.status(404).json({ message: 'User not found.' })
-        }
-    response.json(result);
+        
+        response.json(result);  
     })
 });
 
-router.get('/accountdata/:idaccount', function(request, response){
+router.get('/accountdata/:idaccount', function(request, response) {
     account_customer.accountData(request.params.idaccount, function(err, result){
-        if(err){
-            return response.status(500).json({status_code: response.statusCode, message: err });
+        if (err) {
+            return response.status(500).json({ status_code: response.statusCode, message: err });
+        } else if (result[0].length === 0) {
+            return response.status(404).json({ status_code: response.statusCode, message: 'Tilitietoja ei löytynyt.' });
         }
-        if (result[0].length === 0) {
-            return response.status(404).json({ status_code: response.statusCode, message: 'User not found.' });
-        }
-    response.json(result[0]);
+
+        response.json(result[0]);
     })
 });
 
-router.get('/customerdata/:idcustomer', function(request, response){
+router.get('/customerdata/:idcustomer', function(request, response) {
     const idcustomer = parseInt(request.params.idcustomer);
     account_customer.customerData(idcustomer, function(err, result){
         if(err){
             return response.status(500).json({status_code: response.statusCode, message: err });
+        } else if (result[0].length === 0) {
+            return response.status(404).json({ status_code: response.statusCode, message: 'Asiakkaan tietoja ei löytynyt.' });
         }
-        if (result[0].length === 0) {
-            return response.status(404).json({ status_code: response.statusCode, message: 'User not found.' });
-        }
-    response.json(result[0]);
+
+        response.json(result[0]);
     })
 });
 

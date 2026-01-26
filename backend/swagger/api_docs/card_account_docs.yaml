@@ -31,6 +31,10 @@ paths:
           description: Account added to card
         '400':
           description: All required fields were not included in request body
+        '409':
+          description: The card already has two accounts or the same type of account connected to it
+        '404':
+          description: Specified account and/or card do not exist 
         '500':
           description: Server error
   /api/card_account/removeaccountfromcard:
@@ -47,11 +51,11 @@ paths:
             schema:
               type: object
               properties:
-                card_id:
+                idcard:
                   type: string
                   description: Card from where to delete
                   example: idcard
-                account_id:
+                idaccount:
                   type: string
                   description: Account what to delete
                   example: idaccount
@@ -59,7 +63,9 @@ paths:
         '200':
           description: Account deleted from card
         '400':
-          description: All required fields were not included in request body
+          description: All required fields were not included in request body or the specified card does not have any accounts connected to it
+        '404':
+          description: Specified card or account does not exist
         '500':
           description: Server error
                   
