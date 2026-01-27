@@ -91,7 +91,7 @@ router.patch('/:idaccount/withdraw', function(request, response){
         amount: request.body.withdrawAmount,
         date: new Date(), 
         description: request.body.description};
-
+    //call prosedure withdraw
     card_actions.withdraw(request.params.idaccount, request.body.withdrawAmount, function(err, result){
         if(err){
             if (err.sqlState === '45000'){
@@ -103,7 +103,7 @@ router.patch('/:idaccount/withdraw', function(request, response){
             }
         return response.status(500).json({ status_code: response.statusCode, message: err });
         }
-
+        //add transaction details to transaction table
         transaction.add(newTransaction, function(err, result){
             if (err){
                 return response.status(500).json({ status_code: response.statusCode, message: err });
@@ -120,19 +120,19 @@ router.patch('/:idaccount/deposit', function(request, response){
         amount: request.body.depositAmount,
         date: new Date(), 
         description: request.body.description};
-
+    //call prosedure deposit 
     card_actions.deposit(request.params.idaccount, request.body.depositAmount, function(err, result){
         if(err){
             if (err.sqlState === '45000'){
                 if(err.sqlMessage === 'TILIÄ EI LÖYDY'){
                     return response.status(404).json({ message: 'Tiliä ei löytynyt.' });
-                }if (err.sqlMessage === 'ET VOI TALLETTAA LIIKAA' || err.sqlMessage === 'ET VOI TALLETTAA NEGATIIVISTA LUKUA'){
+                }if (err.sqlMessage === 'ET VOI TALLETTAA NEGATIIVISTA LUKUA'){
                     return response.status(403).json({error: err.sqlMessage});
                 }
             }
         return response.status(500).json({ status_code: response.statusCode, message: err });
         }
-        
+        //add transaction details to transaction table
         transaction.add(newTransaction, function(err, result){
             if (err){
                 return response.status(500).json({ status_code: response.statusCode, message: err });
