@@ -5,6 +5,8 @@ const card_actions = {
     //tarkistaa onko debit vai credit
     //tarkistaa käytettävissä olevat varat
     //tekee asettaa noston tai talletuksen jälkeisen saldon tietokantaan
+    //vaatii sql käyttäjälle oikeudet proseduureihin 
+    //grant execute on procedure <database>.<proseduurin nimi> to '<käyttäjä>'@'localhost';
 withdraw:function(accountid, amount, callback){
     return db.query("CALL withdraw(?, ?)", [amount, accountid], callback);
 },

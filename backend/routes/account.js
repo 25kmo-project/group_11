@@ -99,7 +99,7 @@ router.patch('/:idaccount/withdraw', function(request, response){
             if (err.sqlState === '45000'){
                 if(err.sqlMessage === 'TILIÄ EI LÖYDY'){
                     return response.status(404).json({ message: 'Tiliä ei löytynyt.' });
-                }if (err.sqlMessage === 'LUOTTORAJA YLITTYY' || err.sqlMessage === 'KATE EI RIITÄ'){
+                }if (err.sqlMessage === 'LUOTTORAJA YLITTYY' || err.sqlMessage === 'KATE EI RIITÄ' || err.sqlMessage === 'NOSTO SUMMA EI VOI OLLA NEGATIIVINEN'){
                     return response.status(403).json({error: err.sqlMessage});
                 }
             }
@@ -130,7 +130,7 @@ router.patch('/:idaccount/deposit', function(request, response){
             if (err.sqlState === '45000'){
                 if(err.sqlMessage === 'TILIÄ EI LÖYDY'){
                     return response.status(404).json({ message: 'Tiliä ei löytynyt.' });
-                }if (err.sqlMessage === 'ET VOI TALLETTAA LIIKAA'){
+                }if (err.sqlMessage === 'ET VOI TALLETTAA LIIKAA' || err.sqlMessage === 'ET VOI TALLETTAA NEGATIIVISTA LUKUA'){
                     return response.status(403).json({error: err.sqlMessage});
                 }
             }
