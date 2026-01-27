@@ -4,6 +4,7 @@ const card = require('../models/card_model');
 const card_account = require('../models/card_account_model');
 const account = require("../models/account_model");
 var validateFields = require('../middleware/validateFields');
+var authenticateToken = require('../middleware/auth');
 
 const post_required_fields = ['idcard', 'pin']
 const put_required_fields = ['idcard']
@@ -68,7 +69,7 @@ router.delete('/:idcard', function(request,response) {
     });
 });
 
-router.get('/:idcard/accounts', function(request, response) {
+router.get('/:idcard/accounts', authenticateToken, function(request, response) {
     const idcard = request.params.idcard;
     // Haetaan kortti ja tarkistetaan sen olemassa olo
     card.getOne(idcard, function(err, result) {
