@@ -183,6 +183,8 @@ paths:
       responses:
         '200':
           description: withdraw completed
+        '403':
+          description: transaction amount not allowed
         '404':
           description: Account not found
         '500':
@@ -215,6 +217,8 @@ paths:
       responses:
         '200':
           description: deposit completed
+        '403':
+          description: transaction amount not allowed
         '404':
           description: Account not found
         '500':

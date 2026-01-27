@@ -92,24 +92,28 @@ router.patch('/:idaccount/withdraw', function(request, response){
         date: new Date(), 
         description: request.body.description};
 
-    card_actions.withdraw(newTransaction.idaccount, newTransaction.withdrawAmount, function(err, result){
-        if (err){
-            console.log(err);
-            if(err.sqlState === '45000'){
-                return response.status(404).json({ message: 'Tiliä ei löytynyt.' })
-            }else{
+    card_actions.withdraw(request.params.idaccount, request.body.withdrawAmount, function(err, result){
+        console.log("result:", result);
+        console.log("err:", err);
+        if(err){
+            if (err.sqlState === '45000'){
+                if(err.sqlMessage === 'TILIÄ EI LÖYDY'){
+                    return response.status(404).json({ message: 'Tiliä ei löytynyt.' });
+                }if (err.sqlMessage === 'LUOTTORAJA YLITTYY' || err.sqlMessage === 'KATE EI RIITÄ'){
+                    return response.status(403).json({error: err.sqlMessage});
+                }
+            }
+        return response.status(500).json({ status_code: response.statusCode, message: err });
+        }
+
+        transaction.add(newTransaction, function(err, result){
+            if (err){
                 return response.status(500).json({ status_code: response.statusCode, message: err });
             }
-        }else{
-            console.log(result);
-            transaction.add(newTransaction, function(err, result){
-                if (err){
-                    return response.status(500).json({ status_code: response.statusCode, message: err });
-                }
 
-                response.json(result);
+            response.json(result);
             });
-        }
+        
     })
 });
 router.patch('/:idaccount/deposit', function(request, response){
@@ -119,22 +123,28 @@ router.patch('/:idaccount/deposit', function(request, response){
         date: new Date(), 
         description: request.body.description};
 
-    card_actions.deposit(newTransaction.idaccount, newTransaction.amount, function(err, result){
-        if (err){
-            if(err.sqlState === '45000'){
-                return response.status(404).json({ message: 'Tiliä ei löytynyt.' })
-            }else{
+    card_actions.deposit(request.params.idaccount, request.body.depositAmount, function(err, result){
+        console.log("result:", result);
+        console.log("err:", err);
+        if(err){
+            if (err.sqlState === '45000'){
+                if(err.sqlMessage === 'TILIÄ EI LÖYDY'){
+                    return response.status(404).json({ message: 'Tiliä ei löytynyt.' });
+                }if (err.sqlMessage === 'ET VOI TALLETTAA LIIKAA'){
+                    return response.status(403).json({error: err.sqlMessage});
+                }
+            }
+        return response.status(500).json({ status_code: response.statusCode, message: err });
+        }
+        
+        transaction.add(newTransaction, function(err, result){
+            if (err){
                 return response.status(500).json({ status_code: response.statusCode, message: err });
             }
-        }else{
-            transaction.add(newTransaction, function(err, result){
-                if (err){
-                    return response.status(500).json({ status_code: response.statusCode, message: err });
-                }
 
                 response.json(result);
             });
-        }
+        
     })
 });
 
