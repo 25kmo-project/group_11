@@ -4,7 +4,7 @@ const card_actions = {
     //withdraw ja deposit proseduurit:
     //tarkistaa onko debit vai credit
     //tarkistaa käytettävissä olevat varat
-    //tekee asettaa noston tai talletuksen jälkeisen saldon tietokantaan
+    //päivittää noston tai talletuksen jälkeisen saldon tietokantaan
     //vaatii sql käyttäjälle oikeudet proseduureihin 
     //grant execute on procedure <database>.<proseduurin nimi> to '<käyttäjä>'@'localhost';
 withdraw:function(accountid, amount, callback){

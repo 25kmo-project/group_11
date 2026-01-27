@@ -93,8 +93,6 @@ router.patch('/:idaccount/withdraw', function(request, response){
         description: request.body.description};
 
     card_actions.withdraw(request.params.idaccount, request.body.withdrawAmount, function(err, result){
-        console.log("result:", result);
-        console.log("err:", err);
         if(err){
             if (err.sqlState === '45000'){
                 if(err.sqlMessage === 'TILIÄ EI LÖYDY'){
@@ -112,7 +110,7 @@ router.patch('/:idaccount/withdraw', function(request, response){
             }
 
             response.json(result);
-            });
+        });
         
     })
 });
@@ -124,8 +122,6 @@ router.patch('/:idaccount/deposit', function(request, response){
         description: request.body.description};
 
     card_actions.deposit(request.params.idaccount, request.body.depositAmount, function(err, result){
-        console.log("result:", result);
-        console.log("err:", err);
         if(err){
             if (err.sqlState === '45000'){
                 if(err.sqlMessage === 'TILIÄ EI LÖYDY'){
@@ -142,8 +138,8 @@ router.patch('/:idaccount/deposit', function(request, response){
                 return response.status(500).json({ status_code: response.statusCode, message: err });
             }
 
-                response.json(result);
-            });
+            response.json(result);
+        });
         
     })
 });
