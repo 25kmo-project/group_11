@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var account = require('../models/account_model');
 var card_actions = require ('../models/card_actions_model');
+var transaction = require ('../models/transaction_model');
 var validateFields = require('../middleware/validateFields');
 
 const required_fields = ['idaccount', 'balance', 'account_type', 'credit_limit', 'idowner']
@@ -84,10 +85,58 @@ router.delete('/:idaccount', function(request, response) {
     })
 });
 
-router.patch('/withdraw/:idaccount', function(request, response){
-    card_actions.withdrawal(request.params.idaccount, request.body, function(err, result){
-        
+router.patch('/:idaccount/withdraw', function(request, response){
+    const newTransaction = {
+        idaccount: request.params.idaccount, 
+        amount: request.body.withdrawAmount,
+        date: new Date(), 
+        description: request.body.description};
+
+    card_actions.withdraw(newTransaction.idaccount, newTransaction.withdrawAmount, function(err, result){
+        if (err){
+            console.log(err);
+            if(err.sqlState === '45000'){
+                return response.status(404).json({ message: 'Tiliä ei löytynyt.' })
+            }else{
+                return response.status(500).json({ status_code: response.statusCode, message: err });
+            }
+        }else{
+            console.log(result);
+            transaction.add(newTransaction, function(err, result){
+                if (err){
+                    return response.status(500).json({ status_code: response.statusCode, message: err });
+                }
+
+                response.json(result);
+            });
+        }
     })
-})
+});
+router.patch('/:idaccount/deposit', function(request, response){
+    const newTransaction = {
+        idaccount: request.params.idaccount, 
+        amount: request.body.depositAmount,
+        date: new Date(), 
+        description: request.body.description};
+
+    card_actions.deposit(newTransaction.idaccount, newTransaction.amount, function(err, result){
+        if (err){
+            if(err.sqlState === '45000'){
+                return response.status(404).json({ message: 'Tiliä ei löytynyt.' })
+            }else{
+                return response.status(500).json({ status_code: response.statusCode, message: err });
+            }
+        }else{
+            transaction.add(newTransaction, function(err, result){
+                if (err){
+                    return response.status(500).json({ status_code: response.statusCode, message: err });
+                }
+
+                response.json(result);
+            });
+        }
+    })
+});
+
 
 module.exports = router;
