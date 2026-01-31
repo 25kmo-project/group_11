@@ -178,13 +178,15 @@ paths:
               properties:
                 withdrawAmount:
                   type: number
+                  example: 100
                 description:
                   type: string
+                  example: ATM withdrawal
       responses:
         '200':
           description: withdraw completed
         '403':
-          description: transaction amount not allowed
+          description: Insufficient funds, credit limit exceeded, or invalid amount
         '404':
           description: Account not found
         '500':
@@ -212,13 +214,15 @@ paths:
               properties:
                 depositAmount:
                   type: number
+                  example: 100
                 description:
                   type: string
+                  example: ATM deposit
       responses:
         '200':
           description: deposit completed
         '403':
-          description: transaction amount not allowed
+          description: Insufficient funds, credit limit exceeded, or invalid amount
         '404':
           description: Account not found
         '500':
