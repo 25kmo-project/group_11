@@ -5,4 +5,4 @@ bank-automat/*.user
 .qtcreator/
 .env
 .gitignore
-.bak
+*.bak
