@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -15,13 +16,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
 void MainWindow::btnLoginSlot()
 {
+    // Set request url and header
     QString url = environment::base_url() + "api/login/";
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
+    // Create object, where to insert idcard and pin
     QJsonObject loginObject;
     loginObject.insert("idcard", ui->textCardId->text());
     loginObject.insert("pin", ui->textPin->text());
@@ -30,6 +32,7 @@ void MainWindow::btnLoginSlot()
     ui->textCardId->clear();
     ui->textPin->clear();
 
+    // Create QJsonDocument and post request
     QJsonDocument jsonLoginDoc(loginObject);
     reply= manager->post(request, jsonLoginDoc.toJson());
     connect(reply, &QNetworkReply::finished, this, &MainWindow::loginActionSlot);
@@ -93,16 +96,22 @@ void MainWindow::loginActionSlot()
         // If responseData have token -> Login is successful
         if (jsonObject.contains("token")) {
             // Type conversion
-            token = jsonObject["token"].toString().toUtf8();;
-            idcard = jsonObject["idcard"].toString().toUtf8();;
+            QString token = jsonObject["token"].toString();
+            QByteArray tokenBytes = token.toUtf8();
+            QByteArray idcard = jsonObject["idcard"].toString().toUtf8();
+
+            // Set token to AuthManager to usable easier elsewhere
+            AuthManager::instance()->setToken(tokenBytes);
 
             // URL to get card accounts
             QString url = environment::base_url() + "api/card/" + idcard + "/accounts/";
             QNetworkRequest request(url);
+
             //WEB TOKEN START
-            QByteArray myToken = "Bearer " + token;
+            QByteArray myToken = "Bearer " + AuthManager::instance()->getToken().toUtf8();
             request.setRawHeader(QByteArray("Authorization"),(myToken));
             //WEB TOKEN END
+
             reply = manager->get(request);
             connect(reply, &QNetworkReply::finished, this, &MainWindow::handleAccountsResponse);
         }
@@ -115,55 +124,45 @@ void MainWindow::handleAccountsResponse()
     QJsonDocument jsonCardDoc = QJsonDocument::fromJson(responseData);
     QJsonArray cardAccounts = jsonCardDoc.array();
 
-    // Tuloste debuggausta varten
-    /*
-    qDebug().noquote() << responseData;
-    qDebug() << "Accounts: " << cardAccounts.size();
-    */
+    QVector<Account> accounts;
 
+    // If no accounts -> Show noAccountView
     if (cardAccounts.size() == 0) {
-        qDebug() << "Accounts: 0";
         noaccountsview *objNoAccountsView = new noaccountsview(this);
         objNoAccountsView->show();
-    } else if (cardAccounts.size() == 1) {
-        QJsonObject objCard = cardAccounts.at(0).toObject();
-
-        if (objCard["account_type"].toString() == "DEBIT") {
-            // Data handling to construct debitaccountwindow
-            QString idAccount = objCard["idaccount"].toString();
-
-            QString cardBalanceString = objCard["balance"].toString();
-            cardBalanceString.remove('.');
-            qint64 cardBalanceCents = cardBalanceString.toLongLong();
-
-            // Construct window with required parameters
-            debitaccountwindow *objDebitAccountWindow = new debitaccountwindow(idAccount, cardBalanceCents);
-            objDebitAccountWindow->show();
-        }
-        else {
-            // Data handling to construct creditaccountwindow
-            QString idAccount = objCard["idaccount"].toString();
-
-            QString cardBalanceString = objCard["balance"].toString();
-            cardBalanceString.remove('.');
-            qint64 cardBalanceCents = cardBalanceString.toLongLong();
-
-            QString cardCreditLimitCentsString = objCard["credit_limit"].toString();
-            cardCreditLimitCentsString.remove('.');
-            qint64 cardCreditLimitCents = cardCreditLimitCentsString.toLongLong();
-
-            // Construct window with required parameters
-            creditaccountwindow *objCreditAccountWindow = new creditaccountwindow(idAccount, cardBalanceCents, cardCreditLimitCents);
-            objCreditAccountWindow->show();
-        }
     } else {
-        /*
-            Ojelma avaa valintaikkunan, jossa on nappulat Debit ja Credit
-            Ohjelma lähettää Array-muodossa taulukon, jossa on kortin molemmat tilit
-        */
-        cardselectiondialog *objCardSelectionDialog = new cardselectiondialog(cardAccounts);
-        objCardSelectionDialog->show();
+        // Create every account account-class and add it to accounts QVector
+        for (const auto &account : cardAccounts) {
+            QJsonObject obj = account.toObject();
+
+            QString idAccount = obj["idaccount"].toString();
+
+            int idOwnerInt = obj["idowner"].toInt();
+            QString idOwner = QString::number(idOwnerInt);
+
+            QString accountType = obj["account_type"].toString();
+
+            QString balanceStr = obj["balance"].toString();
+            balanceStr.remove(".");
+            qint64 balance = balanceStr.toLongLong();
+
+            QString creditStr = obj["credit_limit"].toString();
+            creditStr.remove(".");
+            qint64 creditLimit = creditStr.toLongLong();
+
+            Account acc (idAccount,idOwner,balance,creditLimit,accountType);
+            // Add account to accounts to QVecotr
+            accounts.append(acc);
+        }
+        // If two accounts -> Then selecting view
+        if (accounts.size() == 2){
+            cardselectiondialog *objCardSelectionView = new cardselectiondialog(accounts,this);
+            objCardSelectionView->show();
+        // If one account -> Open accountview
+        } else {
+            accountview *objAccountView = new accountview(accounts[0], this);
+            objAccountView->show();
     }
     reply->deleteLater();
+    }
 }
-
