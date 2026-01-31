@@ -102,7 +102,6 @@ router.get('/:idcard/accounts', authenticateToken, function(request, response) {
 
                     // Kunnes tilit käyty läpi, palautetaan ne
                     if (count === result.length) {
-                        console.log(accounts);
                         return response.json(accounts);
                     }
                 });

@@ -38,7 +38,6 @@ router.post('/', function (request, response) {
 
         const dbPin = result[0].pin;
         const login_attempts = result[0].login_attempts;
-        console.log("Aiemmat kirjautumiset: " + login_attempts);
 
         // Jos 3 tai enemmän, palautetaan viesti "Tunnus lukittu"
         if (login_attempts > 2) {
@@ -57,7 +56,6 @@ router.post('/', function (request, response) {
             
                 // Resetoidaan kirjautmiset onnistuneen kirjautumisen yhteydessä
                 card.resetLoginAmount(idcard);
-                console.log("Kirjautumismäärä resetoitu kortille: " + idcard);
             
                 // Palautetaan onnistuneessa kirjautumisessa alla olevat tiedot
                 return response.json({
@@ -68,8 +66,6 @@ router.post('/', function (request, response) {
                 });
             } else {
                 // Päivitetään uusi kirjautumisten lukumäärä epäonnistuneessa kirjautumisessa
-                console.log("PIN ei täsmää.");
-                console.log("Kirjautumisyrityksiä: ", login_attempts + 1);
                 card.addOneLogin(idcard);
                 return response.json({ message: "Idcard ja PIN eivät täsmää." });
             }
