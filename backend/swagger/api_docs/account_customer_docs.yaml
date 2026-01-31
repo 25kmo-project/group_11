@@ -145,7 +145,7 @@ paths:
           description: Account_customer not found
         '500':
           description: Server error
-  /api/account_customer/customerdata/{idcustomer}:
+  /api/account_customer/{idcustomer}/customerdata:
     get:
       security:
         - bearerAuth: []
@@ -166,7 +166,7 @@ paths:
           description: Customerid related data not found
         '500':
           description: Server error
-  /api/account_customer/accountdata/{idaccount}:
+  /api/account_customer/{idaccount}/accountdata:
     get:
       security:
         - bearerAuth: []

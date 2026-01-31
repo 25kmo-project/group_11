@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var account = require('../models/account_model');
+var card_actions = require ('../models/card_actions_model');
+var transaction = require ('../models/transaction_model');
 var validateFields = require('../middleware/validateFields');
 
 const required_fields = ['idaccount', 'balance', 'account_type', 'credit_limit', 'idowner']
@@ -82,5 +84,65 @@ router.delete('/:idaccount', function(request, response) {
         response.json(result);
     })
 });
+
+router.patch('/:idaccount/withdraw', function(request, response){
+    const newTransaction = {
+        idaccount: request.params.idaccount, 
+        amount: request.body.withdrawAmount,
+        date: new Date(), 
+        description: request.body.description};
+    //call prosedure withdraw
+    card_actions.withdraw(request.params.idaccount, request.body.withdrawAmount, function(err, result){
+        if(err){
+            if (err.sqlState === '45000'){
+                if(err.sqlMessage === 'TILIÄ EI LÖYDY'){
+                    return response.status(404).json({ message: 'Tiliä ei löytynyt.' });
+                }if (err.sqlMessage === 'LUOTTORAJA YLITTYY' || err.sqlMessage === 'KATE EI RIITÄ' || err.sqlMessage === 'NOSTO SUMMA EI VOI OLLA NEGATIIVINEN'){
+                    return response.status(403).json({error: err.sqlMessage});
+                }
+            }
+        return response.status(500).json({ status_code: response.statusCode, message: err });
+        }
+        //add transaction details to transaction table
+        transaction.add(newTransaction, function(err, result){
+            if (err){
+                return response.status(500).json({ status_code: response.statusCode, message: err });
+            }
+
+            response.json(result);
+        });
+        
+    })
+});
+router.patch('/:idaccount/deposit', function(request, response){
+    const newTransaction = {
+        idaccount: request.params.idaccount, 
+        amount: request.body.depositAmount,
+        date: new Date(), 
+        description: request.body.description};
+    //call prosedure deposit 
+    card_actions.deposit(request.params.idaccount, request.body.depositAmount, function(err, result){
+        if(err){
+            if (err.sqlState === '45000'){
+                if(err.sqlMessage === 'TILIÄ EI LÖYDY'){
+                    return response.status(404).json({ message: 'Tiliä ei löytynyt.' });
+                }if (err.sqlMessage === 'ET VOI TALLETTAA NEGATIIVISTA LUKUA'){
+                    return response.status(403).json({error: err.sqlMessage});
+                }
+            }
+        return response.status(500).json({ status_code: response.statusCode, message: err });
+        }
+        //add transaction details to transaction table
+        transaction.add(newTransaction, function(err, result){
+            if (err){
+                return response.status(500).json({ status_code: response.statusCode, message: err });
+            }
+
+            response.json(result);
+        });
+        
+    })
+});
+
 
 module.exports = router;

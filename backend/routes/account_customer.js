@@ -77,7 +77,7 @@ router.delete('/:idaccount_customer', function(request, response) {
     })
 });
 
-router.get('/accountdata/:idaccount', function(request, response) {
+router.get('/:idaccount/accountdata', function(request, response) {
     account_customer.accountData(request.params.idaccount, function(err, result){
         if (err) {
             return response.status(500).json({ status_code: response.statusCode, message: err });
@@ -89,7 +89,7 @@ router.get('/accountdata/:idaccount', function(request, response) {
     })
 });
 
-router.get('/customerdata/:idcustomer', function(request, response) {
+router.get('/:idcustomer/customerdata', function(request, response) {
     const idcustomer = parseInt(request.params.idcustomer);
     account_customer.customerData(idcustomer, function(err, result){
         if(err){

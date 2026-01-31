@@ -155,3 +155,75 @@ paths:
           description: Account not found
         '500':
           description: Server error
+  /api/account/{idaccount}/withdraw:
+    patch:
+      security:
+      - bearerAuth: []
+      tags:
+        - withdraw & deposit prosedures
+      summary: withdraw money from account
+      parameters:
+        - in: path
+          name: idaccount
+          required: true
+          schema:
+            type: string
+          description: The account ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                withdrawAmount:
+                  type: number
+                  example: 100
+                description:
+                  type: string
+                  example: ATM withdrawal
+      responses:
+        '200':
+          description: withdraw completed
+        '403':
+          description: Insufficient funds, credit limit exceeded, or invalid amount
+        '404':
+          description: Account not found
+        '500':
+          description: Server error
+  /api/account/{idaccount}/deposit:
+    patch:
+      security:
+      - bearerAuth: []
+      tags:
+        - withdraw & deposit prosedures
+      summary: deposit money to account
+      parameters:
+        - in: path
+          name: idaccount
+          required: true
+          schema:
+            type: string
+          description: The account ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                depositAmount:
+                  type: number
+                  example: 100
+                description:
+                  type: string
+                  example: ATM deposit
+      responses:
+        '200':
+          description: deposit completed
+        '403':
+          description: Insufficient funds, credit limit exceeded, or invalid amount
+        '404':
+          description: Account not found
+        '500':
+          description: Server error
