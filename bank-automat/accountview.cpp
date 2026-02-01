@@ -24,17 +24,15 @@ void accountview::btnTestButtonSlot()
     qDebug() << "Balance:" << account.getBalance();
     qDebug() << "Credit limit:" << account.getCreditLimit();
     qDebug() << "Type:" << account.getAccountType();
-
-
 }
 
 void accountview::btnDepositButtonSlot()
 {
-    //add this when customer clicks deposit in accountView
+    //on deposit clicked, deposit window opens
     CardDepositWindow *objCardDeposit = new CardDepositWindow(account, this);
     objCardDeposit->show();
     //after successfull deposit:
     //objCardDeposit closes
-    //for example show this message to user
+    //Message for user
     ui->labelInfo->setText("Talletus onnistui!");
 }
