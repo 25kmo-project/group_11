@@ -134,7 +134,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>add Amount &amp; description</string>
+    <string>Add amount &amp; description</string>
    </property>
   </widget>
  </widget>

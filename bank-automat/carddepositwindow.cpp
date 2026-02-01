@@ -10,7 +10,6 @@ CardDepositWindow::CardDepositWindow(Account &newAccount, QWidget *parent)
     ui->setupUi(this);
     connect(ui->btnDeposit, &QPushButton::clicked, this, &CardDepositWindow::btnDepositSlot);
     manager = new QNetworkAccessManager(this);
-    qDebug()<<account.getBalance();
 
     //show usable balance and/or credit limit in deposit window
     double balanceEur = account.getBalance()/100.00;
