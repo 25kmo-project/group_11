@@ -9,6 +9,7 @@ accountview::accountview(Account &newAccount, QWidget *parent)
 {
     ui->setupUi(this);
     connect(ui->btnTestButton, &QPushButton::clicked, this, &accountview::btnTestButtonSlot);
+    connect(ui->btnDeposit, &QPushButton::clicked, this, &accountview::btnDepositButtonSlot);
 }
 
 accountview::~accountview()
@@ -24,7 +25,11 @@ void accountview::btnTestButtonSlot()
     qDebug() << "Credit limit:" << account.getCreditLimit();
     qDebug() << "Type:" << account.getAccountType();
 
-    //------------------------------------------------
+
+}
+
+void accountview::btnDepositButtonSlot()
+{
     //add this when customer clicks deposit in accountView
     CardDepositWindow *objCardDeposit = new CardDepositWindow(account, this);
     objCardDeposit->show();
@@ -32,5 +37,4 @@ void accountview::btnTestButtonSlot()
     //objCardDeposit closes
     //for example show this message to user
     ui->labelInfo->setText("Talletus onnistui!");
-    //------------------------------------------------
 }

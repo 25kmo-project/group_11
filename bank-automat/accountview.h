@@ -22,6 +22,7 @@ private:
 
 private slots:
     void btnTestButtonSlot();
+    void btnDepositButtonSlot();
 
 };
 
