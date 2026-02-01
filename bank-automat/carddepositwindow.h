@@ -20,6 +20,8 @@ class CardDepositWindow;
 
 class CardDepositWindow : public QDialog
 {
+    Q_OBJECT
+
 public:
     explicit CardDepositWindow(
         Account &newAccount,
@@ -37,6 +39,10 @@ private:
 private slots:
     void btnDepositSlot();
     void depositActionSlot();
+
+signals:
+    void balanceChanged(qint64 newBalance);
+
 };
 
 #endif // CARDDEPOSITWINDOW_H

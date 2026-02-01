@@ -65,9 +65,10 @@ void CardDepositWindow::depositActionSlot()
     QJsonDocument jsonDoc = QJsonDocument::fromJson(responseData);
     QJsonObject objJson = jsonDoc.object();
 
-    //close window on successful deposit
+    //close window and emit signal to update balance labels on successful deposit
     if(objJson["affectedRows"] == 1){
         this->close();
+        emit balanceChanged(account.getBalance());
     }else{
         ui->labelError->setText("Jokin meni vikaan");
     }

@@ -47,14 +47,40 @@
   <widget class="QPushButton" name="btnDeposit">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>260</y>
+     <x>110</x>
+     <y>290</y>
      <width>90</width>
      <height>29</height>
     </rect>
    </property>
    <property name="text">
     <string>Deposit</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>180</y>
+     <width>63</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>balance</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelBalance">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>180</y>
+     <width>63</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>
