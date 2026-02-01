@@ -48,7 +48,7 @@ void CardDepositWindow::btnDepositSlot()
         qint64 amountCents = qRound(amount * 100);
         account.setBalance(amountCents + account.getBalance());
 
-        ui->labelError->setText("add amount & description");
+        ui->labelError->setText("Add amount & description");
         QJsonObject objDeposit;
         objDeposit.insert("depositAmount", amount);
         objDeposit.insert("description", ui->textDescription->text());
