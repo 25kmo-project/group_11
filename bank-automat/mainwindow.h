@@ -9,12 +9,6 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QTimer>
-#include "environment.h"
-#include "authmanager.h"
-#include "account.h"
-#include "noaccountsview.h"
-#include "accountview.h"
-#include "cardselectiondialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
