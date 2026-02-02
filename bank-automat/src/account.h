@@ -2,35 +2,47 @@
 #define ACCOUNT_H
 
 #include <QString>
+#include <QNetworkRequest>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 
+#include "../environment.h"
+#include "authmanager.h"
 
-class Account
+class Account : public QObject
 {
+    Q_OBJECT
+
 public:
-    Account(const QString idAccount,
-            const QString idOwner,
-            qint64 balance,
-            qint64 creditLimit,
-            QString accountType);
+    Account(QString idAccount, QObject *parent = nullptr);
+
+    void fetchAccountData();
 
     QString getIdAccount() const;
 
-    QString getIdOwner() const;
-
+    int getIdOwner() const;
     int getBalance() const;
-    void setBalance(int newBalance);
-
     int getCreditLimit() const;
-    void setCreditLimit(int newCreditLimit);
-
     QString getAccountType() const;
 
+    void setCreditLimit(int newCreditLimit);
+    void setBalance(int newBalance);
+
 private:
+    QNetworkAccessManager *manager;
+    QNetworkReply *reply;
+
     QString idAccount;
-    QString idOwner;
+    int idOwner;
     int balance; // Cents
     int creditLimit; // Cents
     QString accountType;
+
+private slots:
+    void accountDataSlot();
 };
 
 #endif // ACCOUNT_H

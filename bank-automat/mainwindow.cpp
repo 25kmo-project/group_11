@@ -130,7 +130,8 @@ void MainWindow::handleAccountsResponse()
     QJsonDocument jsonCardDoc = QJsonDocument::fromJson(responseData);
     QJsonArray cardAccounts = jsonCardDoc.array();
 
-    QVector<Account> accounts;
+    // Account is a QObject so a pointer is needed since QObjects cannot be moved or copied
+    QVector<Account*> accounts;
 
     // If no accounts -> Show noAccountView
     if (cardAccounts.size() == 0) {
@@ -142,21 +143,8 @@ void MainWindow::handleAccountsResponse()
             QJsonObject obj = account.toObject();
 
             QString idAccount = obj["idaccount"].toString();
+            Account *acc = new Account(idAccount, this);
 
-            int idOwnerInt = obj["idowner"].toInt();
-            QString idOwner = QString::number(idOwnerInt);
-
-            QString accountType = obj["account_type"].toString();
-
-            QString balanceStr = obj["balance"].toString();
-            balanceStr.remove(".");
-            qint64 balance = balanceStr.toLongLong();
-
-            QString creditStr = obj["credit_limit"].toString();
-            creditStr.remove(".");
-            qint64 creditLimit = creditStr.toLongLong();
-
-            Account acc (idAccount,idOwner,balance,creditLimit,accountType);
             // Add account to accounts to QVecotr
             accounts.append(acc);
         }
@@ -168,7 +156,8 @@ void MainWindow::handleAccountsResponse()
         } else {
             accountview *objAccountView = new accountview(accounts[0], this);
             objAccountView->show();
-    }
+        }
+
     reply->deleteLater();
     }
 }

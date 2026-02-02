@@ -1,7 +1,7 @@
 #include "cardselectiondialog.h"
 #include "ui_cardselectiondialog.h"
 
-cardselectiondialog::cardselectiondialog(QVector<Account> accounts, QWidget *parent)
+cardselectiondialog::cardselectiondialog(QVector<Account*> accounts, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::cardselectiondialog)
 {
@@ -19,9 +19,8 @@ cardselectiondialog::~cardselectiondialog()
 void cardselectiondialog::btnCreditAccount()
 {
     for (int i = 0; i < accounts.size(); ++i) {
-        Account acc = accounts[i];
-        if(acc.getAccountType() == "CREDIT") {
-            accountview *objAccountView = new accountview(acc,this);
+        if(accounts[i]->getAccountType() == "CREDIT") {
+            accountview *objAccountView = new accountview(accounts[i],this);
             objAccountView->show();
             return;
         }
@@ -31,9 +30,8 @@ void cardselectiondialog::btnCreditAccount()
 void cardselectiondialog::btnDebitAccount()
 {
     for (int i = 0; i < accounts.size(); ++i) {
-        Account acc = accounts[i];
-        if(acc.getAccountType() == "DEBIT") {
-            accountview *objAccountView = new accountview(acc,this);
+        if(accounts[i]->getAccountType() == "DEBIT") {
+            accountview *objAccountView = new accountview(accounts[i],this);
             objAccountView->show();
             return;
         }
