@@ -23,6 +23,10 @@ private:
 
 private slots:
     void btnTestButtonSlot();
+    void btnDepositButtonSlot();
+
+public slots:
+    void updateBalanceLabel(qint64 newBalance);
 
 };
 
