@@ -17,7 +17,6 @@ accountview::~accountview()
 
 void accountview::btnTestButtonSlot()
 {
-    account->fetchAccountData();
     qDebug() << "Account ID:" << account->getIdAccount();
     qDebug() << "Owner ID:" << account->getIdOwner();
     qDebug() << "Balance:" << account->getBalance();
