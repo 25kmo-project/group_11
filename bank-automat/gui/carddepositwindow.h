@@ -9,10 +9,10 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QTimer>
-#include "environment.h"
-#include "mainwindow.h"
-#include "account.h"
-#include "authmanager.h"
+#include "../environment.h"
+#include "../mainwindow.h"
+#include "../src/account.h"
+#include "../src/authmanager.h"
 
 namespace Ui {
 class CardDepositWindow;
@@ -24,7 +24,7 @@ class CardDepositWindow : public QDialog
 
 public:
     explicit CardDepositWindow(
-        Account &newAccount,
+        Account *newAccount,
         QWidget *parent = nullptr
         );
     ~CardDepositWindow();
@@ -33,7 +33,7 @@ public:
 
 private:
     Ui::CardDepositWindow *ui;
-    Account &account;
+    Account *account;
 
 
 private slots:

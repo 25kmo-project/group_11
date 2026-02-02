@@ -2,7 +2,7 @@
 #include "ui_accountview.h"
 #include "carddepositwindow.h"
 
-accountview::accountview(Account &newAccount, QWidget *parent)
+accountview::accountview(Account *newAccount, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::accountview)
     , account(newAccount)
@@ -11,7 +11,7 @@ accountview::accountview(Account &newAccount, QWidget *parent)
     connect(ui->btnTestButton, &QPushButton::clicked, this, &accountview::btnTestButtonSlot);
     connect(ui->btnDeposit, &QPushButton::clicked, this, &accountview::btnDepositButtonSlot);
     ui->labelInfo->setText("Tervetuloa!");
-    accountview::updateBalanceLabel(account.getBalance());
+    accountview::updateBalanceLabel(account->getBalance());
 }
 
 accountview::~accountview()
@@ -21,11 +21,11 @@ accountview::~accountview()
 
 void accountview::btnTestButtonSlot()
 {
-    qDebug() << "Account ID:" << account.getIdAccount();
-    qDebug() << "Owner ID:" << account.getIdOwner();
-    qDebug() << "Balance:" << account.getBalance();
-    qDebug() << "Credit limit:" << account.getCreditLimit();
-    qDebug() << "Type:" << account.getAccountType();
+    qDebug() << "Account ID:" << account->getIdAccount();
+    qDebug() << "Owner ID:" << account->getIdOwner();
+    qDebug() << "Balance:" << account->getBalance();
+    qDebug() << "Credit limit:" << account->getCreditLimit();
+    qDebug() << "Type:" << account->getAccountType();
 }
 
 void accountview::btnDepositButtonSlot()

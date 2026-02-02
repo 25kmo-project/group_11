@@ -4,8 +4,8 @@
 #include <QDialog>
 #include <qjsonarray.h>
 #include <qjsonobject.h>
-#include "account.h"
-#include "accountview.h"
+#include "../src/account.h"
+#include "../gui/accountview.h"
 
 namespace Ui {
 class cardselectiondialog;
@@ -17,13 +17,13 @@ class cardselectiondialog : public QDialog
 
 public:
     explicit cardselectiondialog(
-        QVector<Account> accounts,
+        QVector<Account*> accounts,
         QWidget *parent = nullptr);
     ~cardselectiondialog();
 
 private:
     Ui::cardselectiondialog *ui;
-    QVector<Account> accounts;
+    QVector<Account*> accounts;
 
 private slots:
     void btnCreditAccount();
