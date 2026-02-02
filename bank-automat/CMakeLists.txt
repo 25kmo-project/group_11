@@ -25,13 +25,13 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         environment.h environment.cpp
-        cardselectiondialog.h cardselectiondialog.cpp cardselectiondialog.ui
-        noaccountsview.h noaccountsview.cpp noaccountsview.ui
+        gui/cardselectiondialog.h gui/cardselectiondialog.cpp gui/cardselectiondialog.ui
+        gui/noaccountsview.h gui/noaccountsview.cpp gui/noaccountsview.ui
 
 
-        authmanager.h authmanager.cpp
-        account.h account.cpp
-        accountview.h accountview.cpp accountview.ui
+        src/authmanager.h src/authmanager.cpp
+        src/account.h src/account.cpp
+        gui/accountview.h gui/accountview.cpp gui/accountview.ui
 
     )
 # Define target properties for Android with Qt 6 as:

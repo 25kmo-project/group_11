@@ -1,5 +1,11 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "environment.h"
+#include "src/authmanager.h"
+#include "src/account.h"
+#include "gui/noaccountsview.h"
+#include "gui/accountview.h"
+#include "gui/cardselectiondialog.h"
 
 
 MainWindow::MainWindow(QWidget *parent)

@@ -4,8 +4,8 @@
 #include <QDialog>
 #include <qjsonarray.h>
 #include <qjsonobject.h>
-#include "account.h"
-#include "accountview.h"
+#include "../src/account.h"
+#include "../gui/accountview.h"
 
 namespace Ui {
 class cardselectiondialog;

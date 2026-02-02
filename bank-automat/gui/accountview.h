@@ -2,7 +2,8 @@
 #define ACCOUNTVIEW_H
 
 #include <QDialog>
-#include "account.h"
+#include "../src/account.h"
+
 namespace Ui {
 class accountview;
 }
