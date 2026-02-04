@@ -22,4 +22,4 @@ echo "nginx restart..."
 sudo cp /home/ubuntu/group_11/linux/backend /etc/nginx/sites-available
 sudo systemctl reload nginx
 
-echo "deploy valmis"
+echo "deploy ready"
