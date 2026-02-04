@@ -15,6 +15,7 @@ jobs:
       with:
         host: ${{ secrets.SERVER_HOST}}
         username: ${{ secrets.SERVER_USER}}
-        key: ¤{{ secrets.SERVER_SSH}}
+        key: ${{ secrets.SERVER_SSH}}
         script: |
-          /home/ubuntu/group_11/linux/deploy-backend.sh
+          cd /home/ubuntu/group_11/linux/
+          ./deploy-backend
