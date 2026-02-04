@@ -19,7 +19,7 @@ echo "pm2 reload"
 pm2 restart group11-backend
 
 echo "nginx restart..."
-sudo cp /home/ubuntu/group_11/linux/backend /home/ubuntu/etc/nginx/sites-available
+sudo cp /home/ubuntu/group_11/linux/backend /etc/nginx/sites-available
 sudo systemctl reload nginx
 
 echo "deploy valmis"
