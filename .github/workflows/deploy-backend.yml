@@ -18,4 +18,4 @@ jobs:
         key: ${{ secrets.SERVER_SSH}}
         script: |
           cd /home/ubuntu/group_11/linux/
-          ./deploy-backend.sh
+          ./deploy-script.sh
