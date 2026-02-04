@@ -1,12 +1,12 @@
 echo -e 
 
-APP_DIR = "/home/ubuntu/group_11/backend"
-APP_NAME = "app.js"
-BRANCH = "backend-linux"
+APP_DIR="/home/ubuntu/group_11/backend"
+APP_NAME="app.js"
+BRANCH="backend-linux"
 
 echo "update & upgrade"
-sudo apt update
-sudo apt upgrade 
+sudo apt update -y
+sudo apt upgrade -y
 
 echo "git pull..."
 cd $APP_DIR
@@ -18,3 +18,5 @@ npm install
 
 echo "pm2 reload"
 pm2 restart group11-backend
+
+echo "deploy valmis"
