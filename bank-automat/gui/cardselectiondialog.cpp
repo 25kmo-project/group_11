@@ -20,7 +20,7 @@ void cardselectiondialog::btnCreditAccount()
 {
     for (int i = 0; i < accounts.size(); ++i) {
         if(accounts[i]->getAccountType() == "CREDIT") {
-            accountview *objAccountView = new accountview(accounts[i],this);
+            AccountView *objAccountView = new AccountView(accounts[i],this);
             objAccountView->show();
             return;
         }
@@ -31,7 +31,7 @@ void cardselectiondialog::btnDebitAccount()
 {
     for (int i = 0; i < accounts.size(); ++i) {
         if(accounts[i]->getAccountType() == "DEBIT") {
-            accountview *objAccountView = new accountview(accounts[i],this);
+            AccountView *objAccountView = new AccountView(accounts[i],this);
             objAccountView->show();
             return;
         }
