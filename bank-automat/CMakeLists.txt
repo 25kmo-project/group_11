@@ -33,6 +33,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/account.h src/account.cpp
         gui/accountview.h gui/accountview.cpp gui/accountview.ui
         gui/carddepositwindow.h gui/carddepositwindow.cpp gui/carddepositwindow.ui
+        gui/cardwithdrawwindow.h gui/cardwithdrawwindow.cpp gui/cardwithdrawwindow.ui
 
     )
 # Define target properties for Android with Qt 6 as:
