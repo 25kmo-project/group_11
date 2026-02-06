@@ -23,6 +23,12 @@ public:
 private:
     Account *account;
     Ui::CardWithdrawWindow *ui;
+
+private slots:
+    void clickedAmountSlot();
+    void clickedOtherAmountSlot();
+    void confirmOtherWithdrawSlot();
+    void cancelWithdrawSlot();
 };
 
 #endif // CARDWITHDRAWWINDOW_H
