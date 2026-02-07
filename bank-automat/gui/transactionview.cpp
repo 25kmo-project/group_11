@@ -12,6 +12,10 @@ TransactionView::TransactionView(Account *acc, QWidget *parent)
     connect(manager, &TransactionsManager::transactionsUpdated, this, [this] {
         refreshTransactionList();
     });
+
+    connect(manager, &TransactionsManager::transactionUpdateFailed, this, [this] {
+        refreshTransactionList();
+    });
 }
 
 TransactionView::~TransactionView()
