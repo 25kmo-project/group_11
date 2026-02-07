@@ -37,10 +37,13 @@ void TransactionsManager::onTransactionsReply() {
     m_transactions.reserve(array.size());
 
     for (const QJsonValue& value : array) {
+        qDebug() << "Transaction:" << value.toObject();
         m_transactions.append(
             Transaction::fromJson(value.toObject())
             );
     }
+
+    qDebug() << "transaction list lenght: " << m_transactions.length();
 
     emit transactionsUpdated();
 }
@@ -101,4 +104,9 @@ void TransactionsManager::createTransaction(const Transaction &t) {
 
         emit transactionCreated();
     });
+}
+
+const QVector<Transaction> TransactionsManager::transactions() const
+{
+    return m_transactions;
 }

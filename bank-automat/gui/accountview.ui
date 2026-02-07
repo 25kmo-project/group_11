@@ -31,24 +31,6 @@
     <string>TEST</string>
    </property>
   </widget>
-<<<<<<< HEAD
-  <widget class="QPushButton" name="btnShowTransactions">
-   <property name="geometry">
-    <rect>
-     <x>250</x>
-     <y>330</y>
-     <width>201</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>show transaction</string>
-=======
   <widget class="QLabel" name="labelInfo">
    <property name="geometry">
     <rect>
@@ -99,7 +81,24 @@
    </property>
    <property name="text">
     <string/>
->>>>>>> main
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnShowTransactions">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>330</y>
+     <width>141</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Transactions</string>
    </property>
   </widget>
  </widget>

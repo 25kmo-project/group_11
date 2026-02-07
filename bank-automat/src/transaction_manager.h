@@ -16,16 +16,16 @@ public:
     void createTransaction(const Transaction &t);
     void updateTransaction(const Transaction &t);
 
-    const QVector<Transaction>& transactions() const;
+    const QVector<Transaction> transactions() const;
 signals:
     void transactionsUpdated();
     void fetchFailed(const QString& error);
 
     void transactionCreated();
-    void transactionCreateFailed(const QString& error);
+    void transactionCreateFailed(const QString &error);
 
     void transactionUpdated();
-    void transactionUpdateFailed(const QString& error);
+    void transactionUpdateFailed(const QString &error);
 private slots:
     void onTransactionsReply();
 private:

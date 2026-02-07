@@ -16,21 +16,19 @@ public:
     explicit accountview(Account *newAccount, QWidget *parent = nullptr);
     ~accountview();
 
+
 private:
     Ui::accountview *ui;
     Account *account;
 
 private slots:
     void btnTestButtonSlot();
-<<<<<<< HEAD
-    void btnShowTransactions();
-=======
     void btnDepositButtonSlot();
+    void btnShowTransactionsSlot();
 
 public slots:
     void updateBalanceLabel(qint64 newBalance);
 
->>>>>>> main
 };
 
 #endif // ACCOUNTVIEW_H
