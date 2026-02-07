@@ -13,7 +13,9 @@ AccountView::AccountView(Account *newAccount, QWidget *parent)
     connect(ui->btnDeposit, &QPushButton::clicked, this, &AccountView::btnDepositButtonSlot);
     connect(ui->btnWithdraw, &QPushButton::clicked, this, &AccountView::btnWithdrawButtonSlot);
     ui->labelInfo->setText("Tervetuloa!");
-    AccountView::updateBalanceLabel(account->getBalance());
+    AccountView::updateBalanceLabel();
+
+    connect(account, &Account::balanceChanged, this, &AccountView::updateBalanceLabel);
 }
 
 AccountView::~AccountView()
@@ -35,7 +37,6 @@ void AccountView::btnDepositButtonSlot()
     //on deposit clicked, deposit window opens
     CardDepositWindow *objCardDeposit = new CardDepositWindow(account, this);
     //connect signal and balance update function
-    connect(objCardDeposit, &CardDepositWindow::balanceChanged, this, &AccountView::updateBalanceLabel);
     objCardDeposit->show();
     //after successfull deposit:
     //objCardDeposit closes
@@ -49,10 +50,10 @@ void AccountView::btnWithdrawButtonSlot()
     objCardWithdraw->show();
 }
 
-void AccountView::updateBalanceLabel(qint64 newBalance)
+void AccountView::updateBalanceLabel()
 {
-
+    qint64 balance = this->account->getBalance();
     ui->labelBalance->setText(
-        QString::number(newBalance / 100.0, 'f', 2)
+        QString::number(balance / 100.0, 'f', 2)
     );
 }

@@ -31,30 +31,13 @@ CardDepositWindow::~CardDepositWindow()
 
 void CardDepositWindow::btnDepositSlot()
 {
-    QString url = environment::base_url()+"api/account/"+account->getIdAccount()+"/deposit";
-    QNetworkRequest request(url);
-    QByteArray myToken = "Bearer " + AuthManager::instance()->getToken().toUtf8();
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    request.setRawHeader(QByteArray("Authorization"), (myToken));
-
     //check customers input
     bool ok;
     double amount = ui->textAmount->text().toDouble(&ok);
     if(!ok){
         ui->labelError->setText("virheellinen syöte");
     }else{
-        //Update balance
-        QString amountEur = ui->textAmount->text();
-        qint64 amountCents = qRound(amount * 100);
-        account->setBalance(amountCents + account->getBalance());
-
-        ui->labelError->setText("Add amount & description");
-        QJsonObject objDeposit;
-        objDeposit.insert("depositAmount", amount);
-        objDeposit.insert("description", ui->textDescription->text());
-
-        QJsonDocument jsonDepositDoc(objDeposit);
-        reply = manager->sendCustomRequest(request,"PATCH", jsonDepositDoc.toJson());
+        this->reply = this->account->balanceAction(amount, "deposit");
         connect(reply, &QNetworkReply::finished, this, &CardDepositWindow::depositActionSlot);
     }
 }
@@ -67,8 +50,8 @@ void CardDepositWindow::depositActionSlot()
 
     //close window and emit signal to update balance labels on successful deposit
     if(objJson["affectedRows"] == 1){
+        this->account->fetchAccountData();
         this->close();
-        emit balanceChanged(account->getBalance());
     }else{
         ui->labelError->setText("Jokin meni vikaan");
     }

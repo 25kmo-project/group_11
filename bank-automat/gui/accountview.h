@@ -27,7 +27,7 @@ private slots:
     void btnWithdrawButtonSlot();
 
 public slots:
-    void updateBalanceLabel(qint64 newBalance);
+    void updateBalanceLabel();
 
 };
 

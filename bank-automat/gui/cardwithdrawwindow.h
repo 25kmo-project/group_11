@@ -33,9 +33,6 @@ private slots:
     void confirmOtherWithdrawSlot();
     void cancelWithdrawSlot();
     void withdrawDoneSlot();
-
-signals:
-    void balanceChanged(qint64 newBalance);
 };
 
 #endif // CARDWITHDRAWWINDOW_H
