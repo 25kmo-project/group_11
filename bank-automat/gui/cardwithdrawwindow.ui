@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="amount_selection_page">
     <widget class="QWidget" name="layoutWidget">
@@ -233,7 +233,7 @@
           <set>Qt::AlignmentFlag::AlignCenter</set>
          </property>
         </widget>
-        <widget class="QLabel" name="availableBalance_2">
+        <widget class="QLabel" name="availableBalance">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -368,10 +368,13 @@
       </font>
      </property>
      <property name="text">
-      <string>Only 20€ and 50€ bills available</string>
+      <string>Only 20€ and 50€ bills available to withdraw</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QFrame" name="frame_2">
@@ -422,7 +425,7 @@
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="availableBalance">
+     <widget class="QLabel" name="availableBalance_2">
       <property name="geometry">
        <rect>
         <x>0</x>

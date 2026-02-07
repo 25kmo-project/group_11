@@ -2,6 +2,7 @@
 #define CARDWITHDRAWWINDOW_H
 
 #include <QDialog>
+#include <cmath>
 
 #include "../src/account.h"
 
@@ -24,11 +25,17 @@ private:
     Account *account;
     Ui::CardWithdrawWindow *ui;
 
+    QNetworkReply* reply;
+
 private slots:
     void clickedAmountSlot();
     void clickedOtherAmountSlot();
     void confirmOtherWithdrawSlot();
     void cancelWithdrawSlot();
+    void withdrawDoneSlot();
+
+signals:
+    void balanceChanged(qint64 newBalance);
 };
 
 #endif // CARDWITHDRAWWINDOW_H
