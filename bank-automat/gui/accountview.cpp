@@ -14,7 +14,7 @@ AccountView::AccountView(Account *newAccount, QWidget *parent)
     connect(ui->btnTestButton, &QPushButton::clicked, this, &AccountView::btnTestButtonSlot);
     connect(ui->btnDeposit, &QPushButton::clicked, this, &AccountView::btnDepositButtonSlot);
     connect(ui->btnWithdraw, &QPushButton::clicked, this, &AccountView::btnWithdrawButtonSlot);
-    connect(ui->btnShowTransactions, &QPushButton::clicked, this, &accountview::btnShowTransactionsSlot);
+    connect(ui->btnShowTransactions, &QPushButton::clicked, this, &AccountView::btnShowTransactionsSlot);
 
     ui->labelInfo->setText("Tervetuloa!");
     AccountView::updateBalanceLabel();
