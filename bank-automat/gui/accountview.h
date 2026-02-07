@@ -25,6 +25,7 @@ private slots:
     void btnTestButtonSlot();
     void btnDepositButtonSlot();
     void btnWithdrawButtonSlot();
+    void btnShowTransactionsSlot();
 
 public slots:
     void updateBalanceLabel();

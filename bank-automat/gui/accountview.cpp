@@ -2,6 +2,7 @@
 #include "ui_accountview.h"
 #include "carddepositwindow.h"
 #include "cardwithdrawwindow.h"
+#include "transactionview.h"
 
 AccountView::AccountView(Account *newAccount, QWidget *parent)
     : QDialog(parent)
@@ -9,9 +10,12 @@ AccountView::AccountView(Account *newAccount, QWidget *parent)
     , account(newAccount)
 {
     ui->setupUi(this);
+
     connect(ui->btnTestButton, &QPushButton::clicked, this, &AccountView::btnTestButtonSlot);
     connect(ui->btnDeposit, &QPushButton::clicked, this, &AccountView::btnDepositButtonSlot);
     connect(ui->btnWithdraw, &QPushButton::clicked, this, &AccountView::btnWithdrawButtonSlot);
+    connect(ui->btnShowTransactions, &QPushButton::clicked, this, &accountview::btnShowTransactionsSlot);
+
     ui->labelInfo->setText("Tervetuloa!");
     AccountView::updateBalanceLabel();
 
@@ -42,6 +46,12 @@ void AccountView::btnDepositButtonSlot()
     //objCardDeposit closes
     //Message for user
     ui->labelInfo->setText("Talletus onnistui!");
+}
+
+void AccountView::btnShowTransactionsSlot()
+{
+    TransactionView *objTransactionView = new TransactionView(account, this);
+    objTransactionView->show();
 }
 
 void AccountView::btnWithdrawButtonSlot()

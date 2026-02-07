@@ -94,6 +94,22 @@
    </property>
    <property name="text">
     <string>Withdraw</string>
+  <widget class="QPushButton" name="btnShowTransactions">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>330</y>
+     <width>141</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Transactions</string>
    </property>
   </widget>
  </widget>
