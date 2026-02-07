@@ -13,16 +13,24 @@ class accountview : public QDialog
     Q_OBJECT
 
 public:
-    explicit accountview(Account &newAccount, QWidget *parent = nullptr);
+    explicit accountview(Account *newAccount, QWidget *parent = nullptr);
     ~accountview();
 
 private:
     Ui::accountview *ui;
-    Account account;
+    Account *account;
 
 private slots:
     void btnTestButtonSlot();
+<<<<<<< HEAD
     void btnShowTransactions();
+=======
+    void btnDepositButtonSlot();
+
+public slots:
+    void updateBalanceLabel(qint64 newBalance);
+
+>>>>>>> main
 };
 
 #endif // ACCOUNTVIEW_H
