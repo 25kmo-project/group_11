@@ -16,14 +16,13 @@ public:
     explicit accountview(Account &newAccount, QWidget *parent = nullptr);
     ~accountview();
 
-
 private:
     Ui::accountview *ui;
     Account account;
 
 private slots:
     void btnTestButtonSlot();
-
+    void btnShowTransactions();
 };
 
 #endif // ACCOUNTVIEW_H

@@ -31,6 +31,24 @@
     <string>TEST</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="btnShowTransactions">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>330</y>
+     <width>201</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>show transaction</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
