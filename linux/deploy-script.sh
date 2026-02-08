@@ -10,8 +10,6 @@ echo "--------------------------------"
 cd $APP_DIR
 git fetch origin
 git checkout $BRANCH
-git pull origin $BRANCH
-chmod +x /home/ubuntu/group_11/linux/deploy-backend.sh
 npm install
 
 echo "--------------------------------"
