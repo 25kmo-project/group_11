@@ -21,6 +21,6 @@ jobs:
         script: |
           cd /home/ubuntu/group_11
           git pull origin backend-linux
-          chmod +x /home/ubuntu/group_11/linux/deploy-backend.sh
+          chmod +x /home/ubuntu/group_11/linux/deploy-script.sh
           cd /home/ubuntu/group_11/linux/
           ./deploy-script.sh
