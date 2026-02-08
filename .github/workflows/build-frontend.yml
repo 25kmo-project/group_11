@@ -13,8 +13,11 @@ permissions:
 jobs:
   build-and-release:
     runs-on: windows-latest
-
+    
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
     - name: Auto-increment version
       id: version
       shell: pwsh
@@ -39,9 +42,6 @@ jobs:
       run: |
         git tag v${{ steps.version.outputs.VERSION }}
         git push origin v${{ steps.version.outputs.VERSION }}
-
-    - name: Checkout code
-      uses: actions/checkout@v4
 
     - name: Get version from CMakeLists.txt
       id: get_version
