@@ -35,10 +35,13 @@ private:
     Ui::CardDepositWindow *ui;
     Account *account;
 
-
 private slots:
     void btnDepositSlot();
     void depositActionSlot();
+    void showLabelErrorSlot(QString text);
+
+signals:
+    void infoMessage(const QString &text);
 
 };
 

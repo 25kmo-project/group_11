@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>764</width>
-    <height>613</height>
+    <width>776</width>
+    <height>515</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>11</x>
      <y>11</y>
      <width>742</width>
-     <height>591</height>
+     <height>481</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -32,12 +32,12 @@
        <x>0</x>
        <y>0</y>
        <width>741</width>
-       <height>591</height>
+       <height>481</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="5" column="2">
-       <widget class="QPushButton" name="button40">
+      <item row="7" column="0">
+       <widget class="QPushButton" name="button50">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -56,14 +56,38 @@
          </font>
         </property>
         <property name="text">
-         <string>40€</string>
+         <string>50€</string>
         </property>
         <property name="value" stdset="0">
-         <double>40.000000000000000</double>
+         <double>50.000000000000000</double>
         </property>
        </widget>
       </item>
-      <item row="6" column="2">
+      <item row="12" column="0">
+       <widget class="QPushButton" name="buttonOther">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Other amount</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="2">
        <widget class="QPushButton" name="button100">
         <property name="minimumSize">
          <size>
@@ -90,7 +114,58 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
+      <item row="12" column="2">
+       <widget class="QPushButton" name="buttonCancel">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Cancel withdraw</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QPushButton" name="button20">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>20€</string>
+        </property>
+        <property name="value" stdset="0">
+         <double>20.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
        <widget class="QFrame" name="frame">
         <property name="maximumSize">
          <size>
@@ -125,7 +200,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Select amount to withdraw</string>
+          <string>Select amount</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -179,8 +254,29 @@
         </widget>
        </widget>
       </item>
-      <item row="5" column="0">
-       <widget class="QPushButton" name="button20">
+      <item row="0" column="1">
+       <widget class="QLabel" name="title_2">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>WITHDRAW</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="2">
+       <widget class="QPushButton" name="button40">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -199,85 +295,10 @@
          </font>
         </property>
         <property name="text">
-         <string>20€</string>
+         <string>40€</string>
         </property>
         <property name="value" stdset="0">
-         <double>20.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="2">
-       <widget class="QPushButton" name="buttonCancel">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>70</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Cancel withdraw</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <widget class="QPushButton" name="button50">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>70</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>50€</string>
-        </property>
-        <property name="value" stdset="0">
-         <double>50.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="0">
-       <widget class="QPushButton" name="buttonOther">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>70</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Other amount</string>
+         <double>40.000000000000000</double>
         </property>
        </widget>
       </item>

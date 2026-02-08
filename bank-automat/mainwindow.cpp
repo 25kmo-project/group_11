@@ -50,7 +50,7 @@ void MainWindow::loginActionSlot()
 
     // Check are backend up
     if (reply->error() != QNetworkReply::NoError) {
-        qDebug()<< "Tarkista backend";
+        qDebug()<< "Check backend";
         ui->labelInfo->setText("Yhteysvirhe");
         ui->labelInfo->show();
 
@@ -79,24 +79,12 @@ void MainWindow::loginActionSlot()
 
         // If card locked
         if(jsonObject.value("message").toString()== "Liian monta kirjautumisyritystä, tunnus on lukittu.") {
-            ui->labelInfo->setText("Tunnus lukittu");
-            ui->labelInfo->show();
-
-            //Timer for labelInfo
-            QTimer::singleShot(4000, this, [this]() {
-                ui->labelInfo->clear();
-            });
+            MainWindow::showInfoLabelSlot("Card locked");
         }
 
         // If PIN or Idcard doesnt have input or do not match
         else if (!jsonObject.contains("token")) {
-            ui->labelInfo->setText("Idcard ja PIN eivät täsmää.");
-            ui->labelInfo->show();
-
-            // Timer for labelInfo
-            QTimer::singleShot(4000, this, [this]() {
-                ui->labelInfo->clear();
-            });
+            MainWindow::showInfoLabelSlot("ID card and PIN do not match.");
         }
 
         // If responseData have token -> Login is successful
@@ -161,3 +149,13 @@ void MainWindow::handleAccountsResponse()
     reply->deleteLater();
     }
 }
+
+
+void MainWindow::showInfoLabelSlot(QString text)
+{
+    ui->labelInfo->setText(text);
+    QTimer::singleShot(4000,this,[this]() {
+        ui->labelInfo->clear();
+    });
+}
+

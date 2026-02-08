@@ -16,7 +16,6 @@ public:
     explicit AccountView(Account *newAccount, QWidget *parent = nullptr);
     ~AccountView();
 
-
 private:
     Ui::AccountView *ui;
     Account *account;
@@ -28,6 +27,7 @@ private slots:
     void btnShowTransactionsSlot();
 
 public slots:
+    void showInfoLabelSlot(const QString &text);
     void updateBalanceLabel();
 
 };

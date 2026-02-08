@@ -33,6 +33,7 @@ private slots:
     void btnLoginSlot();
     void loginActionSlot();
     void handleAccountsResponse();
+    void showInfoLabelSlot(QString text);
 };
 
 #endif // MAINWINDOW_H
