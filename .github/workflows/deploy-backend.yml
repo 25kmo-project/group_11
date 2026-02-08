@@ -2,9 +2,19 @@ name: Deploy backend
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, backend-linux ]
+    paths:
+    - '.github/**'
+    - 'linux/**'
+    - 'backend/**'
+
   pull_request: 
     branches: [ main ]
+  paths:
+    - '.github/**'
+    - 'linux/**'
+    - 'backend/**'
+
 
 jobs:
   deploy:
