@@ -41,7 +41,6 @@ void CardWithdrawWindow::clickedAmountSlot() {
 
     this->reply = this->account->balanceAction(amount, "withdraw");
     connect(this->reply, &QNetworkReply::finished, this, &CardWithdrawWindow::withdrawDoneSlot);
-    this->close();
 }
 
 void CardWithdrawWindow::clickedOtherAmountSlot() {
@@ -49,14 +48,20 @@ void CardWithdrawWindow::clickedOtherAmountSlot() {
 }
 
 void CardWithdrawWindow::confirmOtherWithdrawSlot() {
-    double amount = ui->amountLineEdit->text().toDouble();
+    bool validInput;
+    int amount = ui->amountLineEdit->text().toInt(&validInput);
+
+    if (!validInput) {
+        ui->errorLabel_2->setText(QString("Please enter a valid number. "));
+        return;
+    }
 
     int fiftyEuroBills = std::floor(amount / 50);
     while(fiftyEuroBills >= 0) {
         int remainder = amount - fiftyEuroBills * 50;
 
         if (remainder % 20 == 0) {
-            this->reply = this->account->balanceAction(amount, "withdraw");
+            this->reply = this->account->balanceAction(double(amount), "withdraw");
             connect(this->reply, &QNetworkReply::finished, this, &CardWithdrawWindow::withdrawDoneSlot);
             return;
         }
@@ -64,7 +69,7 @@ void CardWithdrawWindow::confirmOtherWithdrawSlot() {
         fiftyEuroBills--;
     }
 
-    ui->errorLabel->setText(QString("Unable to withdraw specified amount with 50€ and 20€ bills. "));
+    ui->errorLabel_2->setText(QString("Unable to withdraw specified amount with 50€ and 20€ bills. "));
 }
 
 void CardWithdrawWindow::cancelWithdrawSlot() {
@@ -75,11 +80,14 @@ void CardWithdrawWindow::withdrawDoneSlot() {
     QByteArray responseData = this->reply->readAll();
     QJsonDocument jsonDoc = QJsonDocument::fromJson(responseData);
     QJsonObject objJson = jsonDoc.object();
-    qDebug() << objJson;
 
     int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if (statusCode == 403) {
-        ui->errorLabel->setText(QString("Unable to withdraw more than available balance, please enter a valid amount. "));
+        ui->errorLabel->setText(QString("Unable to withdraw more than available balance, please choose another amount."));
+        ui->errorLabel_2->setText(QString("Unable to withdraw more than available balance, please enter a valid amount."));
+        return;
+    } else if (statusCode != 200) {
+        ui->errorLabel->setText(QString("Something went wrong while withdrawing."));
         return;
     }
 
