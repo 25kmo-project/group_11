@@ -16,7 +16,7 @@ npm install
 
 echo "*********************************"
 echo "update & upgrade"
-echo "*********************************"
+echo "********************************* "
 sudo apt update -y
 sudo apt upgrade -y
 
