@@ -31,6 +31,8 @@ public:
     void setCreditLimit(int newCreditLimit);
     void setBalance(int newBalance);
 
+    QNetworkReply* balanceAction(double amount, QString actionType);
+
 private:
     QNetworkAccessManager *manager;
     QNetworkReply *reply;
@@ -43,6 +45,9 @@ private:
 
 private slots:
     void accountDataSlot();
+
+signals:
+    void balanceChanged();
 };
 
 #endif // ACCOUNT_H

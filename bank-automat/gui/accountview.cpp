@@ -1,25 +1,33 @@
 #include "accountview.h"
 #include "ui_accountview.h"
 #include "carddepositwindow.h"
+#include "cardwithdrawwindow.h"
+#include "transactionview.h"
 
-accountview::accountview(Account *newAccount, QWidget *parent)
+AccountView::AccountView(Account *newAccount, QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::accountview)
+    , ui(new Ui::AccountView)
     , account(newAccount)
 {
     ui->setupUi(this);
-    connect(ui->btnTestButton, &QPushButton::clicked, this, &accountview::btnTestButtonSlot);
-    connect(ui->btnDeposit, &QPushButton::clicked, this, &accountview::btnDepositButtonSlot);
+
+    connect(ui->btnTestButton, &QPushButton::clicked, this, &AccountView::btnTestButtonSlot);
+    connect(ui->btnDeposit, &QPushButton::clicked, this, &AccountView::btnDepositButtonSlot);
+    connect(ui->btnWithdraw, &QPushButton::clicked, this, &AccountView::btnWithdrawButtonSlot);
+    connect(ui->btnShowTransactions, &QPushButton::clicked, this, &AccountView::btnShowTransactionsSlot);
+
     ui->labelInfo->setText("Tervetuloa!");
-    accountview::updateBalanceLabel(account->getBalance());
+    AccountView::updateBalanceLabel();
+
+    connect(account, &Account::balanceChanged, this, &AccountView::updateBalanceLabel);
 }
 
-accountview::~accountview()
+AccountView::~AccountView()
 {
     delete ui;
 }
 
-void accountview::btnTestButtonSlot()
+void AccountView::btnTestButtonSlot()
 {
     qDebug() << "Account ID:" << account->getIdAccount();
     qDebug() << "Owner ID:" << account->getIdOwner();
@@ -28,12 +36,11 @@ void accountview::btnTestButtonSlot()
     qDebug() << "Type:" << account->getAccountType();
 }
 
-void accountview::btnDepositButtonSlot()
+void AccountView::btnDepositButtonSlot()
 {
     //on deposit clicked, deposit window opens
     CardDepositWindow *objCardDeposit = new CardDepositWindow(account, this);
     //connect signal and balance update function
-    connect(objCardDeposit, &CardDepositWindow::balanceChanged, this, &accountview::updateBalanceLabel);
     objCardDeposit->show();
     //after successfull deposit:
     //objCardDeposit closes
@@ -41,10 +48,22 @@ void accountview::btnDepositButtonSlot()
     ui->labelInfo->setText("Talletus onnistui!");
 }
 
-void accountview::updateBalanceLabel(qint64 newBalance)
+void AccountView::btnShowTransactionsSlot()
 {
+    TransactionView *objTransactionView = new TransactionView(account, this);
+    objTransactionView->show();
+}
 
+void AccountView::btnWithdrawButtonSlot()
+{
+    CardWithdrawWindow *objCardWithdraw = new CardWithdrawWindow(account, this);
+    objCardWithdraw->show();
+}
+
+void AccountView::updateBalanceLabel()
+{
+    qint64 balance = this->account->getBalance();
     ui->labelBalance->setText(
-        QString::number(newBalance / 100.0, 'f', 2)
-        );
+        QString::number(balance / 100.0, 'f', 2)
+    );
 }

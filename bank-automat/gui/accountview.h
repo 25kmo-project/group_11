@@ -5,28 +5,30 @@
 #include "../src/account.h"
 
 namespace Ui {
-class accountview;
+class AccountView;
 }
 
-class accountview : public QDialog
+class AccountView : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit accountview(Account *newAccount, QWidget *parent = nullptr);
-    ~accountview();
+    explicit AccountView(Account *newAccount, QWidget *parent = nullptr);
+    ~AccountView();
 
 
 private:
-    Ui::accountview *ui;
+    Ui::AccountView *ui;
     Account *account;
 
 private slots:
     void btnTestButtonSlot();
     void btnDepositButtonSlot();
+    void btnWithdrawButtonSlot();
+    void btnShowTransactionsSlot();
 
 public slots:
-    void updateBalanceLabel(qint64 newBalance);
+    void updateBalanceLabel();
 
 };
 

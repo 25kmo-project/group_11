@@ -88,9 +88,10 @@ router.delete('/:idaccount', function(request, response) {
 router.patch('/:idaccount/withdraw', function(request, response){
     const newTransaction = {
         idaccount: request.params.idaccount, 
-        amount: request.body.withdrawAmount,
+        amount: -request.body.withdrawAmount,
         date: new Date(), 
-        description: request.body.description};
+        description: request.body.description
+    };
     //call prosedure withdraw
     card_actions.withdraw(request.params.idaccount, request.body.withdrawAmount, function(err, result){
         if(err){

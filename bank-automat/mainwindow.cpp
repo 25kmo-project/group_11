@@ -154,7 +154,7 @@ void MainWindow::handleAccountsResponse()
             objCardSelectionView->show();
         // If one account -> Open accountview
         } else {
-            accountview *objAccountView = new accountview(accounts[0], this);
+            AccountView *objAccountView = new AccountView(accounts[0], this);
             objAccountView->show();
         }
 
