@@ -15,6 +15,31 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    - name: Auto-increment version
+      id: version
+      shell: pwsh
+      run: |
+        git fetch --tags
+
+        $latestTag = git tag --list "v*" --sort=-v:refname | Select-Object -First 1
+        if (-not $latestTag) {
+          $version = "1.0.0"
+        } else {
+          $latestTag -match 'v(\d+)\.(\d+)\.(\d+)' | Out-Null
+          $major = [int]$matches[1]
+          $minor = [int]$matches[2]
+          $patch = [int]$matches[3] + 1
+          $version = "$major.$minor.$patch"
+        }
+
+        echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+        echo "New version: $version"
+
+    - name: Create git tag
+      run: |
+        git tag v${{ steps.version.outputs.VERSION }}
+        git push origin v${{ steps.version.outputs.VERSION }}
+
     - name: Checkout code
       uses: actions/checkout@v4
 
@@ -64,12 +89,18 @@ jobs:
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: v${{ steps.get_version.outputs.VERSION }}
-        name: Bank-automat v${{ steps.get_version.outputs.VERSION }}
+        tag_name: v${{ steps.version.outputs.VERSION }}
+        name: Bank-automat v${{ steps.version.outputs.VERSION }}
         body: |
           ## Bank-automat v${{ steps.get_version.outputs.VERSION }}
 
+          To install, download Bank-Automat-Setup.exe and run it.
+
+          ---
+          Created using Github Actions
+          
+
         files: |
-          bank-automat/output/PeppiSetup.exe
+          bank-automat/output/Bank-Automat-Setup.exe
         draft: false
         prerelease: false
