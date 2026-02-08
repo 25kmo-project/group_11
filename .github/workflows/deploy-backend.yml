@@ -3,7 +3,7 @@ name: Deploy backend
 on:
   push:
     branches: [ main, backend-linux ]
-  pull-request: 
+  pull_request: 
     branches: [ main ]
 
 jobs:
