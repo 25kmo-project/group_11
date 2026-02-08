@@ -2,7 +2,7 @@ echo
 
 APP_DIR="/home/ubuntu/group_11/backend"
 APP_NAME="app.js"
-BRANCH="backend-linux"
+BRANCH="main"
 
 echo "--------------------------------"
 echo "git pull..."

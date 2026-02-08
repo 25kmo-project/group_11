@@ -2,7 +2,7 @@ name: Deploy backend
 
 on:
   push:
-    branches: [ main, backend-linux ]
+    branches: [ main ]
   pull_request: 
     branches: [ main ]
 
@@ -20,7 +20,7 @@ jobs:
         key: ${{ secrets.SERVER_SSH}}
         script: |
           cd /home/ubuntu/group_11
-          git pull origin backend-linux
+          git pull origin main
           chmod +x /home/ubuntu/group_11/linux/deploy-script.sh
           cd /home/ubuntu/group_11/linux/
           ./deploy-script.sh
