@@ -24,6 +24,19 @@ MainWindow::~MainWindow()
 
 void MainWindow::btnLoginSlot()
 {
+    // Check that the ID and PIN code fields are not empty
+    if (ui->textCardId->text() == "" || ui->textPin->text() == "") {
+        ui->labelError->setText(QString("Card ID or PIN code cannot be empty."));
+        ui->labelError->show();
+
+        //Timer for labelError
+        QTimer::singleShot(4000, this, [this]() {
+            ui->labelError->clear();
+        });
+
+        return;
+    }
+
     // Set request url and header
     QString url = environment::base_url() + "api/login/";
     QNetworkRequest request(url);
@@ -40,87 +53,61 @@ void MainWindow::btnLoginSlot()
 
     // Create QJsonDocument and post request
     QJsonDocument jsonLoginDoc(loginObject);
-    reply= manager->post(request, jsonLoginDoc.toJson());
+    reply = manager->post(request, jsonLoginDoc.toJson());
     connect(reply, &QNetworkReply::finished, this, &MainWindow::loginActionSlot);
 }
 
 void MainWindow::loginActionSlot()
 {
-    QByteArray responseData = reply->readAll();
-
-    // Check are backend up
-    if (reply->error() != QNetworkReply::NoError) {
-        qDebug()<< "Tarkista backend";
-        ui->labelInfo->setText("Yhteysvirhe");
-        ui->labelInfo->show();
-
-        //Timer for labelInfo
-        QTimer::singleShot(4000, this, [this]() {
-            ui->labelInfo->clear();
-        });
+    // Check for errors
+    int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    qDebug() << statusCode;
+    switch (statusCode) {
+        case 0:
+            showError("Connection error, try again later.");
+            return;
+            break;
+        case 403:
+            showError("Too many failed login attemps, card has been locked.");
+            return;
+            break;
+        case 404:
+            showError("ID and PIN do not match any cards.");
+            return;
+            break;
+        case 500:
+            showError("A server error has occurred, try again later.");
+            return;
+            break;
     }
 
-    // If cardID or PIN is empty
-    if (responseData.length()==1) {
-        QJsonDocument jsonDoc = QJsonDocument::fromJson(responseData);
-        QJsonObject jsonObject = jsonDoc.object();
-        ui->labelInfo->setText(jsonObject.value("message").toString());
-        ui->labelInfo->show();
+    QByteArray responseData = reply->readAll();
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(responseData);
+    QJsonObject jsonObject = jsonDoc.object();
 
-        //Timer for labelInfo
-        QTimer::singleShot(4000, this, [this]() {
-            ui->labelInfo->clear();
-        });
+    // If responseData have token -> Login is successful
+    if (jsonObject.contains("token")) {
+        // Type conversion
+        QString token = jsonObject["token"].toString();
+        QByteArray tokenBytes = token.toUtf8();
+        QByteArray idcard = jsonObject["idcard"].toString().toUtf8();
 
-    // If backend is up, then check CardID & PIN
+        // Set token to AuthManager to usable easier elsewhere
+        AuthManager::instance()->setToken(tokenBytes);
+
+        // URL to get card accounts
+        QString url = environment::base_url() + "api/card/" + idcard + "/accounts/";
+        QNetworkRequest request(url);
+
+        //WEB TOKEN START
+        QByteArray myToken = "Bearer " + AuthManager::instance()->getToken().toUtf8();
+        request.setRawHeader(QByteArray("Authorization"),(myToken));
+        //WEB TOKEN END
+
+        reply = manager->get(request);
+        connect(reply, &QNetworkReply::finished, this, &MainWindow::handleAccountsResponse);
     } else {
-        QJsonDocument jsonDoc = QJsonDocument::fromJson(responseData);
-        QJsonObject jsonObject = jsonDoc.object();
-
-        // If card locked
-        if(jsonObject.value("message").toString()== "Liian monta kirjautumisyritystä, tunnus on lukittu.") {
-            ui->labelInfo->setText("Tunnus lukittu");
-            ui->labelInfo->show();
-
-            //Timer for labelInfo
-            QTimer::singleShot(4000, this, [this]() {
-                ui->labelInfo->clear();
-            });
-        }
-
-        // If PIN or Idcard doesnt have input or do not match
-        else if (!jsonObject.contains("token")) {
-            ui->labelInfo->setText("Idcard ja PIN eivät täsmää.");
-            ui->labelInfo->show();
-
-            // Timer for labelInfo
-            QTimer::singleShot(4000, this, [this]() {
-                ui->labelInfo->clear();
-            });
-        }
-
-        // If responseData have token -> Login is successful
-        if (jsonObject.contains("token")) {
-            // Type conversion
-            QString token = jsonObject["token"].toString();
-            QByteArray tokenBytes = token.toUtf8();
-            QByteArray idcard = jsonObject["idcard"].toString().toUtf8();
-
-            // Set token to AuthManager to usable easier elsewhere
-            AuthManager::instance()->setToken(tokenBytes);
-
-            // URL to get card accounts
-            QString url = environment::base_url() + "api/card/" + idcard + "/accounts/";
-            QNetworkRequest request(url);
-
-            //WEB TOKEN START
-            QByteArray myToken = "Bearer " + AuthManager::instance()->getToken().toUtf8();
-            request.setRawHeader(QByteArray("Authorization"),(myToken));
-            //WEB TOKEN END
-
-            reply = manager->get(request);
-            connect(reply, &QNetworkReply::finished, this, &MainWindow::handleAccountsResponse);
-        }
+        showError("Something went wrong.");
     }
 }
 
@@ -160,4 +147,14 @@ void MainWindow::handleAccountsResponse()
 
     reply->deleteLater();
     }
+}
+
+void MainWindow::showError(QString message) {
+    ui->labelError->setText(message);
+    ui->labelError->show();
+
+    //Timer for labelError
+    QTimer::singleShot(4000, this, [this]() {
+        ui->labelError->clear();
+    });
 }

@@ -28,6 +28,7 @@ private:
     Ui::MainWindow *ui;
     QNetworkAccessManager *manager;
     QNetworkReply *reply;
+    void showError(QString message);
 
 private slots:
     void btnLoginSlot();
