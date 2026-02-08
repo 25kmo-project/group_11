@@ -15,6 +15,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     connect(ui->btnLogin, &QPushButton::clicked, this, &MainWindow::btnLoginSlot);
     manager = new QNetworkAccessManager(this);
+
+    // QTimer *timeoutTimer = new QTimer(this);
+    // timeoutTimer->setInterval(5000);
+    // timeoutTimer->setSingleShot(true);
 }
 
 MainWindow::~MainWindow()
