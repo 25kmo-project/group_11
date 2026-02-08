@@ -37,7 +37,29 @@ void Account::accountDataSlot() {
     this->accountType = obj["account_type"].toString();
     this->idOwner = obj["idowner"].toInt();
 
+    emit balanceChanged();
+
     reply->deleteLater();
+}
+
+QNetworkReply* Account::balanceAction(double amount, QString actionType) {
+    QString url = environment::base_url() + "api/account/" + this->idAccount + "/" + actionType;
+    QNetworkRequest request(url);
+    QByteArray myToken = "Bearer " + AuthManager::instance()->getToken().toUtf8();
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    request.setRawHeader(QByteArray("Authorization"), (myToken));
+
+    QJsonObject obj;
+    if (actionType == "deposit") {
+        obj.insert("depositAmount", amount);
+        obj.insert("description", "ATM deposit");
+    } else if (actionType == "withdraw") {
+        obj.insert("withdrawAmount", amount);
+        obj.insert("description", "ATM withdraw");
+    }
+    QJsonDocument jsonDepositDoc(obj);
+
+    return manager->sendCustomRequest(request, "PATCH", jsonDepositDoc.toJson());
 }
 
 QString Account::getIdAccount() const

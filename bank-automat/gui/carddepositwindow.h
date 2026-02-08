@@ -40,9 +40,6 @@ private slots:
     void btnDepositSlot();
     void depositActionSlot();
 
-signals:
-    void balanceChanged(qint64 newBalance);
-
 };
 
 #endif // CARDDEPOSITWINDOW_H
