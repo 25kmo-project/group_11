@@ -13,7 +13,7 @@ permissions:
 jobs:
   build-and-release:
     runs-on: windows-latest
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -92,7 +92,7 @@ jobs:
         tag_name: v${{ steps.version.outputs.VERSION }}
         name: Bank-automat v${{ steps.version.outputs.VERSION }}
         body: |
-          ## Bank-automat v${{ steps.get_version.outputs.VERSION }}
+          ## Bank-automat v${{ steps.version.outputs.VERSION }}
 
           To install, download Bank-Automat-Setup.exe and run it.
 
