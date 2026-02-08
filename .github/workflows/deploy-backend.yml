@@ -4,16 +4,16 @@ on:
   push:
     branches: [ main, backend-linux ]
     paths:
-    - '.github/**'
-    - 'linux/**'
-    - 'backend/**'
+      - '.github/**'
+      - 'linux/**'
+      - 'backend/**'
 
   pull_request: 
     branches: [ main ]
-  paths:
-    - '.github/**'
-    - 'linux/**'
-    - 'backend/**'
+    paths:
+      - '.github/**'
+      - 'linux/**'
+      - 'backend/**'
 
 
 jobs:
