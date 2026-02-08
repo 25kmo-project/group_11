@@ -19,5 +19,7 @@ jobs:
         username: ${{ secrets.SERVER_USER}}
         key: ${{ secrets.SERVER_SSH}}
         script: |
+          cd /home/ubuntu/group_11
+          git pull origin backend-linux
           cd /home/ubuntu/group_11/linux/
           ./deploy-script.sh
