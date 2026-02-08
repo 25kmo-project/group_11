@@ -1,0 +1,9 @@
+C:/GIT_Repositoryt/group_11/admin-app/build/CMakeFiles/admin-app.dir
+C:/GIT_Repositoryt/group_11/admin-app/build/CMakeFiles/edit_cache.dir
+C:/GIT_Repositoryt/group_11/admin-app/build/CMakeFiles/rebuild_cache.dir
+C:/GIT_Repositoryt/group_11/admin-app/build/CMakeFiles/list_install_components.dir
+C:/GIT_Repositoryt/group_11/admin-app/build/CMakeFiles/install.dir
+C:/GIT_Repositoryt/group_11/admin-app/build/CMakeFiles/install/local.dir
+C:/GIT_Repositoryt/group_11/admin-app/build/CMakeFiles/install/strip.dir
+C:/GIT_Repositoryt/group_11/admin-app/build/CMakeFiles/admin-app_autogen_timestamp_deps.dir
+C:/GIT_Repositoryt/group_11/admin-app/build/CMakeFiles/admin-app_autogen.dir

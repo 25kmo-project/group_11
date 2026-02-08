@@ -1,0 +1,23 @@
+# ninja log v6
+16	3466	7922442569640999	admin-app_autogen/timestamp	4c47edc07bf1f6d2
+16	3466	7922442569640999	admin-app_autogen/mocs_compilation.cpp	4c47edc07bf1f6d2
+16	3466	7922442569640999	C:/GIT_Repositoryt/group_11/admin-app/build/admin-app_autogen/timestamp	4c47edc07bf1f6d2
+16	3466	7922442569640999	C:/GIT_Repositoryt/group_11/admin-app/build/admin-app_autogen/mocs_compilation.cpp	4c47edc07bf1f6d2
+3480	3592	7922442572439751	qrc_resources.cpp	e720f14cf7588e7b
+3480	3592	7922442572439751	C:/GIT_Repositoryt/group_11/admin-app/build/qrc_resources.cpp	e720f14cf7588e7b
+3612	7457	7922442572782835	CMakeFiles/admin-app.dir/environment.cpp.obj	2825e9ea51fdf555
+3605	12320	7922442572728393	CMakeFiles/admin-app.dir/mainwindow.cpp.obj	35f3a06a790de07c
+7459	12359	7922442611263555	CMakeFiles/admin-app.dir/src/authmanager.cpp.obj	1bc5ba629de69ff
+3635	12638	7922442573021221	CMakeFiles/admin-app.dir/gui/addcustomermenu.cpp.obj	f0bf56e395d23592
+3592	13051	7922442572592187	CMakeFiles/admin-app.dir/admin-app_autogen/mocs_compilation.cpp.obj	dea94975cbde22fb
+3619	13160	7922442572863352	CMakeFiles/admin-app.dir/gui/adminmenu.cpp.obj	2136dc624676eb94
+13051	13449	7922442667186257	CMakeFiles/admin-app.dir/qrc_resources.cpp.obj	ccb90fa5f5722bfa
+3626	13875	7922442572935320	CMakeFiles/admin-app.dir/gui/customersmenu.cpp.obj	c848474e18529278
+3653	14510	7922442573192775	CMakeFiles/admin-app.dir/gui/addaccountmenu.cpp.obj	f74ec6b19f0f66e5
+3599	14936	7922442572657550	CMakeFiles/admin-app.dir/main.cpp.obj	91b7653de2581dc
+3642	15124	7922442573094554	CMakeFiles/admin-app.dir/gui/accountsmenu.cpp.obj	bcf903e3351365a4
+3659	15312	7922442573253403	CMakeFiles/admin-app.dir/gui/cardsmenu.cpp.obj	f25b348cdab9189f
+12359	17324	7922442660267375	CMakeFiles/admin-app.dir/src/customer.cpp.obj	e5b6b1e864f1e641
+12321	17346	7922442659879633	CMakeFiles/admin-app.dir/src/account.cpp.obj	9a1e2861c6bc5004
+12638	17419	7922442663060216	CMakeFiles/admin-app.dir/src/card.cpp.obj	c06ebd5f148e7829
+17420	18645	7922442710873415	admin-app.exe	34a63b0f2fab8802
