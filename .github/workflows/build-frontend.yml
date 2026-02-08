@@ -1,0 +1,105 @@
+name: Build frontend
+
+on:
+  push:
+    branches: [ frontend_cicd ]
+    paths:
+      - 'bank-automat/**'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Auto-increment version
+      id: version
+      shell: pwsh
+      run: |
+        git fetch --tags
+
+        $latestTag = git tag --list "v*" --sort=-v:refname | Select-Object -First 1
+        if (-not $latestTag) {
+          $version = "1.0.0"
+        } else {
+          $latestTag -match 'v(\d+)\.(\d+)\.(\d+)' | Out-Null
+          $major = [int]$matches[1]
+          $minor = [int]$matches[2]
+          $patch = [int]$matches[3] + 1
+          $version = "$major.$minor.$patch"
+        }
+
+        echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+        echo "New version: $version"
+
+    - name: Create git tag
+      run: |
+        git tag v${{ steps.version.outputs.VERSION }}
+        git push origin v${{ steps.version.outputs.VERSION }}
+
+    - name: Get version from CMakeLists.txt
+      id: get_version
+      run: |
+        $version = Select-String -Path "bank-automat/CMakeLists.txt" -Pattern 'project\(bank-automat VERSION ([0-9.]+)\)' | ForEach-Object { $_.Matches.Groups[1].Value }
+        if (-not $version) {
+          $version = "1.0.0"
+        }
+        echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+        echo "Version: $version"
+      shell: pwsh
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: '6.9.1'
+        host: 'windows'
+        target: 'desktop'
+        arch: 'win64_msvc2022_64'
+        modules: 'qtnetworkauth'
+
+    - name: Configure CMake
+      run: |
+        call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+        cmake -B bank-automat/build -S bank-automat -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="${{ env.QT_ROOT_DIR }}"
+      shell: cmd
+
+    - name: Build
+      run: |
+        call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+        cmake --build bank-automat/build
+      shell: cmd
+
+    - name: Deploy Qt dependencies
+      run: windeployqt bank-automat/build/bank-automat.exe --release
+
+    - name: Install Inno Setup
+      run: |
+        choco install innosetup -y
+        refreshenv
+
+    - name: Create installer
+      run: iscc bank-automat/bank-automat.iss
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ steps.version.outputs.VERSION }}
+        name: Bank-automat v${{ steps.version.outputs.VERSION }}
+        body: |
+          ## Bank-automat v${{ steps.version.outputs.VERSION }}
+
+          To install, download Bank-Automat-Setup.exe and run it.
+
+          ---
+          Created using Github Actions
+          
+
+        files: |
+          bank-automat/output/Bank-Automat-Setup.exe
+        draft: false
+        prerelease: false
