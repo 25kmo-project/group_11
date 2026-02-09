@@ -2,11 +2,7 @@
 #include "./ui_mainwindow.h"
 #include "environment.h"
 #include "src/authmanager.h"
-#include "src/account.h"
-#include "gui/noaccountsview.h"
 #include "gui/accountview.h"
-#include "gui/cardselectiondialog.h"
-
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,6 +10,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     connect(ui->btnLogin, &QPushButton::clicked, this, &MainWindow::btnLoginSlot);
+    connect(ui->btnDebit, &QPushButton::clicked, this, &MainWindow::chooseAccountSlot);
+    connect(ui->btnCredit, &QPushButton::clicked, this, &MainWindow::chooseAccountSlot);
+    connect(ui->btnLogout, &QPushButton::clicked, this, &MainWindow::logoutSlot);
     manager = new QNetworkAccessManager(this);
 }
 
@@ -26,14 +25,7 @@ void MainWindow::btnLoginSlot()
 {
     // Check that the ID and PIN code fields are not empty
     if (ui->textCardId->text() == "" || ui->textPin->text() == "") {
-        ui->labelError->setText(QString("Card ID or PIN code cannot be empty."));
-        ui->labelError->show();
-
-        //Timer for labelError
-        QTimer::singleShot(4000, this, [this]() {
-            ui->labelError->clear();
-        });
-
+        showError("Card ID or PIN code cannot be empty.");
         return;
     }
 
@@ -117,36 +109,50 @@ void MainWindow::handleAccountsResponse()
     QJsonDocument jsonCardDoc = QJsonDocument::fromJson(responseData);
     QJsonArray cardAccounts = jsonCardDoc.array();
 
-    // Account is a QObject so a pointer is needed since QObjects cannot be moved or copied
-    QVector<Account*> accounts;
-
     // If no accounts -> Show noAccountView
     if (cardAccounts.size() == 0) {
-        noaccountsview *objNoAccountsView = new noaccountsview(this);
-        objNoAccountsView->show();
-    } else {
-        // Create every account account-class and add it to accounts QVector
-        for (const auto &account : cardAccounts) {
-            QJsonObject obj = account.toObject();
+        ui->stackedWidget->setCurrentIndex(1);
+        ui->frameAccounts->hide();
+        ui->lblNoAccounts->show();
+        return;
+    }
 
-            QString idAccount = obj["idaccount"].toString();
-            Account *acc = new Account(idAccount, this);
+    for (const auto &account : cardAccounts) {
+        QJsonObject obj = account.toObject();
 
-            // Add account to accounts to QVecotr
-            accounts.append(acc);
-        }
-        // If two accounts -> Then selecting view
-        if (accounts.size() == 2){
-            cardselectiondialog *objCardSelectionView = new cardselectiondialog(accounts,this);
-            objCardSelectionView->show();
-        // If one account -> Open accountview
-        } else {
-            AccountView *objAccountView = new AccountView(accounts[0], this);
-            objAccountView->show();
-        }
+        // Insert values into QMap (resembles JSON), where the key is the account type and the value for the key is the account's ID
+        this->accounts.insert(obj["account_type"].toString(), obj["idaccount"].toString());
+    }
+
+    if (cardAccounts.size() == 1) {
+        // Get first value from accounts and create AccountView with it
+        QString key = this->accounts.firstKey();
+        AccountView *objAccountView = new AccountView(this->accounts.value(key), this);
+        objAccountView->show();
+    } else if (cardAccounts.size() == 2) {
+        // If card has two accounts, change to card selection page (index 1)
+        ui->stackedWidget->setCurrentIndex(1);
+        ui->lblNoAccounts->hide();
+        ui->frameAccounts->show();
+    }
 
     reply->deleteLater();
-    }
+}
+
+void MainWindow::chooseAccountSlot() {
+    QString buttonAccountType = sender()->property("accountType").toString();
+
+    AccountView *objAccountView = new AccountView(this->accounts.value(buttonAccountType), this);
+    objAccountView->show();
+
+    // After AccountView has been created with selected account, clear QMap and return MainWindow back to login screen
+    this->accounts.clear();
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::logoutSlot() {
+    AuthManager::instance()->clearToken();
+    ui->stackedWidget->setCurrentIndex(0);
 }
 
 void MainWindow::showError(QString message) {

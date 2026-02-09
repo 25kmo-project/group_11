@@ -13,7 +13,7 @@ class AccountView : public QDialog
     Q_OBJECT
 
 public:
-    explicit AccountView(Account *newAccount, QWidget *parent = nullptr);
+    explicit AccountView(QString newAccountId, QWidget *parent = nullptr);
     ~AccountView();
 
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>631</width>
-    <height>571</height>
+    <width>633</width>
+    <height>590</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>0</x>
       <y>90</y>
       <width>631</width>
-      <height>391</height>
+      <height>471</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -140,7 +140,94 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="cardSelectionPage"/>
+    <widget class="QWidget" name="cardSelectionPage">
+     <widget class="QLabel" name="lblNoAccounts">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>140</y>
+        <width>291</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>This card has no linked accounts. 
+Please contact your bank.</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QFrame" name="frameAccounts">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>110</y>
+        <width>311</width>
+        <height>141</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <widget class="QPushButton" name="btnCredit">
+       <property name="geometry">
+        <rect>
+         <x>170</x>
+         <y>40</y>
+         <width>111</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Credit</string>
+       </property>
+       <property name="accountType" stdset="0">
+        <string>CREDIT</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnDebit">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>40</y>
+         <width>111</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Debit</string>
+       </property>
+       <property name="accountType" stdset="0">
+        <string>DEBIT</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="btnLogout">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>390</y>
+        <width>81</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Logout</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
@@ -169,7 +256,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>631</width>
+     <width>633</width>
      <height>26</height>
     </rect>
    </property>

@@ -4,10 +4,10 @@
 #include "cardwithdrawwindow.h"
 #include "transactionview.h"
 
-AccountView::AccountView(Account *newAccount, QWidget *parent)
+AccountView::AccountView(QString newAccountId, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::AccountView)
-    , account(newAccount)
+    , account(new Account(newAccountId))
 {
     ui->setupUi(this);
 
