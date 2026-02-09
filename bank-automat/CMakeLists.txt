@@ -25,8 +25,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         environment.h environment.cpp
-        gui/cardselectiondialog.h gui/cardselectiondialog.cpp gui/cardselectiondialog.ui
-        gui/noaccountsview.h gui/noaccountsview.cpp gui/noaccountsview.ui
+
+
 
 
         src/authmanager.h src/authmanager.cpp
