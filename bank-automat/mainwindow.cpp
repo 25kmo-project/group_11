@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Inactivity timer 30 seconds
     this->inactivityTimer = new QTimer(this);
     this->inactivityTimer->setSingleShot(true);
-    //connect(inactivityTimer, &QTimer::timeout, this, &MainWindow::inactivityTimeoutSlot);
+    connect(inactivityTimer, &QTimer::timeout, this, &MainWindow::inactivityTimeoutSlot);
     this->inactivityTimer->start(30000);
 
     // Create timer and connect it to a slot that clears lineedits after 10 seconds of inactivity
