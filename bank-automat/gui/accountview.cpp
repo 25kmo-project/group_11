@@ -58,6 +58,8 @@ void AccountView::btnShowTransactionsSlot()
 void AccountView::btnWithdrawButtonSlot()
 {
     CardWithdrawWindow *objCardWithdraw = new CardWithdrawWindow(account, this);
+    // Connect signal for return message to user
+    connect(objCardWithdraw, &CardWithdrawWindow::infoMessage, this, &AccountView::showInfoLabelSlot);
     objCardWithdraw->show();
 }
 

@@ -31,6 +31,16 @@ QLabel[objectName^="labelInfo"] {
     font-weight: 600;
 }
 
+QLabel[objectName^="error"] {
+    color: #8a3a3a;
+    font-size: 12pt;
+    font-weight: 600;
+}
+
+QFrame {
+    background: transparent;
+}
+
 QLabel {
     font-size: 12pt;
     color: #2b4a40;

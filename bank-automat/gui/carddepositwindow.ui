@@ -55,7 +55,7 @@
      <x>310</x>
      <y>120</y>
      <width>131</width>
-     <height>31</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="text">
@@ -68,7 +68,7 @@
      <x>210</x>
      <y>120</y>
      <width>91</width>
-     <height>31</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="text">
@@ -130,6 +130,19 @@
    </property>
    <property name="text">
     <string>Enter amount</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnCancelDeposit">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>180</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cancel deposit</string>
    </property>
   </widget>
  </widget>

@@ -10,6 +10,7 @@ CardDepositWindow::CardDepositWindow(Account *newAccount, QWidget *parent)
 
     ui->setupUi(this);
     connect(ui->btnDeposit, &QPushButton::clicked, this, &CardDepositWindow::btnDepositSlot);
+    connect(ui->btnCancelDeposit, &QPushButton::clicked, this, &CardDepositWindow::cancelDepositSlot);
     manager = new QNetworkAccessManager(this);
 
     //show usable balance and/or credit limit in deposit window
@@ -66,4 +67,10 @@ void CardDepositWindow::showLabelErrorSlot(QString text)
     QTimer::singleShot(4000,this,[this]() {
         ui->labelInfo->clear();
     });
+}
+
+void CardDepositWindow::cancelDepositSlot()
+{
+    emit infoMessage("Deposit canceled");
+    this->close();
 }
