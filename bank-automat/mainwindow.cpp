@@ -159,6 +159,7 @@ void MainWindow::handleAccountsResponse() {
         QString key = this->accounts.firstKey();
         AccountView *objAccountView = new AccountView(this->accounts.value(key), this);
         objAccountView->show();
+        ui->stackedWidget->setCurrentIndex(0);
     } else if (cardAccounts.size() == 2) {
         // If card has two accounts, change to card selection page (index 1)
         // User has 10 seconds to choose an account, otherwise they are automatically logged out
