@@ -2,7 +2,7 @@ name: Build frontend
 
 on:
   push:
-    branches: [ frontend_cicd ]
+    branches: [ main ]
     paths:
       - 'bank-automat/**'
 
