@@ -10,6 +10,7 @@
 #include <QJsonArray>
 #include <QTimer>
 #include "src/account.h"
+#include "gui/accountview.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -28,10 +29,13 @@ public:
 private:
     QMap<QString, QString> accounts;
     QTimer *timer;
+    QTimer *inactivityTimer;
     Ui::MainWindow *ui;
     QNetworkAccessManager *manager;
     QNetworkReply *reply;
     void showError(QString message);
+    bool eventFilter(QObject *obj, QEvent *event) override;
+    AccountView *objAccountView;
 
 private slots:
     void cardIdEnteredSlot();
@@ -41,6 +45,7 @@ private slots:
     void chooseAccountSlot();
     void logoutSlot();
     void loginTimeoutSlot();
+    void inactivityTimeoutSlot();
 };
 
 #endif // MAINWINDOW_H

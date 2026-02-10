@@ -2,19 +2,25 @@
 #include "./ui_mainwindow.h"
 #include "environment.h"
 #include "src/authmanager.h"
-#include "gui/accountview.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    qApp->installEventFilter(this);
     connect(ui->btnNext, &QPushButton::clicked, this, &MainWindow::cardIdEnteredSlot);
     connect(ui->btnLogin, &QPushButton::clicked, this, &MainWindow::btnLoginSlot);
     connect(ui->btnDebit, &QPushButton::clicked, this, &MainWindow::chooseAccountSlot);
     connect(ui->btnCredit, &QPushButton::clicked, this, &MainWindow::chooseAccountSlot);
     connect(ui->btnLogout, &QPushButton::clicked, this, &MainWindow::logoutSlot);
     manager = new QNetworkAccessManager(this);
+
+    // Inactivity timer 30 seconds
+    this->inactivityTimer = new QTimer(this);
+    this->inactivityTimer->setSingleShot(true);
+    connect(inactivityTimer, &QTimer::timeout, this, &MainWindow::inactivityTimeoutSlot);
+    this->inactivityTimer->start(30000);
 
     // Create timer and connect it to a slot that clears lineedits after 10 seconds of inactivity
     this->timer = new QTimer(this);
@@ -137,7 +143,6 @@ void MainWindow::handleAccountsResponse() {
     QByteArray responseData = reply->readAll();
     QJsonDocument jsonCardDoc = QJsonDocument::fromJson(responseData);
     QJsonArray cardAccounts = jsonCardDoc.array();
-
     // If no accounts found, show noAccountView and start timer for 10 seconds to log out automatically
     if (cardAccounts.size() == 0) {
         this->timer->start(10000);
@@ -157,7 +162,7 @@ void MainWindow::handleAccountsResponse() {
     if (cardAccounts.size() == 1) {
         // Get first value from accounts and create AccountView with it
         QString key = this->accounts.firstKey();
-        AccountView *objAccountView = new AccountView(this->accounts.value(key), this);
+        objAccountView = new AccountView(this->accounts.value(key), this);
         objAccountView->show();
         ui->stackedWidget->setCurrentIndex(0);
     } else if (cardAccounts.size() == 2) {
@@ -168,14 +173,13 @@ void MainWindow::handleAccountsResponse() {
         ui->lblNoAccounts->hide();
         ui->frameAccounts->show();
     }
-
     reply->deleteLater();
 }
 
 void MainWindow::chooseAccountSlot() {
     QString buttonAccountType = sender()->property("accountType").toString();
 
-    AccountView *objAccountView = new AccountView(this->accounts.value(buttonAccountType), this);
+    objAccountView = new AccountView(this->accounts.value(buttonAccountType), this);
     objAccountView->show();
 
     // After AccountView has been created with selected account, clear QMap and return MainWindow back to login screen
@@ -204,6 +208,22 @@ void MainWindow::loginTimeoutSlot() {
     ui->stackedWidget->setCurrentIndex(0);
 }
 
+void MainWindow::inactivityTimeoutSlot()
+{
+    AuthManager::instance()->clearToken();
+
+    ui->textCardId->clear();
+    ui->textPin->clear();
+    ui->stackedWidget->setCurrentIndex(0);
+    this->accounts.clear();
+
+    objAccountView->close();
+    objAccountView->deleteLater();
+    objAccountView=nullptr;
+
+    showError("Automatically logged out due to inactivity.");
+}
+
 void MainWindow::showError(QString message) {
     ui->labelError->setText(message);
     ui->labelError->show();
@@ -213,3 +233,16 @@ void MainWindow::showError(QString message) {
         ui->labelError->clear();
     });
 }
+
+
+bool MainWindow::eventFilter(QObject *obj, QEvent *event)
+{
+    if(event->type()==QEvent::MouseButtonPress||
+        event->type() == QEvent::MouseMove ||
+        event->type() == QEvent::KeyPress ||
+        event->type() == QEvent::Wheel){
+        inactivityTimer->start();
+    }
+    return QMainWindow::eventFilter(obj, event);
+}
+
