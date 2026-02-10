@@ -33,7 +33,8 @@ router.post('/', function (request, response) {
         } else if (result.length === 0) {
             // Tietokannan paluun pituus == 0 -> ID:llä ei korttia
             console.log("Annetulla kortin ID:llä ei löydy korttia.");
-            return response.json({ message: "Annetulla kortin ID:llä ei löydy korttia." });
+            // Palautetaan error mikä ei kerro että onko korttia olemassa vai ei, että ei voi brute-forcettaa kortin ID:itä
+            return response.status(404).json({ message: "Idcard ja PIN eivät täsmää." });
         }
 
         const dbPin = result[0].pin;
@@ -42,7 +43,7 @@ router.post('/', function (request, response) {
         // Jos 3 tai enemmän, palautetaan viesti "Tunnus lukittu"
         if (login_attempts > 2) {
             console.log("Liian monta kirjautumisyritystä, tunnus on lukittu.");
-            return response.json({ message: "Liian monta kirjautumisyritystä, tunnus on lukittu." });
+            return response.status(403).json({ message: "Liian monta kirjautumisyritystä, tunnus on lukittu." });
         }
     
         bcrypt.compare(pin, dbPin, function (err, compareResult) {
@@ -67,7 +68,7 @@ router.post('/', function (request, response) {
             } else {
                 // Päivitetään uusi kirjautumisten lukumäärä epäonnistuneessa kirjautumisessa
                 card.addOneLogin(idcard);
-                return response.json({ message: "Idcard ja PIN eivät täsmää." });
+                return response.status(404).json({ message: "Idcard ja PIN eivät täsmää." });
             }
         });
     });

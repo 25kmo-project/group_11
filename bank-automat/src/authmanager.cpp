@@ -16,3 +16,6 @@ QString AuthManager::getToken() const
     return token;
 }
 
+void AuthManager::clearToken() {
+    this->token.clear();
+}
