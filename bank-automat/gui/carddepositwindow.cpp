@@ -1,3 +1,4 @@
+#include "accountview.h"
 #include "carddepositwindow.h"
 #include "ui_carddepositwindow.h"
 
@@ -9,6 +10,7 @@ CardDepositWindow::CardDepositWindow(Account *newAccount, QWidget *parent)
 
     ui->setupUi(this);
     connect(ui->btnDeposit, &QPushButton::clicked, this, &CardDepositWindow::btnDepositSlot);
+    connect(ui->btnCancelDeposit, &QPushButton::clicked, this, &CardDepositWindow::cancelDepositSlot);
     manager = new QNetworkAccessManager(this);
 
     //show usable balance and/or credit limit in deposit window
@@ -35,7 +37,7 @@ void CardDepositWindow::btnDepositSlot()
     bool ok;
     double amount = ui->textAmount->text().toDouble(&ok);
     if(!ok){
-        ui->labelError->setText("virheellinen syöte");
+        CardDepositWindow::showLabelErrorSlot("Invalid input");
     }else{
         this->reply = this->account->balanceAction(amount, "deposit");
         connect(reply, &QNetworkReply::finished, this, &CardDepositWindow::depositActionSlot);
@@ -51,10 +53,24 @@ void CardDepositWindow::depositActionSlot()
     //close window and emit signal to update balance labels on successful deposit
     if(objJson["affectedRows"] == 1){
         this->account->fetchAccountData();
+        emit infoMessage("Deposit successful!");
         this->close();
     }else{
-        ui->labelError->setText("Jokin meni vikaan");
+        CardDepositWindow::showLabelErrorSlot("Something went wrong");
     }
-
     reply->deleteLater();
+}
+
+void CardDepositWindow::showLabelErrorSlot(QString text)
+{
+    ui->labelInfo->setText(text);
+    QTimer::singleShot(4000,this,[this]() {
+        ui->labelInfo->clear();
+    });
+}
+
+void CardDepositWindow::cancelDepositSlot()
+{
+    emit infoMessage("Deposit canceled");
+    this->close();
 }

@@ -9,6 +9,7 @@ public:
 
     void setToken(const QByteArray &token);
     QString getToken() const;
+    void clearToken();
 
 private:
     QByteArray token;

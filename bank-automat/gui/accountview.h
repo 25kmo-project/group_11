@@ -13,9 +13,8 @@ class AccountView : public QDialog
     Q_OBJECT
 
 public:
-    explicit AccountView(Account *newAccount, QWidget *parent = nullptr);
+    explicit AccountView(QString newAccountId, QWidget *parent = nullptr);
     ~AccountView();
-
 
 private:
     Ui::AccountView *ui;
@@ -28,6 +27,7 @@ private slots:
     void btnShowTransactionsSlot();
 
 public slots:
+    void showInfoLabelSlot(const QString &text);
     void updateBalanceLabel();
 
 };
