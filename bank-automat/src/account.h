@@ -18,7 +18,6 @@ class Account : public QObject
 
 public:
     Account(QString idAccount, QObject *parent = nullptr);
-    ~Account();
 
     void fetchAccountData();
 

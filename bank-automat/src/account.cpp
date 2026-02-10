@@ -7,11 +7,6 @@ Account::Account(const QString newIdAccount, QObject *parent) : QObject(parent)
     this->fetchAccountData();
 }
 
-Account::~Account()
-{
-    qDebug()<<"account deleted";
-}
-
 void Account::fetchAccountData() {
     QString url = environment::base_url() + "api/account/" + this->idAccount;
     QNetworkRequest request(url);
