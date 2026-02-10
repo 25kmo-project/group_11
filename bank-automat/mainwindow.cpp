@@ -213,13 +213,3 @@ void MainWindow::showError(QString message) {
         ui->labelError->clear();
     });
 }
-
-
-void MainWindow::showInfoLabelSlot(QString text)
-{
-    ui->labelInfo->setText(text);
-    QTimer::singleShot(4000,this,[this]() {
-        ui->labelInfo->clear();
-    });
-}
-
