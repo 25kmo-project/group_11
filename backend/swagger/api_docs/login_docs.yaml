@@ -29,6 +29,10 @@ paths:
           description: Login successful
         '400':
           description: All required fields were not included in request body
+        '403':
+          description: Card is locked due to too many failed login attempts
+        '404':
+          description: Card ID and PIN do not match any existing cards
         '500':
           description: Server error
   /api/login/{idcard}/reset:

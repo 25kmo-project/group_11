@@ -9,6 +9,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QTimer>
+#include "src/account.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -25,14 +26,21 @@ public:
     ~MainWindow();
 
 private:
+    QMap<QString, QString> accounts;
+    QTimer *timer;
     Ui::MainWindow *ui;
     QNetworkAccessManager *manager;
     QNetworkReply *reply;
+    void showError(QString message);
 
 private slots:
+    void cardIdEnteredSlot();
     void btnLoginSlot();
     void loginActionSlot();
     void handleAccountsResponse();
+    void chooseAccountSlot();
+    void logoutSlot();
+    void loginTimeoutSlot();
 };
 
 #endif // MAINWINDOW_H
