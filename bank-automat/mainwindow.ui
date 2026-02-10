@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>633</width>
-    <height>590</height>
+    <height>572</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,18 +20,18 @@
       <x>0</x>
       <y>90</y>
       <width>631</width>
-      <height>471</height>
+      <height>301</height>
      </rect>
     </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="loginPage">
+    <widget class="QWidget" name="pageCardId">
      <widget class="QLabel" name="labelInfo">
       <property name="geometry">
        <rect>
         <x>180</x>
-        <y>40</y>
+        <y>70</y>
         <width>271</width>
         <height>51</height>
        </rect>
@@ -42,30 +42,30 @@
        </font>
       </property>
       <property name="text">
-       <string>Please enter your card ID and PIN</string>
+       <string>Please enter your card ID</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="btnLogin">
+     <widget class="QPushButton" name="btnNext">
       <property name="geometry">
        <rect>
         <x>260</x>
-        <y>240</y>
+        <y>230</y>
         <width>111</width>
         <height>61</height>
        </rect>
       </property>
       <property name="text">
-       <string>Login</string>
+       <string>Next</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="textCardId">
       <property name="geometry">
        <rect>
         <x>200</x>
-        <y>110</y>
+        <y>150</y>
         <width>231</width>
         <height>41</height>
        </rect>
@@ -85,35 +85,13 @@
        <string>Card ID</string>
       </property>
      </widget>
-     <widget class="QLabel" name="labelError">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>320</y>
-        <width>231</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
-     </widget>
+    </widget>
+    <widget class="QWidget" name="pageCardPin">
      <widget class="QLineEdit" name="textPin">
       <property name="geometry">
        <rect>
         <x>200</x>
-        <y>170</y>
+        <y>150</y>
         <width>231</width>
         <height>41</height>
        </rect>
@@ -137,6 +115,40 @@
       </property>
       <property name="placeholderText">
        <string>Card PIN</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnLogin">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>230</y>
+        <width>111</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Login</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelInfo_2">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>70</y>
+        <width>271</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Please enter your card PIN</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
     </widget>
@@ -217,9 +229,9 @@ Please contact your bank.</string>
      <widget class="QPushButton" name="btnLogout">
       <property name="geometry">
        <rect>
-        <x>540</x>
-        <y>390</y>
-        <width>81</width>
+        <x>270</x>
+        <y>250</y>
+        <width>91</width>
         <height>41</height>
        </rect>
       </property>
@@ -248,6 +260,30 @@ Please contact your bank.</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelError">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>400</y>
+      <width>231</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
