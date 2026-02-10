@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    qApp->installEventFilter(this);
     connect(ui->btnNext, &QPushButton::clicked, this, &MainWindow::cardIdEnteredSlot);
     connect(ui->btnLogin, &QPushButton::clicked, this, &MainWindow::btnLoginSlot);
     connect(ui->btnDebit, &QPushButton::clicked, this, &MainWindow::chooseAccountSlot);
@@ -16,9 +17,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnLogout, &QPushButton::clicked, this, &MainWindow::logoutSlot);
     manager = new QNetworkAccessManager(this);
 
-    // QTimer *timeoutTimer = new QTimer(this);
-    // timeoutTimer->setInterval(5000);
-    // timeoutTimer->setSingleShot(true);
+    // Inactivity timer 30 seconds
+    this->inactivityTimer = new QTimer(this);
+    this->inactivityTimer->setSingleShot(true);
+    //connect(inactivityTimer, &QTimer::timeout, this, &MainWindow::inactivityTimeoutSlot);
+    this->inactivityTimer->start(30000);
+
     // Create timer and connect it to a slot that clears lineedits after 10 seconds of inactivity
     this->timer = new QTimer(this);
     this->timer->setSingleShot(true);
@@ -171,7 +175,6 @@ void MainWindow::handleAccountsResponse() {
         ui->lblNoAccounts->hide();
         ui->frameAccounts->show();
     }
-
     reply->deleteLater();
 }
 
@@ -207,6 +210,27 @@ void MainWindow::loginTimeoutSlot() {
     ui->stackedWidget->setCurrentIndex(0);
 }
 
+void MainWindow::inactivityTimeoutSlot()
+{
+    AuthManager::instance()->clearToken();
+    
+    // Close all top-level windows except MainWindow
+    QWidgetList allWidgets = QApplication::topLevelWidgets();
+    for (QWidget *widget : allWidgets) {
+        if (widget != this && widget->isVisible()) {
+            widget->close();
+            widget->deleteLater();
+        }
+    }
+    
+    ui->textCardId->clear();
+    ui->textPin->clear();
+    ui->stackedWidget->setCurrentIndex(0);
+    this->accounts.clear();
+    
+    showError("Automatically logged out due to inactivity.");
+}
+
 void MainWindow::showError(QString message) {
     ui->labelError->setText(message);
     ui->labelError->show();
@@ -216,3 +240,16 @@ void MainWindow::showError(QString message) {
         ui->labelError->clear();
     });
 }
+
+
+bool MainWindow::eventFilter(QObject *obj, QEvent *event)
+{
+    if(event->type()==QEvent::MouseButtonPress||
+        event->type() == QEvent::MouseMove ||
+        event->type() == QEvent::KeyPress ||
+        event->type() == QEvent::Wheel){
+        inactivityTimer->start();
+    }
+    return QMainWindow::eventFilter(obj, event);
+}
+
