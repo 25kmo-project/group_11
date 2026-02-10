@@ -37,8 +37,15 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         gui/carddepositwindow.h gui/carddepositwindow.cpp gui/carddepositwindow.ui
         gui/cardwithdrawwindow.h gui/cardwithdrawwindow.cpp gui/cardwithdrawwindow.ui
         gui/transactionview.h gui/transactionview.cpp gui/transactionview.ui
-
     )
+
+qt_add_resources(app_resources
+    resources/resources.qrc
+)
+
+target_sources(bank-automat PRIVATE
+    ${app_resources}
+)
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET bank-automat APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)

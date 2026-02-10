@@ -33,6 +33,11 @@ private slots:
     void confirmOtherWithdrawSlot();
     void cancelWithdrawSlot();
     void withdrawDoneSlot();
+    void showInfoLabelSlot1(const QString &text);
+    void showInfoLabelSlot2(const QString &text);
+
+signals:
+    void infoMessage(const QString &text);
 };
 
 #endif // CARDWITHDRAWWINDOW_H

@@ -1,6 +1,8 @@
 #include "cardwithdrawwindow.h"
 #include "ui_cardwithdrawwindow.h"
 
+#include <QTimer>
+
 CardWithdrawWindow::CardWithdrawWindow(Account *newAccount, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::CardWithdrawWindow)
@@ -52,7 +54,7 @@ void CardWithdrawWindow::confirmOtherWithdrawSlot() {
     int amount = ui->amountLineEdit->text().toInt(&validInput);
 
     if (!validInput) {
-        ui->errorLabel_2->setText(QString("Please enter a valid number. "));
+        CardWithdrawWindow::showInfoLabelSlot2("Please enter a valid number.");
         return;
     }
 
@@ -68,11 +70,11 @@ void CardWithdrawWindow::confirmOtherWithdrawSlot() {
 
         fiftyEuroBills--;
     }
-
-    ui->errorLabel_2->setText(QString("Unable to withdraw specified amount with 50€ and 20€ bills. "));
+    ui->errorLabel_2->setText(QString("Unable to withdraw specified amount with 50€ and 20€ bills."));
 }
 
 void CardWithdrawWindow::cancelWithdrawSlot() {
+    emit infoMessage("Withdraw canceled");
     this->close();
 }
 
@@ -83,16 +85,34 @@ void CardWithdrawWindow::withdrawDoneSlot() {
 
     int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if (statusCode == 403) {
-        ui->errorLabel->setText(QString("Unable to withdraw more than available balance, please choose another amount."));
-        ui->errorLabel_2->setText(QString("Unable to withdraw more than available balance, please enter a valid amount."));
+        CardWithdrawWindow::showInfoLabelSlot1("Unable to withdraw more than available balance, please choose another amount.");
+        CardWithdrawWindow::showInfoLabelSlot2("Unable to withdraw more than available balance, please enter a valid amount.");
         return;
     } else if (statusCode != 200) {
-        ui->errorLabel->setText(QString("Something went wrong while withdrawing."));
+        CardWithdrawWindow::showInfoLabelSlot1("Something went wrong while withdrawing.");
         return;
     }
 
     this->account->fetchAccountData();
-
     qDebug() << "Withdraw successful.";
+
+    // Return message to user
+    emit infoMessage("Withdraw successful!");
     this->close();
+}
+
+void CardWithdrawWindow::showInfoLabelSlot1(const QString &text)
+{
+    ui->errorLabel->setText(text);
+    QTimer::singleShot(4000,this,[this]() {
+        ui->errorLabel->clear();
+    });
+}
+
+void CardWithdrawWindow::showInfoLabelSlot2(const QString &text)
+{
+    ui->errorLabel_2->setText(text);
+    QTimer::singleShot(4000,this,[this]() {
+        ui->errorLabel_2->clear();
+    });
 }

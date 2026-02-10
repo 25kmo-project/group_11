@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>764</width>
-    <height>613</height>
+    <width>768</width>
+    <height>436</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>11</x>
      <y>11</y>
      <width>742</width>
-     <height>591</height>
+     <height>421</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -32,205 +32,11 @@
        <x>0</x>
        <y>0</y>
        <width>741</width>
-       <height>591</height>
+       <height>411</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="5" column="2">
-       <widget class="QPushButton" name="button40">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>70</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>40€</string>
-        </property>
-        <property name="value" stdset="0">
-         <double>40.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="2">
-       <widget class="QPushButton" name="button100">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>70</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>100€</string>
-        </property>
-        <property name="value" stdset="0">
-         <double>100.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QFrame" name="frame">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>100</height>
-         </size>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::Shape::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Shadow::Raised</enum>
-        </property>
-        <widget class="QLabel" name="title">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>-10</y>
-           <width>325</width>
-           <height>60</height>
-          </rect>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Select amount to withdraw</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignCenter</set>
-         </property>
-        </widget>
-        <widget class="QLabel" name="availableBalance">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>40</y>
-           <width>325</width>
-           <height>30</height>
-          </rect>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Available balance: 0€</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignCenter</set>
-         </property>
-        </widget>
-        <widget class="QLabel" name="errorLabel">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>70</y>
-           <width>311</width>
-           <height>31</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignCenter</set>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QPushButton" name="button20">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>70</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>20€</string>
-        </property>
-        <property name="value" stdset="0">
-         <double>20.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="2">
-       <widget class="QPushButton" name="buttonCancel">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>70</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Cancel withdraw</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
+      <item row="7" column="0">
        <widget class="QPushButton" name="button50">
         <property name="minimumSize">
          <size>
@@ -257,7 +63,7 @@
         </property>
        </widget>
       </item>
-      <item row="11" column="0">
+      <item row="12" column="0">
        <widget class="QPushButton" name="buttonOther">
         <property name="minimumSize">
          <size>
@@ -281,6 +87,215 @@
         </property>
        </widget>
       </item>
+      <item row="7" column="2">
+       <widget class="QPushButton" name="button100">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>100€</string>
+        </property>
+        <property name="value" stdset="0">
+         <double>100.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="12" column="2">
+       <widget class="QPushButton" name="buttonCancel">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Cancel withdraw</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QPushButton" name="button20">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>20€</string>
+        </property>
+        <property name="value" stdset="0">
+         <double>20.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QFrame" name="frame">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>100</height>
+         </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Shape::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Shadow::Raised</enum>
+        </property>
+        <widget class="QLabel" name="title">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>325</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Select amount</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="availableBalance">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>50</y>
+           <width>321</width>
+           <height>30</height>
+          </rect>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Available balance: 0€</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="title_2">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>WITHDRAW</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="2">
+       <widget class="QPushButton" name="button40">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>40€</string>
+        </property>
+        <property name="value" stdset="0">
+         <double>40.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1" rowspan="2">
+       <widget class="QLabel" name="errorLabel">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </widget>
@@ -292,9 +307,9 @@
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>220</y>
+       <y>170</y>
        <width>221</width>
-       <height>81</height>
+       <height>51</height>
       </rect>
      </property>
      <property name="font">
@@ -315,17 +330,11 @@
     <widget class="QPushButton" name="buttonCancel_2">
      <property name="geometry">
       <rect>
-       <x>410</x>
-       <y>490</y>
+       <x>420</x>
+       <y>300</y>
        <width>200</width>
-       <height>70</height>
+       <height>41</height>
       </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>70</height>
-      </size>
      </property>
      <property name="maximumSize">
       <size>
@@ -346,16 +355,10 @@
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>490</y>
+       <y>300</y>
        <width>200</width>
-       <height>70</height>
+       <height>41</height>
       </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>70</height>
-      </size>
      </property>
      <property name="maximumSize">
       <size>
@@ -376,7 +379,7 @@
      <property name="geometry">
       <rect>
        <x>260</x>
-       <y>300</y>
+       <y>220</y>
        <width>241</width>
        <height>81</height>
       </rect>
@@ -400,7 +403,7 @@
      <property name="geometry">
       <rect>
        <x>220</x>
-       <y>100</y>
+       <y>50</y>
        <width>325</width>
        <height>100</height>
       </rect>
@@ -417,7 +420,7 @@
      <property name="frameShadow">
       <enum>QFrame::Shadow::Raised</enum>
      </property>
-     <widget class="QLabel" name="customAmountTitle">
+     <widget class="QLabel" name="titleCustomAmount">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -448,7 +451,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>70</y>
+        <y>50</y>
         <width>325</width>
         <height>30</height>
        </rect>
