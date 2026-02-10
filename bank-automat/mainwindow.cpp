@@ -2,7 +2,6 @@
 #include "./ui_mainwindow.h"
 #include "environment.h"
 #include "src/authmanager.h"
-#include "gui/accountview.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -144,7 +143,6 @@ void MainWindow::handleAccountsResponse() {
     QByteArray responseData = reply->readAll();
     QJsonDocument jsonCardDoc = QJsonDocument::fromJson(responseData);
     QJsonArray cardAccounts = jsonCardDoc.array();
-
     // If no accounts found, show noAccountView and start timer for 10 seconds to log out automatically
     if (cardAccounts.size() == 0) {
         this->timer->start(10000);
@@ -164,7 +162,7 @@ void MainWindow::handleAccountsResponse() {
     if (cardAccounts.size() == 1) {
         // Get first value from accounts and create AccountView with it
         QString key = this->accounts.firstKey();
-        AccountView *objAccountView = new AccountView(this->accounts.value(key), this);
+        objAccountView = new AccountView(this->accounts.value(key), this);
         objAccountView->show();
         ui->stackedWidget->setCurrentIndex(0);
     } else if (cardAccounts.size() == 2) {
@@ -181,7 +179,7 @@ void MainWindow::handleAccountsResponse() {
 void MainWindow::chooseAccountSlot() {
     QString buttonAccountType = sender()->property("accountType").toString();
 
-    AccountView *objAccountView = new AccountView(this->accounts.value(buttonAccountType), this);
+    objAccountView = new AccountView(this->accounts.value(buttonAccountType), this);
     objAccountView->show();
 
     // After AccountView has been created with selected account, clear QMap and return MainWindow back to login screen
@@ -213,21 +211,16 @@ void MainWindow::loginTimeoutSlot() {
 void MainWindow::inactivityTimeoutSlot()
 {
     AuthManager::instance()->clearToken();
-    
-    // Close all top-level windows except MainWindow
-    QWidgetList allWidgets = QApplication::topLevelWidgets();
-    for (QWidget *widget : allWidgets) {
-        if (widget != this && widget->isVisible()) {
-            widget->close();
-            widget->deleteLater();
-        }
-    }
-    
+
     ui->textCardId->clear();
     ui->textPin->clear();
     ui->stackedWidget->setCurrentIndex(0);
     this->accounts.clear();
-    
+
+    objAccountView->close();
+    objAccountView->deleteLater();
+    objAccountView=nullptr;
+
     showError("Automatically logged out due to inactivity.");
 }
 

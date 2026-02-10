@@ -9,9 +9,8 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QTimer>
-#include <QApplication>
-#include <QWidgetList>
 #include "src/account.h"
+#include "gui/accountview.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -36,6 +35,7 @@ private:
     QNetworkReply *reply;
     void showError(QString message);
     bool eventFilter(QObject *obj, QEvent *event) override;
+    AccountView *objAccountView;
 
 private slots:
     void cardIdEnteredSlot();
