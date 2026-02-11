@@ -19,17 +19,21 @@ transactionwindow::~transactionwindow()
 void transactionwindow::btnGetTransactionsSlot()
 {
     QString id = ui->textAccountId->text();
-    QString url = environment::base_url() + "api/transaction/account/" + id;
-    QNetworkRequest request(url);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    if (id.length() == 0) {
+        transactionwindow::showInfoLabelSlot("Give account ID");
+    } else {
+        QString url = environment::base_url() + "api/transaction/account/" + id;
+        QNetworkRequest request(url);
+        request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
-    // WEB TOKEN ALKU
-    QByteArray myToken = "Bearer " + AuthManager::instance()->getToken().toUtf8();
-    request.setRawHeader(QByteArray("Authorization"),(myToken));
-    // WEB TOKEN LOPPU
+        // WEB TOKEN ALKU
+        QByteArray myToken = "Bearer " + AuthManager::instance()->getToken().toUtf8();
+        request.setRawHeader(QByteArray("Authorization"),(myToken));
+        // WEB TOKEN LOPPU
 
-    reply = manager->get(request);
-    connect(reply, &QNetworkReply::finished, this, &transactionwindow::showTransactionsSlot);
+        reply = manager->get(request);
+        connect(reply, &QNetworkReply::finished, this, &transactionwindow::showTransactionsSlot);
+    }
 }
 
 void transactionwindow::showTransactionsSlot()
@@ -81,7 +85,7 @@ void transactionwindow::transactionsToTableSlot(const QVector<transaction> &tran
     ui->tableTransactions->setColumnWidth(3, 150);  // Description
 
     if (transaction.size() == 0) {
-        transactionwindow::showInfoLabelSlot("ID doesn't have transactions");
+        transactionwindow::showInfoLabelSlot("ID doesn't have transactions or id doesn't exist");
     }
     reply -> deleteLater();
 }
