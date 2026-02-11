@@ -69,7 +69,7 @@ router.delete('/:idcard', function(request,response) {
     });
 });
 
-router.get('/:idcard/accounts', authenticateToken, function(request, response) {
+router.get('/:idcard/accounts', function(request, response) {
     const idcard = request.params.idcard;
     // Haetaan kortti ja tarkistetaan sen olemassa olo
     card.getOne(idcard, function(err, result) {
