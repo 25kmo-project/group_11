@@ -13,6 +13,7 @@
 #include "accountsmenu.h"
 #include "cardsmenu.h"
 #include "accountcardmenu.h"
+#include "transactionwindow.h"
 
 namespace Ui {
 class adminmenu;
@@ -38,6 +39,7 @@ private slots:
     void btnAccountsMenuSlot();
     void btnCardsMenuSlot();
     void btnCardAccountMenuSlot();
+    void btnTransactionsSlot();
 };
 
 #endif // ADMINMENU_H

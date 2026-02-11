@@ -1,5 +1,4 @@
 #include "adminmenu.h"
-
 #include "ui_adminmenu.h"
 
 adminmenu::adminmenu(QWidget *parent)
@@ -11,6 +10,7 @@ adminmenu::adminmenu(QWidget *parent)
     connect(ui->btnAccounts, &QPushButton::clicked, this, &adminmenu::btnAccountsMenuSlot);
     connect(ui->btnCards, &QPushButton::clicked, this, &adminmenu::btnCardsMenuSlot);
     connect(ui->btnCardAccount, &QPushButton::clicked, this, &adminmenu::btnCardAccountMenuSlot);
+    connect(ui->btnTransactions, &QPushButton::clicked, this, &adminmenu::btnTransactionsSlot);
 }
 
 adminmenu::~adminmenu()
@@ -40,5 +40,11 @@ void adminmenu::btnCardAccountMenuSlot()
 {
     AccountCardMenu *objAccountCardsMenu = new AccountCardMenu(this);
     objAccountCardsMenu->show();
+}
+
+void adminmenu::btnTransactionsSlot()
+{
+    transactionwindow *objTransactionsMenu = new transactionwindow(this);
+    objTransactionsMenu->show();
 }
 

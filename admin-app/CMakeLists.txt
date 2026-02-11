@@ -20,12 +20,14 @@ qt_add_executable(admin-app
     gui/addaccountmenu.h gui/addaccountmenu.cpp gui/addaccountmenu.ui
     gui/cardsmenu.h gui/cardsmenu.cpp gui/cardsmenu.ui
     gui/accountcardmenu.h gui/accountcardmenu.cpp gui/accountcardmenu.ui
+    gui/transactionwindow.h gui/transactionwindow.cpp gui/transactionwindow.ui
 
     src/authmanager.h src/authmanager.cpp
     src/account.h src/account.cpp
     src/customer.h src/customer.cpp
     src/card.h src/card.cpp
     src/cardaccount.h src/cardaccount.cpp
+    src/transaction.h src/transaction.cpp
 )
 
 target_include_directories(admin-app PRIVATE

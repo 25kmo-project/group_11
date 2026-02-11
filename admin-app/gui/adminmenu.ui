@@ -73,6 +73,19 @@
   <widget class="QPushButton" name="btnCardAccount">
    <property name="geometry">
     <rect>
+     <x>180</x>
+     <y>270</y>
+     <width>221</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Card-Account management</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnTransactions">
+   <property name="geometry">
+    <rect>
      <x>300</x>
      <y>180</y>
      <width>221</width>
@@ -80,7 +93,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Card-Account management</string>
+    <string>Transactions</string>
    </property>
   </widget>
  </widget>
