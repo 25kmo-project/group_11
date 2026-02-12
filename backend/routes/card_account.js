@@ -29,8 +29,11 @@ router.get('/:idcardaccount', function(request, response){
 
 router.put('/accounttocard/:id', function(request, response) {
     const idCardAccount = request.params.id;
-    const idCard = request.body.idcard;
-    const idAccount = request.body.idaccount;
+    const idCard = request.body.card_id;
+    const idAccount = request.body.account_id;
+
+    console.log(idCard);
+    console.log(idAccount);
 
     // Tarkistetaan, löytyykö kortti-tili yhteys
     card_account.getOne(idCardAccount, function(err, result){
@@ -87,7 +90,7 @@ router.delete('/removeaccountfromcard', validateFields(required_fields), functio
             console.log('Tietokantavirhe:', err);
             return response.status(500).json({ status_code: response.statusCode, message: err });
         } else if (result.length === 0) {
-            return response.status(404).json({ message: "Antamaasi korttia ei olemassa. " });
+            return response.status(404).json({ message: "Antamaasi korttia ei olemassa." });
         }
 
         // Tarkistetaan tilin olemassaolo
@@ -95,7 +98,7 @@ router.delete('/removeaccountfromcard', validateFields(required_fields), functio
             if (err) {
                 return response.status(500).json({ status_code: response.statusCode, message: err });
             } else if (result.length === 0) {
-                return response.status(404).json({ message: "Antamaasi tilia ei olemassa. " });
+                return response.status(404).json({ message: "Antamaasi tilia ei olemassa." });
             }
 
 
@@ -104,7 +107,7 @@ router.delete('/removeaccountfromcard', validateFields(required_fields), functio
                 if (err) {
                     return response.status(500).json({ status_code: response.statusCode, message: err });
                 } else if (accounts.length === 0) {
-                    return response.status(400).json({ message: "Annetulla kortilla ei ole tilejä." }); 
+                    return response.status(400).json({ message: "Annetulla kortilla ei ole tilejä."}); 
                 }
 
                 // Käydään tilit läpi, vastaako poistettava kortilla olevia
@@ -169,7 +172,7 @@ function validateCardAccountLink(idCard, idAccountToAdd, excludeCardAccountId = 
                 if (excludeCardAccountId) {
                     let filteredAccounts = [];
                     for (let i = 0; i < accounts.length; i++) {
-                        if (accounts[i].id !== excludeCardAccountId) {
+                        if (Number(accounts[i].idcard_account) !== Number(excludeCardAccountId)) {
                             filteredAccounts.push(accounts[i]);
                         }
                     }
