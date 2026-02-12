@@ -26,6 +26,7 @@ private slots:
     void btnWithdrawButtonSlot();
     void btnShowTransactionsSlot();
     void btnLogoutSlot();
+    void closeViewSlot();
 
 public slots:
     void showInfoLabelSlot(const QString &text);

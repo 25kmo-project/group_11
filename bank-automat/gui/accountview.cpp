@@ -24,7 +24,7 @@ AccountView::AccountView(QString newAccountId, QWidget *parent)
 
 AccountView::~AccountView()
 {
-    // Emit a signal so that MainWindow can destroy the current AccountView and do other clean-up
+    // Emit a signal so that MainWindow can clean up after this is destroyed
     emit userLogoutSignal();
     delete ui;
 }
@@ -61,9 +61,13 @@ void AccountView::btnShowTransactionsSlot()
 void AccountView::btnWithdrawButtonSlot()
 {
     CardWithdrawWindow *objCardWithdraw = new CardWithdrawWindow(account, this);
+    ui->stackedWidget->addWidget(objCardWithdraw);
+    ui->stackedWidget->setCurrentWidget(objCardWithdraw);
+    // Signal used when withdraw is canceled/successful and view needs to be closed
+    connect(objCardWithdraw, &CardWithdrawWindow::closeViewSignal, this, &AccountView::closeViewSlot);
+
     // Connect signal for return message to user
     connect(objCardWithdraw, &CardWithdrawWindow::infoMessage, this, &AccountView::showInfoLabelSlot);
-    objCardWithdraw->show();
 }
 
 void AccountView::btnLogoutSlot()
@@ -87,4 +91,9 @@ void AccountView::updateBalanceLabel()
     );
 }
 
-
+void AccountView::closeViewSlot() {
+    // Remove previous view from the stacked widget and change back to the AccountView page
+    QWidget *previousView = ui->stackedWidget->currentWidget();
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->stackedWidget->removeWidget(previousView);
+}

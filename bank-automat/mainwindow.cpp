@@ -202,7 +202,6 @@ void MainWindow::logoutSlot() {
 
     if (objAccountView != nullptr) {
         ui->stackedWidget->removeWidget(objAccountView);
-        objAccountView->deleteLater();
         objAccountView = nullptr;
     }
 }

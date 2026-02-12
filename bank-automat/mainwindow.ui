@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>633</width>
-    <height>572</height>
+    <width>750</width>
+    <height>610</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,18 +19,18 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>631</width>
-      <height>541</height>
+      <width>751</width>
+      <height>580</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="pageCardId">
      <widget class="QLabel" name="labelInfo">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>240</x>
         <y>150</y>
         <width>271</width>
         <height>51</height>
@@ -51,7 +51,7 @@
      <widget class="QPushButton" name="btnNext">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>310</x>
         <y>310</y>
         <width>131</width>
         <height>41</height>
@@ -64,7 +64,7 @@
      <widget class="QLineEdit" name="textCardId">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>260</x>
         <y>230</y>
         <width>231</width>
         <height>41</height>
@@ -88,7 +88,7 @@
      <widget class="QLabel" name="title_2">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>260</x>
         <y>10</y>
         <width>231</width>
         <height>51</height>
@@ -109,7 +109,7 @@
      <widget class="QLabel" name="labelError">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>260</x>
         <y>400</y>
         <width>231</width>
         <height>61</height>
@@ -135,7 +135,7 @@
      <widget class="QLineEdit" name="textPin">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>260</x>
         <y>230</y>
         <width>231</width>
         <height>41</height>
@@ -165,7 +165,7 @@
      <widget class="QPushButton" name="btnLogin">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>310</x>
         <y>310</y>
         <width>131</width>
         <height>41</height>
@@ -178,7 +178,7 @@
      <widget class="QLabel" name="labelInfo_2">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>240</x>
         <y>150</y>
         <width>271</width>
         <height>51</height>
@@ -199,7 +199,7 @@
      <widget class="QLabel" name="title_3">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>260</x>
         <y>10</y>
         <width>231</width>
         <height>51</height>
@@ -220,7 +220,7 @@
      <widget class="QLabel" name="labelError_2">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>260</x>
         <y>400</y>
         <width>231</width>
         <height>61</height>
@@ -246,7 +246,7 @@
      <widget class="QLabel" name="lblNoAccounts">
       <property name="geometry">
        <rect>
-        <x>170</x>
+        <x>230</x>
         <y>190</y>
         <width>291</width>
         <height>81</height>
@@ -271,7 +271,7 @@ Please contact your bank.</string>
      <widget class="QFrame" name="frameAccounts">
       <property name="geometry">
        <rect>
-        <x>160</x>
+        <x>220</x>
         <y>180</y>
         <width>311</width>
         <height>141</height>
@@ -319,7 +319,7 @@ Please contact your bank.</string>
      <widget class="QPushButton" name="btnLogout">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>330</x>
         <y>290</y>
         <width>91</width>
         <height>41</height>
@@ -332,7 +332,7 @@ Please contact your bank.</string>
      <widget class="QLabel" name="title">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>260</x>
         <y>10</y>
         <width>231</width>
         <height>51</height>
@@ -358,7 +358,7 @@ Please contact your bank.</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>633</width>
+     <width>750</width>
      <height>26</height>
     </rect>
    </property>

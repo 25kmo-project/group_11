@@ -38,6 +38,7 @@ private slots:
 
 signals:
     void infoMessage(const QString &text);
+    void closeViewSignal();
 };
 
 #endif // CARDWITHDRAWWINDOW_H
