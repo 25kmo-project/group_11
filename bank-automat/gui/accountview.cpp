@@ -11,10 +11,11 @@ AccountView::AccountView(QString newAccountId, QWidget *parent)
 {
     ui->setupUi(this);
 
-    connect(ui->btnTestButton, &QPushButton::clicked, this, &AccountView::btnTestButtonSlot);
+    //connect(ui->btnTestButton, &QPushButton::clicked, this, &AccountView::btnTestButtonSlot);
     connect(ui->btnDeposit, &QPushButton::clicked, this, &AccountView::btnDepositButtonSlot);
     connect(ui->btnWithdraw, &QPushButton::clicked, this, &AccountView::btnWithdrawButtonSlot);
     connect(ui->btnShowTransactions, &QPushButton::clicked, this, &AccountView::btnShowTransactionsSlot);
+    connect(ui->btnLogout, &QPushButton::clicked, this, &AccountView::btnLogoutSlot);
 
     AccountView::updateBalanceLabel();
 
@@ -23,6 +24,8 @@ AccountView::AccountView(QString newAccountId, QWidget *parent)
 
 AccountView::~AccountView()
 {
+    // Emit a signal so that MainWindow can destroy the current AccountView and do other clean-up
+    emit userLogoutSignal();
     delete ui;
 }
 
@@ -61,6 +64,11 @@ void AccountView::btnWithdrawButtonSlot()
     // Connect signal for return message to user
     connect(objCardWithdraw, &CardWithdrawWindow::infoMessage, this, &AccountView::showInfoLabelSlot);
     objCardWithdraw->show();
+}
+
+void AccountView::btnLogoutSlot()
+{
+    this->deleteLater();
 }
 
 void AccountView::showInfoLabelSlot(const QString &text)

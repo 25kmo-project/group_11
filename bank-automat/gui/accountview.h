@@ -25,10 +25,14 @@ private slots:
     void btnDepositButtonSlot();
     void btnWithdrawButtonSlot();
     void btnShowTransactionsSlot();
+    void btnLogoutSlot();
 
 public slots:
     void showInfoLabelSlot(const QString &text);
     void updateBalanceLabel();
+
+signals:
+    void userLogoutSignal();
 
 };
 
