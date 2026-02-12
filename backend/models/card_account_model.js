@@ -1,6 +1,18 @@
 const db = require('../database');
 
 const card_account = {
+    getAll:function(callback) {
+        return db.query("SELECT * FROM card_account", callback);
+    },
+
+    getOne:function(idAccountCard, callback) {
+        return db.query("SELECT * FROM card_account WHERE idcard_account=?",[idAccountCard], callback)
+    },
+
+    update:function(idCardAccount, idAccount, idCard, callback){
+        return db.query("UPDATE card_account SET account_id=?, card_id=? WHERE idcard_account=?",[idAccount, idCard, idCardAccount],callback);
+    },
+    
     getCardAccounts:function(idcard, callback){
         return db.query("SELECT * FROM card_account WHERE card_id=?",[idcard], callback);
     },
