@@ -12,6 +12,10 @@ const card_account = {
     update:function(idCardAccount, idAccount, idCard, callback){
         return db.query("UPDATE card_account SET account_id=?, card_id=? WHERE idcard_account=?",[idAccount, idCard, idCardAccount],callback);
     },
+
+    delete:function(idCardAccount, callback) {
+        return db.query("DELETE FROM card_account WHERE idcard_account=?",[idCardAccount], callback)
+    },
     
     getCardAccounts:function(idcard, callback){
         return db.query("SELECT * FROM card_account WHERE card_id=?",[idcard], callback);

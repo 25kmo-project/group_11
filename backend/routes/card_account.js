@@ -80,6 +80,18 @@ router.post('/accounttocard', validateFields(required_fields), function(request,
     });
 });
 
+router.delete('/:idcardaccount', function(request, response){
+    card_account.delete(request.params.idcardaccount, function(err,result){
+        if (err) {
+            return response.status(500).json({ status_code: response.statusCode, message: err });
+        } else if (result.affectedRows === 0) {
+            return response.status(404).json({ message: 'Kortti-tili relaatiota ei löydy' });
+        }
+        
+        response.json(result);
+    });
+});
+
 router.delete('/removeaccountfromcard', validateFields(required_fields), function (request, response) {
     const idcard = request.body.idcard;
     const idAccountToRemove = request.body.idaccount;

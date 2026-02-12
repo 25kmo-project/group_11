@@ -35,6 +35,26 @@ paths:
           description: Account-card relation found, an empty list is returned if no cards were found
         '500':
           description: Server error
+    delete:
+      security:
+      - bearerAuth: []
+      tags:
+      - Cards & accounts
+      summary: Delete by card-account relation ID
+      parameters:
+        - in: path
+          name: idcardaccount
+          required: true
+          schema:
+            type: string
+          description: Relation ID
+      responses:
+        '200':
+          description: Account deleted from card
+        '404':
+          description: Relation not found
+        '500':
+          description: Server error
   /api/card_account/accounttocard:
     post:
       security:
