@@ -3,7 +3,58 @@ info:
   title: Bank database API
   version: 1.0.0
   description: API documentation for a bank database
-paths: 
+paths:
+  /api/card_account:
+    get:
+      security:
+      - bearerAuth: []
+      tags:
+        - Cards & accounts
+      summary: Get all account-card relation by ID
+      responses:
+        '200':
+          description: A list of cards
+        '500':
+          description: Server error
+  /api/card_account/{idcardaccount}:
+    get:
+      security:
+      - bearerAuth: []
+      tags:
+        - Cards & accounts
+      summary: Get one account-card relation by ID
+      parameters:
+        - in: path
+          name: idcardaccount
+          requider: true
+          schema:
+            type: string
+          description: The account-card relation by ID
+      responses:
+        '200':
+          description: Account-card relation found, an empty list is returned if no cards were found
+        '500':
+          description: Server error
+    delete:
+      security:
+      - bearerAuth: []
+      tags:
+      - Cards & accounts
+      summary: Delete by card-account relation ID
+      parameters:
+        - in: path
+          name: idcardaccount
+          required: true
+          schema:
+            type: string
+          description: Relation ID
+      responses:
+        '200':
+          description: Account deleted from card
+        '404':
+          description: Relation not found
+        '500':
+          description: Server error
   /api/card_account/accounttocard:
     post:
       security:
@@ -35,6 +86,42 @@ paths:
           description: The card already has two accounts or the same type of account connected to it
         '404':
           description: Specified account and/or card do not exist 
+        '500':
+          description: Server error
+  /api/card_account/accounttocard/{idcardaccount}:
+    put:
+      security:
+      - bearerAuth: []
+      tags: 
+        - Cards & accounts
+      summary: Update card account
+      parameters:
+        - in: path
+          name: idcardaccount
+          requider: true
+          schema:
+           type: string
+          description: Card-account relation ID
+      requestBody:
+        requider: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                card_id:
+                  type: string
+                account_id:
+                  type: string
+      responses:
+        '200':
+          description: Account added to card
+        '400':
+          description: All required fields were not included in request body
+        '409':
+          description: The card already has two accounts or the same type of account connected to it
+        '404':
+          description: Specified account relation, account and/or card do not exist 
         '500':
           description: Server error
   /api/card_account/removeaccountfromcard:
