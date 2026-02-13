@@ -1,8 +1,12 @@
 const db = require('../database');
 
 const transaction={
-    getAccountTransactions:function(idaccount, callback){
-        return db.query("SELECT * FROM transaction where idaccount=?", [idaccount], callback);
+    getAccountTransactions:function(idaccount, limit, offset, callback){
+        return db.query(
+            "SELECT * FROM transaction WHERE idaccount = ? LIMIT ? OFFSET ?",
+            [idaccount, limit, offset],
+            callback
+        );
     },
     getOne:function(idtransaction, callback){
         return db.query("SELECT * FROM transaction where idtransaction=?", [idtransaction], callback);
