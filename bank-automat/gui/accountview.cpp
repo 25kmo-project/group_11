@@ -5,7 +5,7 @@
 #include "transactionview.h"
 
 AccountView::AccountView(QString newAccountId, QWidget *parent)
-    : QDialog(parent)
+    : QWidget(parent)
     , ui(new Ui::AccountView)
     , account(new Account(newAccountId))
 {

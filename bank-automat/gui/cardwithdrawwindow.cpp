@@ -4,7 +4,7 @@
 #include <QTimer>
 
 CardWithdrawWindow::CardWithdrawWindow(Account *newAccount, QWidget *parent)
-    : QDialog(parent)
+    : QWidget(parent)
     , ui(new Ui::CardWithdrawWindow)
     , account(newAccount)
 {

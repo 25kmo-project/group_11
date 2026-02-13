@@ -1,14 +1,14 @@
 #ifndef ACCOUNTVIEW_H
 #define ACCOUNTVIEW_H
 
-#include <QDialog>
+#include <QWidget>
 #include "../src/account.h"
 
 namespace Ui {
 class AccountView;
 }
 
-class AccountView : public QDialog
+class AccountView : public QWidget
 {
     Q_OBJECT
 
