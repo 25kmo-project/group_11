@@ -42,11 +42,14 @@ void AccountView::btnDepositButtonSlot()
 {
     //on deposit clicked, deposit window opens
     CardDepositWindow *objCardDeposit = new CardDepositWindow(account, this);
+    ui->stackedWidget->addWidget(objCardDeposit);
+    ui->stackedWidget->setCurrentWidget(objCardDeposit);
+    connect(objCardDeposit, &CardDepositWindow::closeViewSignal, this, &AccountView::closeViewSlot);
+
     //connect signal and balance update function
 
     // Connect signal for return message to user
     connect(objCardDeposit, &CardDepositWindow::infoMessage, this, &AccountView::showInfoLabelSlot);
-    objCardDeposit->show();
     //after successfull deposit:
     //objCardDeposit closes
     //Message for user
@@ -55,7 +58,9 @@ void AccountView::btnDepositButtonSlot()
 void AccountView::btnShowTransactionsSlot()
 {
     TransactionView *objTransactionView = new TransactionView(account, this);
-    objTransactionView->show();
+    ui->stackedWidget->addWidget(objTransactionView);
+    ui->stackedWidget->setCurrentWidget(objTransactionView);
+    connect(objTransactionView, &TransactionView::closeViewSignal, this, &AccountView::closeViewSlot);
 }
 
 void AccountView::btnWithdrawButtonSlot()

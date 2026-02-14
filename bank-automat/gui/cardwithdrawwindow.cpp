@@ -35,7 +35,7 @@ CardWithdrawWindow::CardWithdrawWindow(Account *newAccount, QWidget *parent)
 
 CardWithdrawWindow::~CardWithdrawWindow()
 {
-    // Emit a signal so that AccountView can destroy the view and do other clean up
+    // Emit a signal so that AccountView can clean up
     emit closeViewSignal();
     delete ui;
 }

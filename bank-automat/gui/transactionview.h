@@ -1,7 +1,7 @@
 #ifndef TRANSACTIONVIEW_H
 #define TRANSACTIONVIEW_H
 
-#include <QDialog>
+#include <QWidget>
 #include "../src/account.h"
 #include "../src/transaction_manager.h"
 
@@ -9,7 +9,7 @@ namespace Ui {
 class TransactionView;
 }
 
-class TransactionView : public QDialog
+class TransactionView : public QWidget
 {
     Q_OBJECT
 
@@ -22,6 +22,9 @@ private:
     Ui::TransactionView *ui;
     Account *acc;
     TransactionsManager *manager;
+
+signals:
+    void closeViewSignal();
 };
 
 #endif // TRANSACTIONVIEW_H

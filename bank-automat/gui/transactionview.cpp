@@ -2,7 +2,7 @@
 #include "ui_transactionview.h"
 
 TransactionView::TransactionView(Account *acc, QWidget *parent)
-    : QDialog(parent)
+    : QWidget(parent)
     , ui(new Ui::TransactionView)
 {
     ui->setupUi(this);
@@ -20,6 +20,8 @@ TransactionView::TransactionView(Account *acc, QWidget *parent)
 
 TransactionView::~TransactionView()
 {
+    // Emit a signal so that AccountView can clean up
+    emit closeViewSignal();
     delete ui;
 }
 
