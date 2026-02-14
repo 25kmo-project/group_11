@@ -5,5 +5,5 @@ environment::environment() {}
 
 QString environment::base_url()
 {
-    return "http://localhost:3001/";
+    return "http://86.50.23.190/";
 }

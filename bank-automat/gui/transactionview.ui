@@ -15,7 +15,32 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
+    <widget class="QLabel" name="label_page">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>20</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Page: </string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QScrollArea" name="scrollArea">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
@@ -28,7 +53,7 @@
         <x>0</x>
         <y>0</y>
         <width>868</width>
-        <height>588</height>
+        <height>532</height>
        </rect>
       </property>
       <property name="maximumSize">
@@ -92,24 +117,37 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="widget" native="true">
+    <widget class="QWidget" name="widget_buttons" native="true">
      <property name="minimumSize">
       <size>
        <width>0</width>
        <height>35</height>
       </size>
      </property>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="btn_nextPage">
       <property name="geometry">
        <rect>
-        <x>770</x>
+        <x>760</x>
         <y>0</y>
-        <width>80</width>
-        <height>24</height>
+        <width>101</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
-       <string>PushButton</string>
+       <string>Next Page</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_prevPage">
+      <property name="geometry">
+       <rect>
+        <x>640</x>
+        <y>0</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Prev. Page</string>
       </property>
      </widget>
     </widget>

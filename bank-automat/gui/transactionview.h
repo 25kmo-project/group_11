@@ -18,13 +18,19 @@ class TransactionView : public QDialog
 public:
     explicit TransactionView(Account *acc, QWidget *parent = nullptr);
     void refreshTransactionList();
+    void fetchTransactions();
     ~TransactionView();
+
+private slots:
+    void on_btn_nextPage_clicked();
+    void on_btn_prevPage_clicked();
 
 private:
     Ui::TransactionView *ui;
-    Account *acc;
+    Account *account;
     TransactionsManager *manager;
     QVBoxLayout* m_contentLayout;
+    int current_page;
 };
 
 #endif // TRANSACTIONVIEW_H

@@ -5,6 +5,8 @@ TransactionView::TransactionView(Account *acc, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::TransactionView)
 {
+    account = acc;
+    current_page = 1;
     ui->setupUi(this);
     manager = new TransactionsManager();
     manager->fetchTransactions(acc->getIdAccount());
@@ -50,7 +52,7 @@ public:
 
         setStyleSheet(QString(R"(
             QWidget#transactionCard {
-                background-color: gray;
+                background-color: #BFFFDD;
                 border-left: 4px solid %1;
                 border-radius: 8px;
             }
@@ -69,16 +71,21 @@ void TransactionView::refreshTransactionList(){
     const QVector<Transaction>& txs = manager->transactions();
     qDebug() << "recieved list length" << txs.length();
 
+    if (txs.empty()){
+        current_page -= 1;
+        return;
+    }
+
     QWidget* contentWidget = new QWidget(this);
     QVBoxLayout* contentLayout = new QVBoxLayout(contentWidget);
     contentLayout->setAlignment(Qt::AlignTop); // important for scroll areas
     contentLayout->setSpacing(8);
+    contentWidget->setStyleSheet("background-color: transparent;");
 
     ui->scrollArea->setWidget(contentWidget);
     ui->scrollArea->setWidgetResizable(true);
 
     m_contentLayout = contentLayout;
-
     QLayoutItem* item;
     while ((item = m_contentLayout->takeAt(0)) != nullptr) {
         delete item->widget();
@@ -89,6 +96,8 @@ void TransactionView::refreshTransactionList(){
         auto* widget = new TransactionWidget(tx);
         m_contentLayout->addWidget(widget);
     }
+
+    ui->label_page->setText(QString("Page: %1").arg(current_page));
 
     for (const Transaction& tx : txs) {
         qDebug() << "recieved account ID" <<  tx.account_id;
@@ -102,4 +111,18 @@ void TransactionView::refreshTransactionList(){
 TransactionView::~TransactionView()
 {
     delete ui;
+}
+
+void TransactionView::on_btn_nextPage_clicked()
+{
+    current_page += 1;
+    manager->fetchTransactions(account->getIdAccount(), current_page);
+}
+
+void TransactionView::on_btn_prevPage_clicked()
+{
+    if (current_page > 1) {
+        current_page -= 1;
+        manager->fetchTransactions(account->getIdAccount(), current_page);
+    }
 }
