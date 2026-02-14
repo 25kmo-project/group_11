@@ -15,8 +15,9 @@ TransactionView::TransactionView(Account *acc, QWidget *parent)
         refreshTransactionList();
     });
 
-    connect(manager, &TransactionsManager::transactionUpdateFailed, this, [this] {
-        //refreshTransactionList();
+    connect(manager, &TransactionsManager::fetchFailed, this, [this] {
+        qDebug()<<"Failed to load transactions";
+        TransactionErrorView("Failed to fetch transactions");
     });
 }
 
@@ -72,11 +73,32 @@ public:
     }
 };
 
+class TransactionErrorWidget: public QWidget {
+public:
+    explicit TransactionErrorWidget(const QString msg, QWidget* parent = nullptr)
+        : QWidget(parent)
+    {
+        //TODO: reuse this widget for errorscreen if no transactions on new account
+        auto* layout = new QVBoxLayout(this);
+
+        auto* errorLabel = new QLabel(msg, this);
+        QFont errorFont;
+        errorFont.setPointSize(14);
+        errorFont.setBold(true);
+        errorLabel->setFont(errorFont);
+
+        layout->addWidget(errorLabel);
+    }
+};
+
 void TransactionView::refreshTransactionList(){
     const QVector<Transaction>& txs = manager->transactions();
     qDebug() << "recieved list length" << txs.length();
 
-    if (txs.empty()){
+    if (txs.empty() && current_page == 1) {
+        TransactionErrorView("No transaction on account!");
+    }
+    else if (txs.empty()){
         current_page -= 1;
         return;
     }
@@ -103,6 +125,26 @@ void TransactionView::refreshTransactionList(){
     }
 
     ui->label_page->setText(QString("Page: %1").arg(current_page));
+}
+
+void TransactionView::TransactionErrorView(QString error_msg){
+    QWidget* contentWidget = new QWidget(this);
+    QVBoxLayout* contentLayout = new QVBoxLayout(contentWidget);
+    contentLayout->setAlignment(Qt::AlignTop); // important for scroll areas
+    contentLayout->setSpacing(8);
+    contentWidget->setStyleSheet("background-color: transparent;");
+
+    ui->scrollArea->setWidget(contentWidget);
+    ui->scrollArea->setWidgetResizable(true);
+
+    m_contentLayout = contentLayout;
+    QLayoutItem* item;
+    while ((item = m_contentLayout->takeAt(0)) != nullptr) {
+        delete item->widget();
+        delete item;
+    }
+    auto* widget = new TransactionErrorWidget(error_msg);
+    m_contentLayout->addWidget(widget);
 
 }
 

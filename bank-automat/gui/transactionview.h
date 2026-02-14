@@ -17,8 +17,6 @@ class TransactionView : public QWidget
 
 public:
     explicit TransactionView(Account *acc, QWidget *parent = nullptr);
-    void refreshTransactionList();
-    void fetchTransactions();
     ~TransactionView();
 
 private slots:
@@ -28,6 +26,9 @@ private slots:
     void on_btn_back_clicked();
 
 private:
+    void refreshTransactionList();
+    void fetchTransactions();
+    void TransactionErrorView(QString error_msg);
     Ui::TransactionView *ui;
     Account *account;
     TransactionsManager *manager;
