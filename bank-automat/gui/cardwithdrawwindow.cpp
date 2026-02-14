@@ -4,7 +4,7 @@
 #include <QTimer>
 
 CardWithdrawWindow::CardWithdrawWindow(Account *newAccount, QWidget *parent)
-    : QDialog(parent)
+    : QWidget(parent)
     , ui(new Ui::CardWithdrawWindow)
     , account(newAccount)
 {
@@ -35,6 +35,8 @@ CardWithdrawWindow::CardWithdrawWindow(Account *newAccount, QWidget *parent)
 
 CardWithdrawWindow::~CardWithdrawWindow()
 {
+    // Emit a signal so that AccountView can clean up
+    emit closeViewSignal();
     delete ui;
 }
 
@@ -75,7 +77,7 @@ void CardWithdrawWindow::confirmOtherWithdrawSlot() {
 
 void CardWithdrawWindow::cancelWithdrawSlot() {
     emit infoMessage("Withdraw canceled");
-    this->close();
+    this->deleteLater();
 }
 
 void CardWithdrawWindow::withdrawDoneSlot() {
@@ -98,7 +100,7 @@ void CardWithdrawWindow::withdrawDoneSlot() {
 
     // Return message to user
     emit infoMessage("Withdraw successful!");
-    this->close();
+    this->deleteLater();
 }
 
 void CardWithdrawWindow::showInfoLabelSlot1(const QString &text)

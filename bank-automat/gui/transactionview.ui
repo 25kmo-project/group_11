@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>TransactionView</class>
- <widget class="QDialog" name="TransactionView">
+ <widget class="QWidget" name="TransactionView">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>888</width>
-    <height>649</height>
+    <width>780</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -52,8 +52,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>868</width>
-        <height>532</height>
+        <width>760</width>
+        <height>483</height>
        </rect>
       </property>
       <property name="maximumSize">
@@ -127,7 +127,7 @@
      <widget class="QPushButton" name="btn_nextPage">
       <property name="geometry">
        <rect>
-        <x>760</x>
+        <x>580</x>
         <y>0</y>
         <width>101</width>
         <height>31</height>
@@ -140,7 +140,7 @@
      <widget class="QPushButton" name="btn_prevPage">
       <property name="geometry">
        <rect>
-        <x>640</x>
+        <x>470</x>
         <y>0</y>
         <width>101</width>
         <height>31</height>
@@ -148,6 +148,19 @@
       </property>
       <property name="text">
        <string>Prev. Page</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_back">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Back</string>
       </property>
      </widget>
     </widget>

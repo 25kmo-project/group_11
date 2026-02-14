@@ -1,7 +1,7 @@
 #ifndef CARDDEPOSITWINDOW_H
 #define CARDDEPOSITWINDOW_H
 
-#include <QDialog>
+#include <QWidget>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
@@ -18,7 +18,7 @@ namespace Ui {
 class CardDepositWindow;
 }
 
-class CardDepositWindow : public QDialog
+class CardDepositWindow : public QWidget
 {
     Q_OBJECT
 
@@ -43,6 +43,7 @@ private slots:
 
 signals:
     void infoMessage(const QString &text);
+    void closeViewSignal();
 };
 
 #endif // CARDDEPOSITWINDOW_H

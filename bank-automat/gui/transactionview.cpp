@@ -2,7 +2,7 @@
 #include "ui_transactionview.h"
 
 TransactionView::TransactionView(Account *acc, QWidget *parent)
-    : QDialog(parent)
+    : QWidget(parent)
     , ui(new Ui::TransactionView)
 {
     account = acc;
@@ -27,9 +27,14 @@ public:
     {
         auto* layout = new QVBoxLayout(this);
 
-        auto* amountLabel = new QLabel(
-            QString("%1 €").arg(tx.amount, 0, 'f', 2), this);
+        QString amountText;
+        if (tx.amount > 0) {
+            amountText = QString("+%1 €").arg(tx.amount, 0, 'f', 2);
+        } else {
+            amountText = QString("%1 €").arg(tx.amount, 0, 'f', 2);
+        }
 
+        auto* amountLabel = new QLabel(amountText, this);
         if (tx.amount >= 0) {
             amountLabel->setStyleSheet("color: #2ecc71;");
         } else {
@@ -99,17 +104,12 @@ void TransactionView::refreshTransactionList(){
 
     ui->label_page->setText(QString("Page: %1").arg(current_page));
 
-    for (const Transaction& tx : txs) {
-        qDebug() << "recieved account ID" <<  tx.account_id;
-        qDebug() << "recieved ammount" << tx.amount;
-        qDebug() << "recieved date" << tx.date;
-        qDebug() << "recieved desc" << tx.description;
-        qDebug() << "recieved ID" << tx.id;
-    }
 }
 
 TransactionView::~TransactionView()
 {
+    // Emit a signal so that AccountView can clean up
+    emit closeViewSignal();
     delete ui;
 }
 
@@ -126,3 +126,9 @@ void TransactionView::on_btn_prevPage_clicked()
         manager->fetchTransactions(account->getIdAccount(), current_page);
     }
 }
+
+void TransactionView::on_btn_back_clicked()
+{
+    this->deleteLater();
+}
+

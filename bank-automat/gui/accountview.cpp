@@ -5,16 +5,17 @@
 #include "transactionview.h"
 
 AccountView::AccountView(QString newAccountId, QWidget *parent)
-    : QDialog(parent)
+    : QWidget(parent)
     , ui(new Ui::AccountView)
     , account(new Account(newAccountId))
 {
     ui->setupUi(this);
 
-    connect(ui->btnTestButton, &QPushButton::clicked, this, &AccountView::btnTestButtonSlot);
+    //connect(ui->btnTestButton, &QPushButton::clicked, this, &AccountView::btnTestButtonSlot);
     connect(ui->btnDeposit, &QPushButton::clicked, this, &AccountView::btnDepositButtonSlot);
     connect(ui->btnWithdraw, &QPushButton::clicked, this, &AccountView::btnWithdrawButtonSlot);
     connect(ui->btnShowTransactions, &QPushButton::clicked, this, &AccountView::btnShowTransactionsSlot);
+    connect(ui->btnLogout, &QPushButton::clicked, this, &AccountView::btnLogoutSlot);
 
     AccountView::updateBalanceLabel();
 
@@ -23,6 +24,8 @@ AccountView::AccountView(QString newAccountId, QWidget *parent)
 
 AccountView::~AccountView()
 {
+    // Emit a signal so that MainWindow can clean up after this is destroyed
+    emit userLogoutSignal();
     delete ui;
 }
 
@@ -39,11 +42,14 @@ void AccountView::btnDepositButtonSlot()
 {
     //on deposit clicked, deposit window opens
     CardDepositWindow *objCardDeposit = new CardDepositWindow(account, this);
+    ui->stackedWidget->addWidget(objCardDeposit);
+    ui->stackedWidget->setCurrentWidget(objCardDeposit);
+    connect(objCardDeposit, &CardDepositWindow::closeViewSignal, this, &AccountView::closeViewSlot);
+
     //connect signal and balance update function
 
     // Connect signal for return message to user
     connect(objCardDeposit, &CardDepositWindow::infoMessage, this, &AccountView::showInfoLabelSlot);
-    objCardDeposit->show();
     //after successfull deposit:
     //objCardDeposit closes
     //Message for user
@@ -52,15 +58,26 @@ void AccountView::btnDepositButtonSlot()
 void AccountView::btnShowTransactionsSlot()
 {
     TransactionView *objTransactionView = new TransactionView(account, this);
-    objTransactionView->show();
+    ui->stackedWidget->addWidget(objTransactionView);
+    ui->stackedWidget->setCurrentWidget(objTransactionView);
+    connect(objTransactionView, &TransactionView::closeViewSignal, this, &AccountView::closeViewSlot);
 }
 
 void AccountView::btnWithdrawButtonSlot()
 {
     CardWithdrawWindow *objCardWithdraw = new CardWithdrawWindow(account, this);
+    ui->stackedWidget->addWidget(objCardWithdraw);
+    ui->stackedWidget->setCurrentWidget(objCardWithdraw);
+    // Signal used when withdraw is canceled/successful and view needs to be closed
+    connect(objCardWithdraw, &CardWithdrawWindow::closeViewSignal, this, &AccountView::closeViewSlot);
+
     // Connect signal for return message to user
     connect(objCardWithdraw, &CardWithdrawWindow::infoMessage, this, &AccountView::showInfoLabelSlot);
-    objCardWithdraw->show();
+}
+
+void AccountView::btnLogoutSlot()
+{
+    this->deleteLater();
 }
 
 void AccountView::showInfoLabelSlot(const QString &text)
@@ -79,4 +96,9 @@ void AccountView::updateBalanceLabel()
     );
 }
 
-
+void AccountView::closeViewSlot() {
+    // Remove previous view from the stacked widget and change back to the AccountView page
+    QWidget *previousView = ui->stackedWidget->currentWidget();
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->stackedWidget->removeWidget(previousView);
+}

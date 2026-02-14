@@ -1,7 +1,7 @@
 #ifndef CARDWITHDRAWWINDOW_H
 #define CARDWITHDRAWWINDOW_H
 
-#include <QDialog>
+#include <QWidget>
 #include <cmath>
 
 #include "../src/account.h"
@@ -10,7 +10,7 @@ namespace Ui {
 class CardWithdrawWindow;
 }
 
-class CardWithdrawWindow : public QDialog
+class CardWithdrawWindow : public QWidget
 {
     Q_OBJECT
 
@@ -38,6 +38,7 @@ private slots:
 
 signals:
     void infoMessage(const QString &text);
+    void closeViewSignal();
 };
 
 #endif // CARDWITHDRAWWINDOW_H

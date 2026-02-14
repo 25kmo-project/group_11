@@ -56,8 +56,6 @@ void TransactionsManager::onTransactionsReply() {
 
         QJsonObject obj = value.toObject();
 
-        qDebug() << "Transaction:" << obj;
-
         m_transactions.append(
             Transaction::fromJson(obj)
             );
