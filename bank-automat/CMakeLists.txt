@@ -81,6 +81,10 @@ set_target_properties(bank-automat PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+target_compile_definitions(bank-automat PRIVATE
+  $<$<CONFIG:Release>:QT_NO_DEBUG_OUTPUT>
+)
+
 include(GNUInstallDirs)
 install(TARGETS bank-automat
     BUNDLE DESTINATION .
