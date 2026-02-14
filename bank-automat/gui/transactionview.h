@@ -2,6 +2,8 @@
 #define TRANSACTIONVIEW_H
 
 #include <QDialog>
+#include <QWidget>
+#include <QVBoxLayout>
 #include "../src/account.h"
 #include "../src/transaction_manager.h"
 
@@ -22,6 +24,7 @@ private:
     Ui::TransactionView *ui;
     Account *acc;
     TransactionsManager *manager;
+    QVBoxLayout* m_contentLayout;
 };
 
 #endif // TRANSACTIONVIEW_H
