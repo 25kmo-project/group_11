@@ -163,8 +163,11 @@ void MainWindow::handleAccountsResponse() {
         // Get first value from accounts and create AccountView with it
         QString key = this->accounts.firstKey();
         objAccountView = new AccountView(this->accounts.value(key), this);
-        objAccountView->show();
-        ui->stackedWidget->setCurrentIndex(0);
+        ui->stackedWidget->addWidget(objAccountView);
+        ui->stackedWidget->setCurrentWidget(objAccountView);
+        connect(objAccountView, &AccountView::userLogoutSignal, this, &MainWindow::logoutSlot);
+
+        this->accounts.clear();
     } else if (cardAccounts.size() == 2) {
         // If card has two accounts, change to card selection page (index 1)
         // User has 10 seconds to choose an account, otherwise they are automatically logged out
@@ -180,17 +183,27 @@ void MainWindow::chooseAccountSlot() {
     QString buttonAccountType = sender()->property("accountType").toString();
 
     objAccountView = new AccountView(this->accounts.value(buttonAccountType), this);
-    objAccountView->show();
+
+    ui->stackedWidget->addWidget(objAccountView);
+    ui->stackedWidget->setCurrentWidget(objAccountView);
+
+    connect(objAccountView, &AccountView::userLogoutSignal, this, &MainWindow::logoutSlot);
 
     // After AccountView has been created with selected account, clear QMap and return MainWindow back to login screen
     this->accounts.clear();
-    ui->stackedWidget->setCurrentIndex(0);
+    //ui->stackedWidget->setCurrentIndex(0);
     this->timer->stop();
 }
 
 void MainWindow::logoutSlot() {
     AuthManager::instance()->clearToken();
+    this->accounts.clear();
     ui->stackedWidget->setCurrentIndex(0);
+
+    if (objAccountView != nullptr) {
+        ui->stackedWidget->removeWidget(objAccountView);
+        objAccountView = nullptr;
+    }
 }
 
 void MainWindow::loginTimeoutSlot() {
@@ -215,9 +228,8 @@ void MainWindow::inactivityTimeoutSlot()
     ui->textCardId->clear();
     ui->textPin->clear();
     ui->stackedWidget->setCurrentIndex(0);
-    this->accounts.clear();
 
-    objAccountView->close();
+    ui->stackedWidget->removeWidget(objAccountView);
     objAccountView->deleteLater();
     objAccountView=nullptr;
 
@@ -225,12 +237,18 @@ void MainWindow::inactivityTimeoutSlot()
 }
 
 void MainWindow::showError(QString message) {
+    // Lazy solution, can be changed for a better solution
+    // Both pages need to have their own error label so we change both of them at the same time
     ui->labelError->setText(message);
-    ui->labelError->show();
+    //ui->labelError->show();
+
+    ui->labelError_2->setText(message);
+    //ui->labelError_2->show();
 
     //Timer for labelError
     QTimer::singleShot(4000, this, [this]() {
         ui->labelError->clear();
+        ui->labelError_2->clear();
     });
 }
 

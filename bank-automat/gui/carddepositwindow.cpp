@@ -3,7 +3,7 @@
 #include "ui_carddepositwindow.h"
 
 CardDepositWindow::CardDepositWindow(Account *newAccount, QWidget *parent)
-    : QDialog(parent)
+    : QWidget(parent)
     , ui(new Ui::CardDepositWindow)
     , account(newAccount)
 {
@@ -28,6 +28,8 @@ CardDepositWindow::CardDepositWindow(Account *newAccount, QWidget *parent)
 
 CardDepositWindow::~CardDepositWindow()
 {
+    // Emit a signal so that AccountView can clean up
+    emit closeViewSignal();
     delete ui;
 }
 
@@ -54,7 +56,7 @@ void CardDepositWindow::depositActionSlot()
     if(objJson["affectedRows"] == 1){
         this->account->fetchAccountData();
         emit infoMessage("Deposit successful!");
-        this->close();
+        this->deleteLater();
     }else{
         CardDepositWindow::showLabelErrorSlot("Something went wrong");
     }
@@ -72,5 +74,5 @@ void CardDepositWindow::showLabelErrorSlot(QString text)
 void CardDepositWindow::cancelDepositSlot()
 {
     emit infoMessage("Deposit canceled");
-    this->close();
+    this->deleteLater();
 }
