@@ -26,9 +26,9 @@
       <widget class="QLabel" name="labelBalance">
        <property name="geometry">
         <rect>
-         <x>330</x>
-         <y>120</y>
-         <width>71</width>
+         <x>390</x>
+         <y>250</y>
+         <width>151</width>
          <height>31</height>
         </rect>
        </property>
@@ -40,9 +40,9 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>170</y>
-         <width>121</width>
-         <height>41</height>
+         <y>220</y>
+         <width>161</width>
+         <height>61</height>
         </rect>
        </property>
        <property name="text">
@@ -52,7 +52,7 @@
       <widget class="QLabel" name="title">
        <property name="geometry">
         <rect>
-         <x>190</x>
+         <x>270</x>
          <y>30</y>
          <width>241</width>
          <height>41</height>
@@ -71,9 +71,9 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>220</y>
-         <width>121</width>
-         <height>41</height>
+         <y>300</y>
+         <width>161</width>
+         <height>61</height>
         </rect>
        </property>
        <property name="text">
@@ -83,22 +83,22 @@
       <widget class="QPushButton" name="btnLogout">
        <property name="geometry">
         <rect>
-         <x>590</x>
-         <y>520</y>
-         <width>121</width>
-         <height>41</height>
+         <x>580</x>
+         <y>510</y>
+         <width>131</width>
+         <height>51</height>
         </rect>
        </property>
        <property name="text">
         <string>Log out</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="hint4">
        <property name="geometry">
         <rect>
-         <x>250</x>
-         <y>120</y>
-         <width>71</width>
+         <x>300</x>
+         <y>250</y>
+         <width>81</width>
          <height>31</height>
         </rect>
        </property>
@@ -109,8 +109,8 @@
       <widget class="QLabel" name="labelInfo">
        <property name="geometry">
         <rect>
-         <x>70</x>
-         <y>270</y>
+         <x>60</x>
+         <y>330</y>
          <width>261</width>
          <height>41</height>
         </rect>
@@ -141,13 +141,65 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>120</y>
-         <width>121</width>
-         <height>41</height>
+         <y>140</y>
+         <width>161</width>
+         <height>61</height>
         </rect>
        </property>
        <property name="text">
         <string>Deposit</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="hint2">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>150</y>
+         <width>81</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>OwnerID:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="hint3">
+       <property name="geometry">
+        <rect>
+         <x>300</x>
+         <y>200</y>
+         <width>81</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Name:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="labelOwnerId">
+       <property name="geometry">
+        <rect>
+         <x>390</x>
+         <y>150</y>
+         <width>151</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="labelOwnerFullName">
+       <property name="geometry">
+        <rect>
+         <x>390</x>
+         <y>200</y>
+         <width>151</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </widget>
