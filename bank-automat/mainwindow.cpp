@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->inactivityTimer = new QTimer(this);
     this->inactivityTimer->setSingleShot(true);
     connect(inactivityTimer, &QTimer::timeout, this, &MainWindow::inactivityTimeoutSlot);
-    this->inactivityTimer->start(30000);
+    this->inactivityTimer->start(3000);
 
     // Create timer and connect it to a slot that clears lineedits after 10 seconds of inactivity
     this->timer = new QTimer(this);
@@ -224,14 +224,15 @@ void MainWindow::loginTimeoutSlot() {
 void MainWindow::inactivityTimeoutSlot()
 {
     AuthManager::instance()->clearToken();
-
+    qDebug()<<accounts;
+    qDebug()<<ui->stackedWidget->currentWidget();
     ui->textCardId->clear();
     ui->textPin->clear();
     ui->stackedWidget->setCurrentIndex(0);
 
     ui->stackedWidget->removeWidget(objAccountView);
-    objAccountView->deleteLater();
-    objAccountView=nullptr;
+    // objAccountView->deleteLater();
+    // objAccountView=nullptr;
 
     showError("Automatically logged out due to inactivity.");
 }
@@ -258,7 +259,8 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
     if(event->type()==QEvent::MouseButtonPress||
         event->type() == QEvent::MouseMove ||
         event->type() == QEvent::KeyPress ||
-        event->type() == QEvent::Wheel){
+        event->type() == QEvent::Wheel ||
+        event->type() == QEvent::TouchBegin){
         inactivityTimer->start();
     }
     return QMainWindow::eventFilter(obj, event);
