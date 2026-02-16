@@ -12,7 +12,7 @@ class TransactionsManager : public QObject {
 public:
     explicit TransactionsManager(QObject* parent = nullptr);
 
-    void fetchTransactions(const QString& accountId);
+    void fetchTransactions(const QString& accountId, int page=0, int limit=10);
     void createTransaction(const Transaction &t);
     void updateTransaction(const Transaction &t);
 

@@ -2,6 +2,8 @@
 #define TRANSACTIONVIEW_H
 
 #include <QWidget>
+#include <QVBoxLayout>
+#include <QWidget>
 #include "../src/account.h"
 #include "../src/transaction_manager.h"
 
@@ -15,13 +17,23 @@ class TransactionView : public QWidget
 
 public:
     explicit TransactionView(Account *acc, QWidget *parent = nullptr);
-    void refreshTransactionList();
     ~TransactionView();
 
+private slots:
+    void on_btn_nextPage_clicked();
+    void on_btn_prevPage_clicked();
+
+    void on_btn_back_clicked();
+
 private:
+    void refreshTransactionList();
+    void fetchTransactions();
+    void TransactionErrorView(QString error_msg);
     Ui::TransactionView *ui;
-    Account *acc;
+    Account *account;
     TransactionsManager *manager;
+    QVBoxLayout* m_contentLayout;
+    int current_page;
 
 signals:
     void closeViewSignal();

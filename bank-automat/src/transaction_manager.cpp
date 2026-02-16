@@ -7,6 +7,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QUrlQuery>
 
 TransactionsManager::TransactionsManager(QObject* parent): QObject(parent) {
     manager = new QNetworkAccessManager(this);
@@ -25,36 +26,57 @@ void TransactionsManager::onTransactionsReply() {
 
     const QByteArray data = reply->readAll();
 
-    const QJsonDocument doc = QJsonDocument::fromJson(data);
-    if (!doc.isArray()) {
-        emit fetchFailed("Invalid JSON format");
+    QJsonParseError parseError;
+    const QJsonDocument doc = QJsonDocument::fromJson(data, &parseError);
+
+    if (parseError.error != QJsonParseError::NoError) {
+        emit fetchFailed("JSON parse error: " + parseError.errorString());
         return;
     }
 
-    const QJsonArray array = doc.array();
+    QJsonObject rootObj = doc.object();
+
+    int page = rootObj.value("page").toInt();
+    int limit = rootObj.value("limit").toInt();
+
+    qDebug() << "Page:" << page << "Limit:" << limit;
+
+    if (!rootObj.contains("data") || !rootObj["data"].isArray()) {
+        emit fetchFailed("Missing or invalid 'data' field");
+        return;
+    }
+
+    QJsonArray array = rootObj["data"].toArray();
 
     m_transactions.clear();
     m_transactions.reserve(array.size());
 
     for (const QJsonValue& value : array) {
-        qDebug() << "Transaction:" << value.toObject();
+        if (!value.isObject()) continue;
+
+        QJsonObject obj = value.toObject();
+
         m_transactions.append(
-            Transaction::fromJson(value.toObject())
+            Transaction::fromJson(obj)
             );
     }
 
-    qDebug() << "transaction list lenght: " << m_transactions.length();
+    qDebug() << "Transaction list length:" << m_transactions.length();
 
     emit transactionsUpdated();
 }
 
-void TransactionsManager::fetchTransactions(const QString &accountId) {
-    const QString url =
-        environment::base_url() + "api/transaction/account/" + accountId;
+void TransactionsManager::fetchTransactions(const QString &accountId, int page, int limit) {
+    QUrl url(environment::base_url() + "api/transaction/account/" + accountId);
 
-    QNetworkRequest request{ QUrl(url) };
+    QUrlQuery query;
+    query.addQueryItem("page", QString::number(page));
+    query.addQueryItem("limit", QString::number(limit));
+    url.setQuery(query);
 
-    const QByteArray token =
+    QNetworkRequest request{ url };
+
+    QByteArray token =
         "Bearer " + AuthManager::instance()->getToken().toUtf8();
 
     request.setRawHeader("Authorization", token);

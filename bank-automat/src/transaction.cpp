@@ -13,11 +13,5 @@ Transaction Transaction::fromJson(const QJsonObject& obj) {
 
     t.description = obj.value("description").toString();
 
-    qDebug() << "Transaction ID " << t.id;
-    qDebug() << "Transaction account id " <<t.account_id;
-    qDebug() << "Transaction ammount" << t.amount;
-    qDebug() << "Transaction date " << t.date;
-    qDebug() << "Transaction desc " << t.description;
-
     return t;
 }
