@@ -224,15 +224,13 @@ void MainWindow::loginTimeoutSlot() {
 void MainWindow::inactivityTimeoutSlot()
 {
     AuthManager::instance()->clearToken();
-    qDebug()<<accounts;
-    qDebug()<<ui->stackedWidget->currentWidget();
     ui->textCardId->clear();
     ui->textPin->clear();
     ui->stackedWidget->setCurrentIndex(0);
 
     ui->stackedWidget->removeWidget(objAccountView);
-    // objAccountView->deleteLater();
-    // objAccountView=nullptr;
+    objAccountView->deleteLater();
+    objAccountView = nullptr;
 
     showError("Automatically logged out due to inactivity.");
 }
