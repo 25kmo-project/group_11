@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->inactivityTimer = new QTimer(this);
     this->inactivityTimer->setSingleShot(true);
     connect(inactivityTimer, &QTimer::timeout, this, &MainWindow::inactivityTimeoutSlot);
-    this->inactivityTimer->start(3000);
+    this->inactivityTimer->start(30000);
 
     // Create timer and connect it to a slot that clears lineedits after 10 seconds of inactivity
     this->timer = new QTimer(this);
@@ -229,8 +229,6 @@ void MainWindow::inactivityTimeoutSlot()
     ui->stackedWidget->setCurrentIndex(0);
 
     ui->stackedWidget->removeWidget(objAccountView);
-    objAccountView->deleteLater();
-    objAccountView = nullptr;
 
     showError("Automatically logged out due to inactivity.");
 }
