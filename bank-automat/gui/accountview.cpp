@@ -117,7 +117,3 @@ void AccountView::closeViewSlot() {
     ui->stackedWidget->removeWidget(previousView);
 }
 
-void AccountView::getCustomerDataSlot()
-{
-
-}
