@@ -33,7 +33,6 @@ private slots:
     void closeViewSlot();
 
 public slots:
-    void getCustomerDataSlot();
     void showInfoLabelSlot(const QString &text);
     void updateBalanceLabel();
 
