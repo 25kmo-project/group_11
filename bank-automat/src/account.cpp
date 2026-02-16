@@ -38,6 +38,7 @@ void Account::accountDataSlot() {
     this->idOwner = obj["idowner"].toInt();
 
     emit balanceChanged();
+    emit accountDataReady();
 
     reply->deleteLater();
 }

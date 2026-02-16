@@ -48,6 +48,7 @@ private slots:
 
 signals:
     void balanceChanged();
+    void accountDataReady();
 };
 
 #endif // ACCOUNT_H

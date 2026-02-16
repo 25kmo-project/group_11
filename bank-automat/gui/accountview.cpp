@@ -16,6 +16,7 @@ AccountView::AccountView(QString newAccountId, QWidget *parent)
     connect(ui->btnWithdraw, &QPushButton::clicked, this, &AccountView::btnWithdrawButtonSlot);
     connect(ui->btnShowTransactions, &QPushButton::clicked, this, &AccountView::btnShowTransactionsSlot);
     connect(ui->btnLogout, &QPushButton::clicked, this, &AccountView::btnLogoutSlot);
+    connect(account, &Account::accountDataReady, this, &AccountView::initializeViewSlot);
 
     AccountView::updateBalanceLabel();
 
@@ -36,6 +37,19 @@ void AccountView::btnTestButtonSlot()
     qDebug() << "Balance:" << account->getBalance();
     qDebug() << "Credit limit:" << account->getCreditLimit();
     qDebug() << "Type:" << account->getAccountType();
+}
+
+void AccountView::initializeViewSlot()
+{
+    ui->labelOwnerId->setText(QString::number(account->getIdOwner()));
+    customer = new Customer(account->getIdOwner(), this);
+    connect(customer, &Customer::customerDataReady, this, &AccountView::updateCustomerLabel);
+}
+
+void AccountView::updateCustomerLabel()
+{
+    QString fullName = customer->getFname() + " " + customer->getLname();
+    ui->labelOwnerFullName->setText(fullName);
 }
 
 void AccountView::btnDepositButtonSlot()
@@ -101,4 +115,9 @@ void AccountView::closeViewSlot() {
     QWidget *previousView = ui->stackedWidget->currentWidget();
     ui->stackedWidget->setCurrentIndex(0);
     ui->stackedWidget->removeWidget(previousView);
+}
+
+void AccountView::getCustomerDataSlot()
+{
+
 }

@@ -25,12 +25,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         environment.h environment.cpp
-
-
-
-
         src/authmanager.h src/authmanager.cpp
         src/account.h src/account.cpp
+        src/customer.h src/customer.cpp
+
         gui/accountview.h gui/accountview.cpp gui/accountview.ui
         src/transaction_manager.h src/transaction_manager.cpp
         src/transaction.h src/transaction.cpp
