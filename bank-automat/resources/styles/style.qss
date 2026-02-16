@@ -15,19 +15,20 @@ QWidget {
 }
 
 QLabel[objectName^="title"] {
-    font-size: 24pt;
+    font-size: 26pt;
     font-weight: 600;
     color: #16352b;
 }
 
 QLabel[objectName^="hint"] {
-    font-size: 14pt;
+    font-size: 15pt;
     color: #16352b;
+    font-weight: 525;
 }
 
 QLabel[objectName^="labelInfo"] {
     color: #8a3a3a;
-    font-size: 12pt;
+    font-size: 13pt;
     font-weight: 600;
 }
 
@@ -42,8 +43,9 @@ QFrame {
 }
 
 QLabel {
-    font-size: 12pt;
+    font-size: 13pt;
     color: #2b4a40;
+    font-weight: 525;
 }
 
 QLineEdit {

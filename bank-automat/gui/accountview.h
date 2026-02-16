@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "../src/account.h"
+#include "../src/customer.h"
 
 namespace Ui {
 class AccountView;
@@ -19,9 +20,12 @@ public:
 private:
     Ui::AccountView *ui;
     Account *account;
+    Customer *customer;
 
 private slots:
     void btnTestButtonSlot();
+    void initializeViewSlot();
+    void updateCustomerLabel();
     void btnDepositButtonSlot();
     void btnWithdrawButtonSlot();
     void btnShowTransactionsSlot();
