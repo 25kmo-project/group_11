@@ -27,7 +27,6 @@ public:
     QString getStreetAddress() const;
     QString getCity() const;
 
-
 private:
     QNetworkAccessManager *manager;
     QNetworkReply *reply;
