@@ -224,14 +224,11 @@ void MainWindow::loginTimeoutSlot() {
 void MainWindow::inactivityTimeoutSlot()
 {
     AuthManager::instance()->clearToken();
-
     ui->textCardId->clear();
     ui->textPin->clear();
     ui->stackedWidget->setCurrentIndex(0);
 
     ui->stackedWidget->removeWidget(objAccountView);
-    objAccountView->deleteLater();
-    objAccountView=nullptr;
 
     showError("Automatically logged out due to inactivity.");
 }
@@ -258,7 +255,8 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
     if(event->type()==QEvent::MouseButtonPress||
         event->type() == QEvent::MouseMove ||
         event->type() == QEvent::KeyPress ||
-        event->type() == QEvent::Wheel){
+        event->type() == QEvent::Wheel ||
+        event->type() == QEvent::TouchBegin){
         inactivityTimer->start();
     }
     return QMainWindow::eventFilter(obj, event);
