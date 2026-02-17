@@ -11,6 +11,11 @@ const transaction={
     getOne:function(idtransaction, callback){
         return db.query("SELECT * FROM transaction where idtransaction=?", [idtransaction], callback);
     },
+
+    getAllAccountTransactions: function(idaccount, callback) {
+        db.query("SELECT * FROM transaction WHERE idaccount = ? ORDER BY date DESC", [idaccount], callback);
+    },
+    
     add:function(transaction, callback){
         return db.query(
             'INSERT INTO transaction (idaccount, amount, date, description) VALUES (?,?,?,?)',

@@ -22,7 +22,7 @@ void transactionwindow::btnGetTransactionsSlot()
     if (id.length() == 0) {
         transactionwindow::showInfoLabelSlot("Give account ID");
     } else {
-        QString url = environment::base_url() + "api/transaction/account/" + id;
+        QString url = environment::base_url() + "api/transaction/account/all/" + id;
         QNetworkRequest request(url);
         request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
@@ -49,11 +49,12 @@ void transactionwindow::showTransactionsSlot()
     QJsonArray json_array = json_doc.array();
 
     transactionList.clear();
+    qDebug() << "Testi: " << json_array.size();
 
     for (const QJsonValue &value : json_array) {
         if (value.isObject()) {
             transaction transaction = transaction::mapJson(value.toObject());
-            // qDebug() << "Account type: " << account.accountType << " Balance: " << account.balance;
+            qDebug() << "Transaction description: " << transaction.amountCents << ". Transaction amount: " << transaction.amountCents;
             transactionList.append(transaction);
         }
     }
