@@ -17,9 +17,6 @@ AccountView::AccountView(QString newAccountId, QWidget *parent)
     connect(ui->btnShowTransactions, &QPushButton::clicked, this, &AccountView::btnShowTransactionsSlot);
     connect(ui->btnLogout, &QPushButton::clicked, this, &AccountView::btnLogoutSlot);
     connect(account, &Account::accountDataReady, this, &AccountView::initializeViewSlot);
-
-    AccountView::updateBalanceLabel();
-
     connect(account, &Account::balanceChanged, this, &AccountView::updateBalanceLabel);
 }
 
@@ -44,12 +41,27 @@ void AccountView::initializeViewSlot()
     ui->labelOwnerId->setText(QString::number(account->getIdOwner()));
     customer = new Customer(account->getIdOwner(), this);
     connect(customer, &Customer::customerDataReady, this, &AccountView::updateCustomerLabel);
+
+    AccountView::updateBalanceLabel();
+
+    // If account is a credit account, set credit limit and change "Balance: " to "Available credit: "
+    // else hide credit limit
+    if (account->getAccountType() == "CREDIT") {
+        ui->hint4->setText(QString("Available credit:"));
+
+        qint64 creditLimit = this->account->getCreditLimit();
+        ui->labelCreditLimit->setText(
+            QString::number(creditLimit / 100.0, 'f', 2) + QString("€")
+        );
+    } else {
+        ui->hint5->hide();
+    }
 }
 
 void AccountView::updateCustomerLabel()
 {
     QString fullName = customer->getFname() + " " + customer->getLname();
-    ui->labelOwnerFullName->setText(fullName);
+    ui->title->setText(QString("Welcome, " + fullName + "!"));
 }
 
 void AccountView::btnDepositButtonSlot()
@@ -106,7 +118,7 @@ void AccountView::updateBalanceLabel()
 {
     qint64 balance = this->account->getBalance();
     ui->labelBalance->setText(
-        QString::number(balance / 100.0, 'f', 2)
+        QString::number(balance / 100.0, 'f', 2) + QString("€")
     );
 }
 
