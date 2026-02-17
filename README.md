@@ -1,6 +1,6 @@
 # Group 11 ATM project
 
-This project is a working ATM machine system, made to resemble mostly how real-life ATM machines work. It uses a QT C++ Application as the frontend, express.js as the backend and MySQL server as the database. 
+This project is a working ATM machine system, made to resemble mostly how real-life ATM machines work. It uses a QT C++ Application as the frontend, express.js as the backend and MySQL server as the database. The backend is ran on a cloud virtual machine using CSC's cPouta service.
 <br>
 An admin application is also included which can be used to manage the system, such as creating new customers, accounts and cards.
 
