@@ -3,7 +3,7 @@ const db = require('../database');
 const transaction={
     getAccountTransactions:function(idaccount, limit, offset, callback){
         return db.query(
-            "SELECT * FROM transaction WHERE idaccount = ? LIMIT ? OFFSET ?",
+            "SELECT * FROM transaction WHERE idaccount = ? ORDER BY idtransaction DESC LIMIT ? OFFSET ?",
             [idaccount, limit, offset],
             callback
         );
