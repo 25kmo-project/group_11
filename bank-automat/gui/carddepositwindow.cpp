@@ -15,13 +15,13 @@ CardDepositWindow::CardDepositWindow(Account *newAccount, QWidget *parent)
 
     //show usable balance and/or credit limit in deposit window
     double balanceEur = account->getBalance()/100.00;
-    ui->textBalance->setText(QString::number(balanceEur, 'f',2));
+    ui->textBalance->setText(QString::number(balanceEur, 'f',2) + QString("€"));
     if(account->getCreditLimit()==0){
         ui->textLimit->clear();
         ui->textLimitDesc->clear();
     }else{
         double limitEur = account->getCreditLimit()/100.00;
-        ui->textLimit->setText(QString::number(limitEur, 'f', 2));
+        ui->textLimit->setText(QString::number(limitEur, 'f', 2) + QString("€"));
     }
 }
 
