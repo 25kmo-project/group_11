@@ -50,6 +50,17 @@ router.get('/:idtransaction', function(request, response){
     })
 });
 
+router.get('/account/all/:idaccount', function(request, response) {
+    const idaccount = request.params.idaccount;
+    transaction.getAllAccountTransactions(idaccount, function(err, result) {
+        if (err){
+            return response.status(500).json({ status_code: response.statusCode, message: err });
+        }
+
+        response.json(result);
+    });
+});
+
 router.post('/', validateFields(post_required_fields), function(request,response){
     transaction.add(request.body, function(err,result){
         if (err){
