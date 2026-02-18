@@ -4,6 +4,8 @@ This project is a working ATM machine system, made to resemble mostly how real-l
 <br>
 An admin application is also included which can be used to manage the system, such as creating new customers, accounts and cards.
 
+<img style="width:90%;" src="images/poster.png"></img>
+
 # Features
 - Logging in using a card's number and pin code
 - Viewing an account's balance
