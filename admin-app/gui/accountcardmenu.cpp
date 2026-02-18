@@ -127,6 +127,7 @@ void AccountCardMenu::btnDeleteRelationSlot()
     if (idCard.isEmpty() || idAccount.isEmpty()) {
         AccountCardMenu::showInfoLabelSlot("Give both ID's");
     } else {
+        qDebug() << "testi";
         QJsonObject accountToDeleteObj;
         accountToDeleteObj.insert("idcard", idCard);
         accountToDeleteObj.insert("idaccount", idAccount);
@@ -145,6 +146,7 @@ void AccountCardMenu::btnDeleteRelationSlot()
 void AccountCardMenu::addRelationSlot()
 {
     response_data = reply->readAll();
+    qDebug() << response_data;
     QJsonDocument docReply = QJsonDocument::fromJson(response_data);
     QJsonObject objReply = docReply.object();
     QString message = objReply.value("message").toString();
@@ -170,6 +172,7 @@ void AccountCardMenu::addRelationSlot()
 void AccountCardMenu::deleteRelationSlot()
 {
     response_data = reply->readAll();
+    qDebug() << response_data;
     QJsonDocument docReply = QJsonDocument::fromJson(response_data);
     QJsonObject objReply = docReply.object();
     QString message = objReply.value("message").toString();
