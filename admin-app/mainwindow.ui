@@ -30,9 +30,9 @@
    <widget class="QLabel" name="title">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>160</x>
       <y>40</y>
-      <width>201</width>
+      <width>231</width>
       <height>51</height>
      </rect>
     </property>
@@ -43,7 +43,7 @@
      </font>
     </property>
     <property name="text">
-     <string>ATM Login</string>
+     <string>Admin login</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
