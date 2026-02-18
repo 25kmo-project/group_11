@@ -41,20 +41,20 @@
     <rect>
      <x>270</x>
      <y>150</y>
-     <width>91</width>
+     <width>161</width>
      <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>Balance</string>
+    <string>Balance:</string>
    </property>
   </widget>
   <widget class="QLabel" name="textLimit">
    <property name="geometry">
     <rect>
-     <x>390</x>
+     <x>440</x>
      <y>210</y>
-     <width>131</width>
+     <width>161</width>
      <height>31</height>
     </rect>
    </property>
@@ -67,20 +67,20 @@
     <rect>
      <x>270</x>
      <y>210</y>
-     <width>91</width>
+     <width>161</width>
      <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>Credit limit</string>
+    <string>Credit limit:</string>
    </property>
   </widget>
   <widget class="QLabel" name="textBalance">
    <property name="geometry">
     <rect>
-     <x>390</x>
+     <x>440</x>
      <y>150</y>
-     <width>121</width>
+     <width>161</width>
      <height>31</height>
     </rect>
    </property>

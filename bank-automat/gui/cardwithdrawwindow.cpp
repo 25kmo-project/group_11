@@ -22,11 +22,19 @@ CardWithdrawWindow::CardWithdrawWindow(Account *newAccount, QWidget *parent)
     connect(ui->buttonCancel_2, &QPushButton::clicked, this, &CardWithdrawWindow::cancelWithdrawSlot);
 
     double availableBalance = account->getBalance() / 100.00;
-    QString balanceText = "Available balance: ";
+    QString balanceText = "Balance: ";
 
     QString accountType = account->getAccountType();
     if (accountType == "CREDIT") {
+        double creditLimit = account->getCreditLimit() / 100.00;
+
         balanceText = "Available credit: ";
+
+        ui->creditLimit->setText(QString("Credit limit: ") + QString::number(creditLimit) + QString("€"));
+        ui->creditLimit_2->setText(QString("Credit limit: ") + QString::number(creditLimit) + QString("€"));
+    } else {
+        ui->creditLimit->hide();
+        ui->creditLimit_2->hide();
     }
 
     ui->availableBalance->setText(balanceText + QString::number(availableBalance) + QString("€"));

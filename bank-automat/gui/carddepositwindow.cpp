@@ -13,16 +13,20 @@ CardDepositWindow::CardDepositWindow(Account *newAccount, QWidget *parent)
     connect(ui->btnCancelDeposit, &QPushButton::clicked, this, &CardDepositWindow::cancelDepositSlot);
     manager = new QNetworkAccessManager(this);
 
-    //show usable balance and/or credit limit in deposit window
-    double balanceEur = account->getBalance()/100.00;
-    ui->textBalance->setText(QString::number(balanceEur, 'f',2));
-    if(account->getCreditLimit()==0){
+    QString accountType = account->getAccountType();
+    if (accountType == "CREDIT") {
+        ui->label_2->setText(QString("Available credit: "));
+
+        double limitEur = account->getCreditLimit()/100.00;
+        ui->textLimit->setText(QString::number(limitEur, 'f', 2) + QString("€"));
+    } else {
         ui->textLimit->clear();
         ui->textLimitDesc->clear();
-    }else{
-        double limitEur = account->getCreditLimit()/100.00;
-        ui->textLimit->setText(QString::number(limitEur, 'f', 2));
     }
+
+    //show usable balance and/or credit limit in deposit window
+    double balanceEur = account->getBalance()/100.00;
+    ui->textBalance->setText(QString::number(balanceEur, 'f',2) + QString("€"));
 }
 
 
